@@ -1,0 +1,18 @@
+# Local progress and logs
+*.sqlite3
+*.log
+__pycache__/
+
+# Python packaging/build output
+build/
+dist/
+*.spec
+*.exe
+
+# Local launch helpers
+start_server_hidden.vbs
+
+# OS/editor noise
+.DS_Store
+Thumbs.db
+

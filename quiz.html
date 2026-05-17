@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Quiz - Swedish Learning Journey</title>
+  <link rel="stylesheet" href="styles.css?v=20260514-alpha5">
+</head>
+<body>
+  <header class="topbar">
+    <div>
+      <p class="eyebrow">Module quiz</p>
+      <h1 id="quizPageTitle">Quiz</h1>
+    </div>
+    <nav>
+      <a href="javascript:history.back()">Back</a>
+      <a href="index.html">Main</a>
+    </nav>
+  </header>
+  <main>
+    <section class="section">
+      <div class="sectionHead">
+        <div>
+          <p class="eyebrow" id="quizMeta">Ready</p>
+          <h2 id="quizQuestion">Start the quiz when ready.</h2>
+        </div>
+        <div class="actions">
+          <button id="playQuestion" type="button">Play question audio</button>
+          <button id="startQuiz" class="primary">Start quiz</button>
+        </div>
+      </div>
+      <div id="quizOptions" class="quizOptions"></div>
+      <p id="quizResult" class="result"></p>
+      <div class="actions">
+        <button id="completeModule" class="primary hiddenPanel" type="button">Mark module complete</button>
+        <a id="dashboardLink" href="index.html" class="buttonLink hiddenPanel">Back to dashboard</a>
+      </div>
+    </section>
+    <section class="section">
+      <div class="actions">
+        <a href="javascript:history.back()" class="buttonLink">Back</a>
+        <a href="index.html" class="buttonLink">Main</a>
+        <a id="lessonLink" href="#" class="buttonLink">Lesson page</a>
+      </div>
+    </section>
+  </main>
+  <audio id="pageAudio" preload="metadata"></audio>
+  <script src="assets/audio/generated_manifest.js?v=20260517-intro-conv1"></script>
+  <script src="course_data.js?v=20260514-alpha5"></script>
+  <script src="course_enhancements.js?v=20260517-intro-conv1"></script>
+  <script src="quiz_page.js?v=20260514-alpha5"></script>
+</body>
+</html>

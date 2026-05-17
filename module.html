@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Module - Swedish Learning Journey</title>
+  <link rel="stylesheet" href="styles.css?v=20260514-flow8">
+</head>
+<body>
+  <header class="topbar">
+    <div>
+      <p class="eyebrow">Learning module</p>
+      <h1 id="modulePageTitle">Module</h1>
+    </div>
+    <nav>
+      <a href="javascript:history.back()">Back</a>
+      <a href="index.html">Main</a>
+    </nav>
+  </header>
+  <main>
+    <section class="hero">
+      <div class="heroText">
+        <h2 id="moduleHero">Module</h2>
+        <p id="moduleGoal"></p>
+        <div class="actions">
+          <button id="playExamples" class="primary">Play examples</button>
+          <a id="startQuizLink" class="buttonLink" href="#">Start quiz</a>
+        </div>
+      </div>
+      <div class="statusPanel">
+        <span class="label">Audio</span>
+        <strong>Swedish practice clips</strong>
+        <p>Use audio first, then read aloud without audio.</p>
+      </div>
+    </section>
+    <section class="section">
+      <h2>Lesson Flow</h2>
+      <p id="sourceNote" class="result"></p>
+      <div id="notes" class="moduleContent"></div>
+    </section>
+    <section class="section">
+      <h2>Words in This Lesson</h2>
+      <div id="vocabularyList" class="vocabGrid"></div>
+    </section>
+    <section class="section">
+      <h2>Guided Practice</h2>
+      <div id="practice" class="moduleContent"></div>
+    </section>
+    <section id="alphabetDrillSection" class="section hiddenPanel">
+      <div class="sectionHead">
+        <div>
+          <p class="eyebrow">Uttal</p>
+          <h2>Alphabet Drill</h2>
+        </div>
+        <button id="playNativeAlphabet" type="button">Play native alphabet</button>
+      </div>
+      <div class="nativeAudioPanel">
+        <div>
+          <strong>Native Swedish alphabet recording</strong>
+          <p>Listen to the full alphabet first, then use the individual letter buttons below.</p>
+        </div>
+        <audio id="nativeAlphabetAudio" controls preload="metadata" src="assets/audio/sv-alphabet.ogg"></audio>
+      </div>
+      <div id="alphabetGrid" class="alphabetGrid"></div>
+    </section>
+    <section class="section">
+      <h2>Examples With Audio</h2>
+      <div id="examples" class="phraseList"></div>
+    </section>
+    <section class="section">
+      <div class="sectionHead compact">
+        <div>
+          <p class="eyebrow">Practice quiz</p>
+          <h2>Ready to check this module?</h2>
+        </div>
+      </div>
+      <div class="actions">
+        <a href="javascript:history.back()" class="buttonLink">Back</a>
+        <a href="index.html" class="buttonLink">Main</a>
+        <a id="bottomQuizLink" href="#" class="buttonLink primary">Start quiz</a>
+      </div>
+    </section>
+  </main>
+  <audio id="pageAudio" preload="metadata"></audio>
+  <script src="assets/audio/generated_manifest.js?v=20260517-intro-conv1"></script>
+  <script src="course_data.js?v=20260514-flow8"></script>
+  <script src="course_enhancements.js?v=20260517-intro-conv1"></script>
+  <script src="module_page.js?v=20260514-flow8"></script>
+</body>
+</html>

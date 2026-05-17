@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Full Quiz - Rons Swedish Learning Journey</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <div>
+      <p class="eyebrow">Quiz library</p>
+      <h1>Full Quiz + Answers</h1>
+    </div>
+    <nav>
+      <a href="index.html">Dashboard</a>
+      <a href="guide.html">Guide</a>
+      <a href="practice.html">Practice kit</a>
+    </nav>
+  </header>
+  <main>
+    <section class="hero">
+      <div class="heroText">
+        <h2>Practice every quiz question.</h2>
+        <p>Review the full bank, check answers, and play Swedish audio for the words and sentences that have local MP3 files.</p>
+      </div>
+      <div class="statusPanel">
+        <span class="label">Audio</span>
+        <strong>Local Swedish MP3</strong>
+        <p>English-only choices do not play audio. Swedish answers and phrases use generated Swedish audio where available.</p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="sectionHead">
+        <div>
+          <p class="eyebrow">Controls</p>
+          <h2>Quiz Browser</h2>
+        </div>
+        <label class="moduleSelect">
+          Module
+          <select id="moduleFilter"></select>
+        </label>
+      </div>
+      <div id="quizLibrary" class="quizLibrary"></div>
+    </section>
+  </main>
+  <audio id="pageAudio" preload="metadata"></audio>
+  <script src="assets/audio/generated_manifest.js?v=20260517-intro-conv1"></script>
+  <script src="course_data.js?v=20260514-flow1"></script>
+  <script src="course_enhancements.js?v=20260517-intro-conv1"></script>
+  <script src="full_quiz.js"></script>
+</body>
+</html>

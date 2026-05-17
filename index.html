@@ -1,0 +1,257 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Rony Swedish Learning Journey</title>
+  <link rel="stylesheet" href="styles.css?v=20260514-states6">
+</head>
+<body>
+  <header class="topbar">
+    <div>
+      <p class="eyebrow">Rivstart A1/A2 companion</p>
+      <h1 id="appTitle">Rony Swedish Learning Journey</h1>
+    </div>
+    <nav aria-label="Sections">
+      <a href="#progress">Progress</a>
+      <a href="#modules">Modules</a>
+      <a href="guide.html">Guide</a>
+    </nav>
+  </header>
+
+  <main>
+    <section id="serverProfiles" class="section profileShell hiddenPanel">
+      <div class="sectionHead">
+        <div>
+          <p class="eyebrow">Shared server mode</p>
+          <h2>Learning Profile</h2>
+        </div>
+        <div class="profileControls">
+          <label>Profile <select id="profileSelect"></select></label>
+          <label>Add profile <input id="newProfileName" placeholder="Name"></label>
+          <button id="addProfile">Add</button>
+          <button id="deleteProfile">Delete selected</button>
+        </div>
+      </div>
+      <p id="serverStatus" class="result"></p>
+    </section>
+
+    <section class="hero">
+      <div class="heroText">
+        <h2 id="heroTitle">Rony Swedish Learning Journey</h2>
+        <p>Use this page as a warm-up and review tool, then work through your textbook and workbook PDFs chapter by chapter.</p>
+        <div class="actions">
+          <button id="speakIntro" class="primary">Play starter intro</button>
+          <a class="buttonLink" href="guide.html">Open guide</a>
+          <a class="buttonLink" href="practice.html">Practice kit</a>
+          <a class="buttonLink" href="#modules">Learning modules</a>
+        </div>
+      </div>
+      <div class="statusPanel">
+        <span class="label">Audio mode</span>
+        <strong id="voiceStatus">Checking...</strong>
+        <p>Most lesson, quiz, and alphabet audio now uses local Swedish MP3 files. Browser speech is only a backup for custom text you type yourself.</p>
+      </div>
+    </section>
+
+    <section id="progress" class="section progressShell">
+      <div class="sectionHead">
+          <div>
+            <p class="eyebrow">Learning metrics</p>
+          <h2 id="progressTitle">Rony Progress</h2>
+          </div>
+        <div class="actions">
+          <button id="resetLearningMetrics">Archive and reset progress</button>
+          <button id="clearCurrentProgress">Clear current progress</button>
+        </div>
+      </div>
+      <div class="metricGrid">
+        <button class="metricCard metricButton" id="showAccuracyReport" type="button">
+          <span>Quiz accuracy</span>
+          <strong id="accuracyMetric">0%</strong>
+          <div class="meter"><span id="accuracyBar"></span></div>
+        </button>
+        <button class="metricCard metricButton" id="showCorrectReport" type="button">
+          <span>Correct answers</span>
+          <strong id="correctMetric">0</strong>
+          <small id="attemptMetric">0 attempts</small>
+        </button>
+        <button class="metricCard metricButton" id="showModulesReport" type="button">
+          <span>Modules completed</span>
+          <strong id="moduleMetric">0/7</strong>
+          <div class="meter"><span id="moduleBar"></span></div>
+        </button>
+        <button class="metricCard metricButton" id="showStudyReport" type="button">
+          <span>Study days</span>
+          <strong id="studyDaysMetric">0</strong>
+          <small id="lastStudyMetric">No activity yet</small>
+        </button>
+      </div>
+      <div id="metricDrilldown" class="archiveDetail"></div>
+      <div class="progressDetails">
+        <div>
+          <h3>Current level</h3>
+          <p id="levelMetric">Start with one quiz answer. The page will estimate your level as you practice.</p>
+        </div>
+        <div>
+          <h3>Module scores</h3>
+          <div id="moduleScoreList" class="moduleScoreList"></div>
+        </div>
+      </div>
+      <div class="reportPanel">
+        <div class="sectionHead compact">
+        <div>
+          <p class="eyebrow">Score report</p>
+          <h2>Recent Quiz Answers</h2>
+        </div>
+        <div class="actions">
+          <a class="buttonLink" href="full_quiz.html">Question bank</a>
+          <button id="clearAnswerHistory">Clear answer history</button>
+        </div>
+        </div>
+        <div id="answerHistory" class="answerHistory"></div>
+      </div>
+      <div class="reportPanel">
+        <div class="sectionHead compact">
+          <div>
+            <p class="eyebrow">Archives</p>
+            <h2>Previous Progress Reports</h2>
+          </div>
+          <button id="clearArchivedReports">Clear archived reports</button>
+        </div>
+        <div id="archivedReports" class="answerHistory"></div>
+        <div id="archivedReportDetail" class="archiveDetail"></div>
+      </div>
+    </section>
+
+    <section id="modules" class="section moduleShell">
+      <div class="sectionHead">
+        <div>
+          <p class="eyebrow">Learning modules</p>
+          <h2>Choose a Module</h2>
+        </div>
+        <a class="buttonLink" href="full_quiz.html">Question bank</a>
+      </div>
+      <div class="moduleLauncher">
+        <div>
+          <h3>Dashboard only</h3>
+          <p>Pick one module. It opens as its own lesson page with audio practice, a quiz at the bottom, Back and Main buttons, and completion that updates this dashboard.</p>
+        </div>
+        <div id="moduleLaunchList" class="moduleLaunchList"></div>
+      </div>
+    </section>
+
+    <section id="alphabet" class="section secondaryLearning">
+      <div class="sectionHead">
+        <div>
+          <p class="eyebrow">Uttal</p>
+          <h2>Alphabet Practice</h2>
+        </div>
+        <button id="playAlphabet">Play native alphabet</button>
+      </div>
+      <div class="nativeAudioPanel">
+        <div>
+          <strong>Native Swedish alphabet recording</strong>
+          <p>Use this as the reference. Listen once, then repeat in groups: A-F, G-L, M-S, T-Z, Å-Ö.</p>
+        </div>
+        <audio id="nativeAlphabetAudio" controls preload="metadata" src="assets/audio/sv-alphabet.ogg"></audio>
+      </div>
+      <audio id="wordAudio" preload="metadata"></audio>
+      <div id="alphabetGrid" class="alphabetGrid"></div>
+    </section>
+
+    <section id="phrases" class="section secondaryLearning">
+      <div class="sectionHead">
+        <div>
+          <p class="eyebrow">Kapitel 1-2</p>
+          <h2>Survival Phrases</h2>
+        </div>
+        <button id="shufflePhrases">Shuffle</button>
+      </div>
+      <div id="phraseList" class="phraseList"></div>
+    </section>
+
+    <section id="practice" class="section twoCol secondaryLearning">
+      <div class="toolPanel">
+        <div class="sectionHead compact">
+          <div>
+            <p class="eyebrow">Flashcards</p>
+            <h2 id="cardPrompt">Loading...</h2>
+          </div>
+        </div>
+        <p id="cardAnswer" class="answer hidden"></p>
+        <div class="actions">
+          <button id="showAnswer" class="primary">Show answer</button>
+          <button id="speakCard">Play</button>
+          <button id="nextCard">Next</button>
+        </div>
+      </div>
+
+      <div class="toolPanel">
+        <div class="sectionHead compact">
+          <div>
+            <p class="eyebrow">Quiz</p>
+            <h2 id="quizQuestion">Loading...</h2>
+          </div>
+        </div>
+        <div class="quizControls">
+          <label>Quiz set <select id="quizModuleSelect"></select></label>
+          <button id="playQuizAudio">Play question</button>
+          <button id="restartQuiz">Restart quiz</button>
+        </div>
+        <div id="quizOptions" class="quizOptions"></div>
+        <p id="quizResult" class="result"></p>
+      </div>
+    </section>
+
+    <section class="section secondaryLearning">
+      <div class="sectionHead">
+        <div>
+          <p class="eyebrow">Build</p>
+          <h2>Make Your Introduction</h2>
+        </div>
+        <button id="speakBuilt">Play</button>
+      </div>
+      <div class="builder">
+        <label>Name <input id="nameInput" value="Rony"></label>
+        <label>Country <input id="countryInput" value="Indien"></label>
+        <label>City <input id="cityInput" value="Stockholm"></label>
+        <label>Languages <input id="languagesInput" value="engelska och lite svenska"></label>
+      </div>
+      <textarea id="builtIntro" rows="5" spellcheck="false"></textarea>
+      <p id="builtIntroAudioStatus" class="result">Audio is available for the default generated introduction.</p>
+    </section>
+
+    <section id="plan" class="section secondaryLearning">
+      <div class="sectionHead">
+        <div>
+          <p class="eyebrow">14 days</p>
+          <h2>Starter Path</h2>
+        </div>
+        <button id="resetProgress">Reset</button>
+      </div>
+      <div id="planList" class="planList"></div>
+    </section>
+
+    <section class="section secondaryLearning">
+      <div class="sectionHead">
+        <div>
+          <p class="eyebrow">Documents</p>
+          <h2>Your PDF Map</h2>
+        </div>
+      </div>
+      <div class="resourceGrid">
+        <a href="/materials/textbook/Kapitel%2001.pdf" target="_blank" rel="noopener">Textbook chapter 1</a>
+        <a href="/materials/workbook/Kapitel%2001.pdf" target="_blank" rel="noopener">Workbook chapter 1</a>
+        <a href="/materials/textbook/Kapitel%2002.pdf" target="_blank" rel="noopener">Textbook chapter 2</a>
+        <a href="/materials/workbook/Kapitel%2002.pdf" target="_blank" rel="noopener">Workbook chapter 2</a>
+        <a href="/materials/textbook/Kapitel%2003.pdf" target="_blank" rel="noopener">Textbook chapter 3</a>
+        <a href="/materials/textbook/Uttal%20%26%20Grammatik.pdf" target="_blank" rel="noopener">Pronunciation and grammar</a>
+      </div>
+    </section>
+  </main>
+
+  <script src="assets/audio/generated_manifest.js?v=20260517-intro-conv1"></script>
+  <script src="app.js?v=20260514-states6"></script>
+</body>
+</html>
