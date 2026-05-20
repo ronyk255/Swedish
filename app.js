@@ -1115,28 +1115,48 @@ function renderPhrases(list = phrases) {
 }
 
 function renderVerbTensePractice() {
-  const body = document.getElementById("verbTenseRows");
-  if (!body) return;
-  body.innerHTML = "";
-  const tenses = ["present", "past", "perfect", "future"];
+  const root = document.getElementById("verbTenseRows");
+  if (!root) return;
+  root.innerHTML = "";
+  const tenses = [
+    ["Present", "present"],
+    ["Past", "past"],
+    ["Perfect", "perfect"],
+    ["Future", "future"]
+  ];
   verbTensePractice.forEach((verb) => {
-    const row = document.createElement("tr");
-    const infinitive = document.createElement("th");
-    infinitive.scope = "row";
-    infinitive.innerHTML = `<strong>${verb.infinitive}</strong><small>${verb.meaning}</small>`;
-    row.appendChild(infinitive);
-    tenses.forEach((tense) => {
-      const [swedish, english] = verb[tense];
-      const cell = document.createElement("td");
-      cell.innerHTML = `<strong>${swedish}</strong><small>${english}</small>`;
+    const block = document.createElement("article");
+    block.className = "verbTenseBlock";
+    block.innerHTML = `
+      <h3>${verb.infinitive} — ${verb.meaning}</h3>
+      <div class="verbMiniTable" role="table" aria-label="${verb.infinitive} tense practice">
+        <div class="verbMiniHead" role="row">
+          <strong role="columnheader">Tense</strong>
+          <strong role="columnheader">Swedish Sentence</strong>
+          <strong role="columnheader">English Translation</strong>
+          <strong role="columnheader">Audio</strong>
+        </div>
+      </div>
+    `;
+    const table = block.querySelector(".verbMiniTable");
+    tenses.forEach(([label, key]) => {
+      const [swedish, english] = verb[key];
+      const row = document.createElement("div");
+      row.className = "verbMiniRow";
+      row.setAttribute("role", "row");
+      row.innerHTML = `
+        <span role="cell">${label}</span>
+        <strong role="cell">${swedish}</strong>
+        <span role="cell">${english}</span>
+      `;
       const button = document.createElement("button");
       button.type = "button";
       button.textContent = "Swedish audio";
       button.addEventListener("click", () => playRecordedOrSpeak(swedish));
-      cell.appendChild(button);
-      row.appendChild(cell);
+      row.appendChild(button);
+      table.appendChild(row);
     });
-    body.appendChild(row);
+    root.appendChild(block);
   });
 }
 
