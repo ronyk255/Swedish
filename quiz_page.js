@@ -60,6 +60,8 @@ function pickSwedishVoice() {
 function looksSwedish(text) {
   const clean = (text || "").trim();
   if (!clean) return false;
+  const generated = window.GENERATED_SWEDISH_AUDIO || {};
+  if (generated[clean.normalize("NFC")]) return true;
   if (/\b(before|after|use|with|they|everyday|pronounced|number|basic|price|nouns|possible|study|session|spend|minutes|which|what|where|translate|choose|means|answer|question|only|book)\b/i.test(clean)) return false;
   if (/[åäöÅÄÖÃ]/.test(clean)) return true;
   return /\b(jag|du|han|hon|vi|ni|de|hej|tack|heter|kommer|från|talar|svenska|engelska|lite|trevligt|träffas|förstår|ursäkta|vad|var|varifrån|språk|klockan|skulle|vilja|kaffe|bor|studerar|varsågod|vatten|bröd|mjölk|noll|en|ett|två|tre|fyra|fem|sex|sju|åtta|nio|tio|elva|tolv|tjugo|trettio|fyrtio|femtio|kostar|kronor|smörgås|äpple|svar|fråga|övningar|här|men|och|kan|säger|svar|felet|rätt)\b/i.test(clean);

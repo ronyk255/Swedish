@@ -143,6 +143,41 @@ window.COURSE_MODULES = [
     examples: ["jag", "du", "vi", "Jag bor i Stockholm.", "Jag studerar svenska.", "Jag förstår lite.", "Jag förstår inte.", "Vi talar engelska.", "Hon kommer från Sverige."]
   },
   {
+    id: "verbTenses",
+    title: "Infinitive Verbs and Tenses",
+    goal: "Practice common infinitive verbs in present, past, perfect, and future with short useful sentences.",
+    sourceNote: "This module extends the verb table with quiz practice for infinitive forms and core tense patterns.",
+    notes: [
+      "The infinitive often starts with att: att prata, att äta, att läsa.",
+      "Present tense tells what happens now or usually: Jag pratar nu.",
+      "Past tense tells what happened before: Jag pratade i går.",
+      "Perfect tense uses har + supine: Jag har pratat i dag.",
+      "Future often uses ska + infinitive or kommer att + infinitive."
+    ],
+    practice: [
+      ["Infinitive", "att prata, att äta, att läsa, att skriva"],
+      ["Present", "Jag pratar nu. Jag äter frukost. Jag läser boken."],
+      ["Past", "Jag pratade i går. Jag åt lunch. Jag läste brevet."],
+      ["Perfect", "Jag har pratat i dag. Jag har ätit middag. Jag har läst sidan."],
+      ["Future", "Jag ska prata snart. Jag ska äta snart. Jag kommer att behöva tid."]
+    ],
+    vocabulary: [
+      ["att prata", "to talk"],
+      ["att äta", "to eat"],
+      ["att läsa", "to read"],
+      ["att skriva", "to write"],
+      ["att gå", "to go / walk"],
+      ["att göra", "to do / make"],
+      ["att behöva", "to need"],
+      ["att förstå", "to understand"],
+      ["nutid", "present tense"],
+      ["dåtid", "past tense"],
+      ["perfekt", "perfect tense"],
+      ["framtid", "future tense"]
+    ],
+    examples: ["att prata", "Jag pratar nu.", "Jag pratade i går.", "Jag har pratat i dag.", "Jag ska prata snart.", "Jag kommer att behöva tid."]
+  },
+  {
     id: "numbers",
     title: "Numbers and Time",
     goal: "Count to 100, understand the pattern up to 1000, ask for the time, and say a phone number clearly.",
@@ -322,6 +357,22 @@ window.COURSE_QUIZ = [
   { module: "verbs", q: "Where does 'inte' go in 'Jag förstår inte'?", options: ["After the verb", "Before jag", "After nothing"], answer: "After the verb" },
   { module: "verbs", q: "Which is a present-tense verb?", options: ["studerar", "svenska", "Stockholm"], answer: "studerar" },
   { module: "verbs", q: "Which sentence means I do not understand?", options: ["Jag förstår inte.", "Jag heter inte.", "Jag kommer inte svenska."], answer: "Jag förstår inte." },
+
+  { module: "verbTenses", q: "Choose the infinitive for 'to talk'.", options: ["att prata", "pratar", "pratade"], answer: "att prata" },
+  { module: "verbTenses", q: "Choose the present tense: I am talking now.", options: ["Jag pratar nu.", "Jag pratade i går.", "Jag har pratat i dag."], answer: "Jag pratar nu." },
+  { module: "verbTenses", q: "Choose the past tense: I ate lunch.", options: ["Jag åt lunch.", "Jag äter frukost.", "Jag ska äta snart."], answer: "Jag åt lunch." },
+  { module: "verbTenses", q: "Choose the perfect tense: I have read the page.", options: ["Jag har läst sidan.", "Jag läste brevet.", "Jag läser boken."], answer: "Jag har läst sidan." },
+  { module: "verbTenses", q: "Choose the future tense: I will write now.", options: ["Jag ska skriva nu.", "Jag skrev ett mejl.", "Jag skriver svaret."], answer: "Jag ska skriva nu." },
+  { module: "verbTenses", q: "Which sentence means I lived in India?", options: ["Jag bodde i Indien.", "Jag bor i Stockholm.", "Jag har bott här."], answer: "Jag bodde i Indien." },
+  { module: "verbTenses", q: "Which sentence is perfect tense?", options: ["Jag har jobbat mycket.", "Jag jobbar i dag.", "Jag jobbade i går."], answer: "Jag har jobbat mycket." },
+  { module: "verbTenses", q: "Which sentence uses future with kommer att?", options: ["Jag kommer att behöva tid.", "Jag behövde vila.", "Jag behöver vatten."], answer: "Jag kommer att behöva tid." },
+  { module: "verbTenses", q: "Choose the past tense of att gå.", options: ["Jag gick till skolan.", "Jag går hem.", "Jag har gått långt."], answer: "Jag gick till skolan." },
+  { module: "verbTenses", q: "Choose the perfect tense of att göra.", options: ["Jag har gjort klart.", "Jag gör kaffe.", "Jag gjorde läxan."], answer: "Jag har gjort klart." },
+  { module: "verbTenses", q: "Which sentence means I will meet a friend?", options: ["Jag ska träffa en vän.", "Jag träffade läraren.", "Jag träffar Anna."], answer: "Jag ska träffa en vän." },
+  { module: "verbTenses", q: "Choose the sentence in present tense.", options: ["Jag förstår frågan.", "Jag förstod texten.", "Jag har förstått regeln."], answer: "Jag förstår frågan." },
+  { module: "verbTenses", q: "Which sentence means I have learned a lot?", options: ["Jag har lärt mig mycket.", "Jag lär mig svenska.", "Jag lärde mig ordet."], answer: "Jag har lärt mig mycket." },
+  { module: "verbTenses", q: "Choose the future tense of att öva.", options: ["Jag ska öva varje dag.", "Jag övade verb.", "Jag har övat mycket."], answer: "Jag ska öva varje dag." },
+  { module: "verbTenses", q: "Which Swedish sentence means I forgot the book?", options: ["Jag glömde boken.", "Jag glömmer namnet.", "Jag har glömt nyckeln."], answer: "Jag glömde boken." },
 
   { module: "numbers", q: "What is 2 in Swedish?", options: ["två", "tre", "tio"], answer: "två" },
   { module: "numbers", q: "What is 7 in Swedish?", options: ["sju", "sex", "åtta"], answer: "sju" },

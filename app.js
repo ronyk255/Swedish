@@ -54,6 +54,84 @@ const flashcards = [
   ["Thank you.", "Tack."]
 ];
 
+const verbTensePractice = [
+  { infinitive: "att prata", meaning: "to talk", present: ["Jag pratar nu.", "I am talking now."], past: ["Jag pratade i går.", "I talked yesterday."], perfect: ["Jag har pratat i dag.", "I have talked today."], future: ["Jag ska prata snart.", "I will talk soon."] },
+  { infinitive: "att äta", meaning: "to eat", present: ["Jag äter frukost.", "I am eating breakfast."], past: ["Jag åt lunch.", "I ate lunch."], perfect: ["Jag har ätit middag.", "I have eaten dinner."], future: ["Jag ska äta snart.", "I will eat soon."] },
+  { infinitive: "att dricka", meaning: "to drink", present: ["Jag dricker vatten.", "I am drinking water."], past: ["Jag drack kaffe.", "I drank coffee."], perfect: ["Jag har druckit te.", "I have drunk tea."], future: ["Jag ska dricka mjölk.", "I will drink milk."] },
+  { infinitive: "att läsa", meaning: "to read", present: ["Jag läser boken.", "I am reading the book."], past: ["Jag läste brevet.", "I read the letter."], perfect: ["Jag har läst sidan.", "I have read the page."], future: ["Jag ska läsa i kväll.", "I will read tonight."] },
+  { infinitive: "att skriva", meaning: "to write", present: ["Jag skriver svaret.", "I am writing the answer."], past: ["Jag skrev ett mejl.", "I wrote an email."], perfect: ["Jag har skrivit klart.", "I have finished writing."], future: ["Jag ska skriva nu.", "I will write now."] },
+  { infinitive: "att bo", meaning: "to live", present: ["Jag bor i Stockholm.", "I live in Stockholm."], past: ["Jag bodde i Indien.", "I lived in India."], perfect: ["Jag har bott här.", "I have lived here."], future: ["Jag ska bo nära skolan.", "I will live near the school."] },
+  { infinitive: "att jobba", meaning: "to work", present: ["Jag jobbar i dag.", "I am working today."], past: ["Jag jobbade i går.", "I worked yesterday."], perfect: ["Jag har jobbat mycket.", "I have worked a lot."], future: ["Jag ska jobba i morgon.", "I will work tomorrow."] },
+  { infinitive: "att studera", meaning: "to study", present: ["Jag studerar svenska.", "I study Swedish."], past: ["Jag studerade hemma.", "I studied at home."], perfect: ["Jag har studerat länge.", "I have studied for a long time."], future: ["Jag ska studera grammatik.", "I will study grammar."] },
+  { infinitive: "att komma", meaning: "to come", present: ["Jag kommer nu.", "I am coming now."], past: ["Jag kom sent.", "I came late."], perfect: ["Jag har kommit hem.", "I have come home."], future: ["Jag ska komma klockan fem.", "I will come at five o'clock."] },
+  { infinitive: "att gå", meaning: "to go/walk", present: ["Jag går hem.", "I am walking home."], past: ["Jag gick till skolan.", "I walked to school."], perfect: ["Jag har gått långt.", "I have walked far."], future: ["Jag ska gå snart.", "I will go soon."] },
+  { infinitive: "att åka", meaning: "to go/travel", present: ["Jag åker buss.", "I am taking the bus."], past: ["Jag åkte tåg.", "I took the train."], perfect: ["Jag har åkt hem.", "I have traveled home."], future: ["Jag ska åka till stan.", "I will go to town."] },
+  { infinitive: "att göra", meaning: "to do/make", present: ["Jag gör kaffe.", "I am making coffee."], past: ["Jag gjorde läxan.", "I did the homework."], perfect: ["Jag har gjort klart.", "I have finished it."], future: ["Jag ska göra middag.", "I will make dinner."] },
+  { infinitive: "att ha", meaning: "to have", present: ["Jag har en bok.", "I have a book."], past: ["Jag hade en fråga.", "I had a question."], perfect: ["Jag har haft tid.", "I have had time."], future: ["Jag ska ha lektion.", "I will have a lesson."] },
+  { infinitive: "att vara", meaning: "to be", present: ["Jag är hemma.", "I am at home."], past: ["Jag var trött.", "I was tired."], perfect: ["Jag har varit sjuk.", "I have been sick."], future: ["Jag ska vara där.", "I will be there."] },
+  { infinitive: "att få", meaning: "to get/may", present: ["Jag får hjälp.", "I get help."], past: ["Jag fick ett svar.", "I got an answer."], perfect: ["Jag har fått mejlet.", "I have received the email."], future: ["Jag ska få kaffe.", "I will get coffee."] },
+  { infinitive: "att se", meaning: "to see", present: ["Jag ser huset.", "I see the house."], past: ["Jag såg filmen.", "I saw the film."], perfect: ["Jag har sett bilden.", "I have seen the picture."], future: ["Jag ska se matchen.", "I will watch the match."] },
+  { infinitive: "att säga", meaning: "to say", present: ["Jag säger hej.", "I say hello."], past: ["Jag sa tack.", "I said thank you."], perfect: ["Jag har sagt det.", "I have said it."], future: ["Jag ska säga sanningen.", "I will tell the truth."] },
+  { infinitive: "att ta", meaning: "to take", present: ["Jag tar bussen.", "I am taking the bus."], past: ["Jag tog tåget.", "I took the train."], perfect: ["Jag har tagit paus.", "I have taken a break."], future: ["Jag ska ta kaffe.", "I will have coffee."] },
+  { infinitive: "att ge", meaning: "to give", present: ["Jag ger dig boken.", "I give you the book."], past: ["Jag gav henne svaret.", "I gave her the answer."], perfect: ["Jag har gett bort den.", "I have given it away."], future: ["Jag ska ge dig tid.", "I will give you time."] },
+  { infinitive: "att köpa", meaning: "to buy", present: ["Jag köper bröd.", "I am buying bread."], past: ["Jag köpte mjölk.", "I bought milk."], perfect: ["Jag har köpt mat.", "I have bought food."], future: ["Jag ska köpa kaffe.", "I will buy coffee."] },
+  { infinitive: "att sälja", meaning: "to sell", present: ["Jag säljer bilen.", "I am selling the car."], past: ["Jag sålde cykeln.", "I sold the bike."], perfect: ["Jag har sålt bordet.", "I have sold the table."], future: ["Jag ska sälja stolen.", "I will sell the chair."] },
+  { infinitive: "att betala", meaning: "to pay", present: ["Jag betalar nu.", "I am paying now."], past: ["Jag betalade notan.", "I paid the bill."], perfect: ["Jag har betalat hyran.", "I have paid the rent."], future: ["Jag ska betala snart.", "I will pay soon."] },
+  { infinitive: "att träffa", meaning: "to meet", present: ["Jag träffar Anna.", "I am meeting Anna."], past: ["Jag träffade läraren.", "I met the teacher."], perfect: ["Jag har träffat honom.", "I have met him."], future: ["Jag ska träffa en vän.", "I will meet a friend."] },
+  { infinitive: "att hjälpa", meaning: "to help", present: ["Jag hjälper dig.", "I am helping you."], past: ["Jag hjälpte Lisa.", "I helped Lisa."], perfect: ["Jag har hjälpt mamma.", "I have helped mom."], future: ["Jag ska hjälpa i dag.", "I will help today."] },
+  { infinitive: "att behöva", meaning: "to need", present: ["Jag behöver vatten.", "I need water."], past: ["Jag behövde vila.", "I needed rest."], perfect: ["Jag har behövt hjälp.", "I have needed help."], future: ["Jag kommer att behöva tid.", "I will need time."] },
+  { infinitive: "att vilja", meaning: "to want", present: ["Jag vill lära mig.", "I want to learn."], past: ["Jag ville gå hem.", "I wanted to go home."], perfect: ["Jag har velat fråga.", "I have wanted to ask."], future: ["Jag kommer att vilja öva.", "I will want to practice."] },
+  { infinitive: "att kunna", meaning: "to be able to", present: ["Jag kan svenska.", "I can speak Swedish."], past: ["Jag kunde svaret.", "I knew the answer."], perfect: ["Jag har kunnat läsa.", "I have been able to read."], future: ["Jag ska kunna prata.", "I will be able to talk."] },
+  { infinitive: "att veta", meaning: "to know", present: ["Jag vet svaret.", "I know the answer."], past: ["Jag visste adressen.", "I knew the address."], perfect: ["Jag har vetat det länge.", "I have known it for a long time."], future: ["Jag kommer att veta mer snart.", "I will know more soon."] },
+  { infinitive: "att förstå", meaning: "to understand", present: ["Jag förstår frågan.", "I understand the question."], past: ["Jag förstod texten.", "I understood the text."], perfect: ["Jag har förstått regeln.", "I have understood the rule."], future: ["Jag ska förstå bättre.", "I will understand better."] },
+  { infinitive: "att tro", meaning: "to believe/think", present: ["Jag tror på dig.", "I believe in you."], past: ["Jag trodde på svaret.", "I believed the answer."], perfect: ["Jag har trott fel.", "I have believed wrongly."], future: ["Jag ska tro på mig själv.", "I will believe in myself."] },
+  { infinitive: "att tycka", meaning: "to think/like", present: ["Jag tycker om kaffe.", "I like coffee."], past: ["Jag tyckte om filmen.", "I liked the film."], perfect: ["Jag har tyckt om kursen.", "I have liked the course."], future: ["Jag kommer att tycka om boken.", "I will like the book."] },
+  { infinitive: "att känna", meaning: "to feel/know", present: ["Jag känner Anna.", "I know Anna."], past: ["Jag kände mig trött.", "I felt tired."], perfect: ["Jag har känt oro.", "I have felt worry."], future: ["Jag kommer att känna mig redo.", "I will feel ready."] },
+  { infinitive: "att hitta", meaning: "to find", present: ["Jag hittar nyckeln.", "I find the key."], past: ["Jag hittade vägen.", "I found the way."], perfect: ["Jag har hittat boken.", "I have found the book."], future: ["Jag ska hitta svaret.", "I will find the answer."] },
+  { infinitive: "att leta", meaning: "to look for", present: ["Jag letar efter nyckeln.", "I am looking for the key."], past: ["Jag letade efter mobilen.", "I looked for the phone."], perfect: ["Jag har letat länge.", "I have looked for a long time."], future: ["Jag ska leta i väskan.", "I will look in the bag."] },
+  { infinitive: "att vänta", meaning: "to wait", present: ["Jag väntar här.", "I am waiting here."], past: ["Jag väntade ute.", "I waited outside."], perfect: ["Jag har väntat länge.", "I have waited a long time."], future: ["Jag ska vänta på dig.", "I will wait for you."] },
+  { infinitive: "att börja", meaning: "to start", present: ["Jag börjar nu.", "I am starting now."], past: ["Jag började tidigt.", "I started early."], perfect: ["Jag har börjat kursen.", "I have started the course."], future: ["Jag ska börja i morgon.", "I will start tomorrow."] },
+  { infinitive: "att sluta", meaning: "to stop/finish", present: ["Jag slutar klockan fem.", "I finish at five."], past: ["Jag slutade sent.", "I finished late."], perfect: ["Jag har slutat röka.", "I have stopped smoking."], future: ["Jag ska sluta snart.", "I will stop soon."] },
+  { infinitive: "att öppna", meaning: "to open", present: ["Jag öppnar dörren.", "I am opening the door."], past: ["Jag öppnade fönstret.", "I opened the window."], perfect: ["Jag har öppnat brevet.", "I have opened the letter."], future: ["Jag ska öppna väskan.", "I will open the bag."] },
+  { infinitive: "att stänga", meaning: "to close", present: ["Jag stänger dörren.", "I am closing the door."], past: ["Jag stängde fönstret.", "I closed the window."], perfect: ["Jag har stängt datorn.", "I have closed the computer."], future: ["Jag ska stänga butiken.", "I will close the shop."] },
+  { infinitive: "att lyssna", meaning: "to listen", present: ["Jag lyssnar på musik.", "I am listening to music."], past: ["Jag lyssnade på radio.", "I listened to the radio."], perfect: ["Jag har lyssnat noga.", "I have listened carefully."], future: ["Jag ska lyssna igen.", "I will listen again."] },
+  { infinitive: "att titta", meaning: "to look/watch", present: ["Jag tittar på TV.", "I am watching TV."], past: ["Jag tittade på filmen.", "I watched the film."], perfect: ["Jag har tittat klart.", "I have finished watching."], future: ["Jag ska titta senare.", "I will watch later."] },
+  { infinitive: "att ringa", meaning: "to call", present: ["Jag ringer mamma.", "I am calling mom."], past: ["Jag ringde banken.", "I called the bank."], perfect: ["Jag har ringt läkaren.", "I have called the doctor."], future: ["Jag ska ringa dig.", "I will call you."] },
+  { infinitive: "att mejla", meaning: "to email", present: ["Jag mejlar läraren.", "I am emailing the teacher."], past: ["Jag mejlade chefen.", "I emailed the boss."], perfect: ["Jag har mejlat svaret.", "I have emailed the answer."], future: ["Jag ska mejla i kväll.", "I will email tonight."] },
+  { infinitive: "att laga", meaning: "to cook/fix", present: ["Jag lagar mat.", "I am cooking food."], past: ["Jag lagade bilen.", "I fixed the car."], perfect: ["Jag har lagat soppa.", "I have cooked soup."], future: ["Jag ska laga middag.", "I will cook dinner."] },
+  { infinitive: "att städa", meaning: "to clean", present: ["Jag städar rummet.", "I am cleaning the room."], past: ["Jag städade köket.", "I cleaned the kitchen."], perfect: ["Jag har städat hemma.", "I have cleaned at home."], future: ["Jag ska städa i morgon.", "I will clean tomorrow."] },
+  { infinitive: "att tvätta", meaning: "to wash", present: ["Jag tvättar kläder.", "I am washing clothes."], past: ["Jag tvättade bilen.", "I washed the car."], perfect: ["Jag har tvättat händerna.", "I have washed my hands."], future: ["Jag ska tvätta i kväll.", "I will wash tonight."] },
+  { infinitive: "att sova", meaning: "to sleep", present: ["Jag sover gott.", "I sleep well."], past: ["Jag sov länge.", "I slept late."], perfect: ["Jag har sovit bra.", "I have slept well."], future: ["Jag ska sova snart.", "I will sleep soon."] },
+  { infinitive: "att vakna", meaning: "to wake up", present: ["Jag vaknar tidigt.", "I wake up early."], past: ["Jag vaknade klockan sju.", "I woke up at seven."], perfect: ["Jag har vaknat nu.", "I have woken up now."], future: ["Jag ska vakna tidigt.", "I will wake up early."] },
+  { infinitive: "att leka", meaning: "to play", present: ["Barnet leker ute.", "The child is playing outside."], past: ["Barnet lekte hemma.", "The child played at home."], perfect: ["Barnet har lekt länge.", "The child has played for a long time."], future: ["Barnet ska leka snart.", "The child will play soon."] },
+  { infinitive: "att träna", meaning: "to exercise", present: ["Jag tränar i dag.", "I am exercising today."], past: ["Jag tränade i går.", "I exercised yesterday."], perfect: ["Jag har tränat mycket.", "I have exercised a lot."], future: ["Jag ska träna senare.", "I will exercise later."] },
+  { infinitive: "att simma", meaning: "to swim", present: ["Jag simmar i sjön.", "I am swimming in the lake."], past: ["Jag simmade i går.", "I swam yesterday."], perfect: ["Jag har simmat långt.", "I have swum far."], future: ["Jag ska simma i morgon.", "I will swim tomorrow."] },
+  { infinitive: "att springa", meaning: "to run", present: ["Jag springer snabbt.", "I am running fast."], past: ["Jag sprang hem.", "I ran home."], perfect: ["Jag har sprungit långt.", "I have run far."], future: ["Jag ska springa i parken.", "I will run in the park."] },
+  { infinitive: "att resa", meaning: "to travel", present: ["Jag reser ofta.", "I travel often."], past: ["Jag reste till Malmö.", "I traveled to Malmö."], perfect: ["Jag har rest mycket.", "I have traveled a lot."], future: ["Jag ska resa till Sverige.", "I will travel to Sweden."] },
+  { infinitive: "att besöka", meaning: "to visit", present: ["Jag besöker en vän.", "I am visiting a friend."], past: ["Jag besökte museet.", "I visited the museum."], perfect: ["Jag har besökt skolan.", "I have visited the school."], future: ["Jag ska besöka familjen.", "I will visit the family."] },
+  { infinitive: "att lära", meaning: "to teach/learn", present: ["Jag lär mig svenska.", "I am learning Swedish."], past: ["Jag lärde mig ordet.", "I learned the word."], perfect: ["Jag har lärt mig mycket.", "I have learned a lot."], future: ["Jag ska lära mig mer.", "I will learn more."] },
+  { infinitive: "att öva", meaning: "to practice", present: ["Jag övar uttal.", "I am practicing pronunciation."], past: ["Jag övade verb.", "I practiced verbs."], perfect: ["Jag har övat mycket.", "I have practiced a lot."], future: ["Jag ska öva varje dag.", "I will practice every day."] },
+  { infinitive: "att fråga", meaning: "to ask", present: ["Jag frågar läraren.", "I ask the teacher."], past: ["Jag frågade en vän.", "I asked a friend."], perfect: ["Jag har frågat redan.", "I have already asked."], future: ["Jag ska fråga senare.", "I will ask later."] },
+  { infinitive: "att svara", meaning: "to answer", present: ["Jag svarar nu.", "I am answering now."], past: ["Jag svarade rätt.", "I answered correctly."], perfect: ["Jag har svarat på frågan.", "I have answered the question."], future: ["Jag ska svara snart.", "I will answer soon."] },
+  { infinitive: "att berätta", meaning: "to tell", present: ["Jag berättar en historia.", "I am telling a story."], past: ["Jag berättade om resan.", "I told about the trip."], perfect: ["Jag har berättat allt.", "I have told everything."], future: ["Jag ska berätta senare.", "I will tell later."] },
+  { infinitive: "att arbeta", meaning: "to work", present: ["Jag arbetar hemma.", "I am working at home."], past: ["Jag arbetade länge.", "I worked for a long time."], perfect: ["Jag har arbetat klart.", "I have finished working."], future: ["Jag ska arbeta i morgon.", "I will work tomorrow."] },
+  { infinitive: "att köra", meaning: "to drive", present: ["Jag kör bilen.", "I am driving the car."], past: ["Jag körde hem.", "I drove home."], perfect: ["Jag har kört långt.", "I have driven far."], future: ["Jag ska köra till jobbet.", "I will drive to work."] },
+  { infinitive: "att cykla", meaning: "to bike", present: ["Jag cyklar till skolan.", "I bike to school."], past: ["Jag cyklade hem.", "I biked home."], perfect: ["Jag har cyklat i dag.", "I have biked today."], future: ["Jag ska cykla snart.", "I will bike soon."] },
+  { infinitive: "att promenera", meaning: "to walk/stroll", present: ["Jag promenerar i parken.", "I am walking in the park."], past: ["Jag promenerade hem.", "I walked home."], perfect: ["Jag har promenerat länge.", "I have walked for a long time."], future: ["Jag ska promenera i kväll.", "I will walk tonight."] },
+  { infinitive: "att vila", meaning: "to rest", present: ["Jag vilar nu.", "I am resting now."], past: ["Jag vilade efter jobbet.", "I rested after work."], perfect: ["Jag har vilat lite.", "I have rested a little."], future: ["Jag ska vila snart.", "I will rest soon."] },
+  { infinitive: "att duscha", meaning: "to shower", present: ["Jag duschar nu.", "I am showering now."], past: ["Jag duschade på morgonen.", "I showered in the morning."], perfect: ["Jag har duschat redan.", "I have already showered."], future: ["Jag ska duscha efter träningen.", "I will shower after exercise."] },
+  { infinitive: "att klä på sig", meaning: "to get dressed", present: ["Jag klär på mig.", "I am getting dressed."], past: ["Jag klädde på mig.", "I got dressed."], perfect: ["Jag har klätt på mig.", "I have gotten dressed."], future: ["Jag ska klä på mig.", "I will get dressed."] },
+  { infinitive: "att må", meaning: "to feel", present: ["Jag mår bra.", "I feel well."], past: ["Jag mådde bättre.", "I felt better."], perfect: ["Jag har mått dåligt.", "I have felt bad."], future: ["Jag ska må bättre snart.", "I will feel better soon."] },
+  { infinitive: "att ligga", meaning: "to lie", present: ["Boken ligger på bordet.", "The book is lying on the table."], past: ["Boken låg på stolen.", "The book lay on the chair."], perfect: ["Boken har legat här.", "The book has lain here."], future: ["Boken ska ligga där.", "The book will lie there."] },
+  { infinitive: "att sitta", meaning: "to sit", present: ["Jag sitter här.", "I am sitting here."], past: ["Jag satt där.", "I sat there."], perfect: ["Jag har suttit länge.", "I have sat for a long time."], future: ["Jag ska sitta fram.", "I will sit in front."] },
+  { infinitive: "att stå", meaning: "to stand", present: ["Jag står vid dörren.", "I am standing by the door."], past: ["Jag stod i kön.", "I stood in line."], perfect: ["Jag har stått länge.", "I have stood for a long time."], future: ["Jag ska stå där.", "I will stand there."] },
+  { infinitive: "att lägga", meaning: "to put/place", present: ["Jag lägger boken här.", "I put the book here."], past: ["Jag lade nyckeln där.", "I put the key there."], perfect: ["Jag har lagt brevet på bordet.", "I have put the letter on the table."], future: ["Jag ska lägga väskan här.", "I will put the bag here."] },
+  { infinitive: "att sätta", meaning: "to put/set", present: ["Jag sätter koppen här.", "I put the cup here."], past: ["Jag satte mig ner.", "I sat down."], perfect: ["Jag har satt lappen där.", "I have put the note there."], future: ["Jag ska sätta mig snart.", "I will sit down soon."] },
+  { infinitive: "att välja", meaning: "to choose", present: ["Jag väljer te.", "I choose tea."], past: ["Jag valde kaffe.", "I chose coffee."], perfect: ["Jag har valt rätt.", "I have chosen correctly."], future: ["Jag ska välja senare.", "I will choose later."] },
+  { infinitive: "att glömma", meaning: "to forget", present: ["Jag glömmer namnet.", "I forget the name."], past: ["Jag glömde boken.", "I forgot the book."], perfect: ["Jag har glömt nyckeln.", "I have forgotten the key."], future: ["Jag ska inte glömma.", "I will not forget."] },
+  { infinitive: "att förklara", meaning: "to explain", present: ["Jag förklarar regeln.", "I explain the rule."], past: ["Jag förklarade ordet.", "I explained the word."], perfect: ["Jag har förklarat allt.", "I have explained everything."], future: ["Jag ska förklara igen.", "I will explain again."] }
+];
+
 const quiz = [
   { module: "verbs", q: "Which means 'I'?", options: ["jag", "du", "vi"], answer: "jag" },
   { module: "wordorder", q: "Choose the yes/no question.", options: ["Du talar svenska.", "Talar du svenska?", "Vad talar du?"], answer: "Talar du svenska?" },
@@ -79,6 +157,18 @@ const quiz = [
   { module: "verbs", q: "Translate: I study Swedish.", options: ["Jag studerar svenska.", "Jag talar svenska.", "Jag kommer svenska."], answer: "Jag studerar svenska.", audio: "Jag studerar svenska." },
   { module: "verbs", q: "Which means 'we'?", options: ["vi", "ni", "de"], answer: "vi", audio: "vi" },
   { module: "verbs", q: "Which present tense verb means 'understand'?", options: ["förstår", "kommer", "heter"], answer: "förstår", audio: "förstår" },
+  { module: "verbTenses", q: "Choose the infinitive for 'to talk'.", options: ["att prata", "pratar", "pratade"], answer: "att prata", audio: "att prata" },
+  { module: "verbTenses", q: "Choose the present tense: I am talking now.", options: ["Jag pratar nu.", "Jag pratade i går.", "Jag har pratat i dag."], answer: "Jag pratar nu.", audio: "Jag pratar nu." },
+  { module: "verbTenses", q: "Choose the past tense: I ate lunch.", options: ["Jag åt lunch.", "Jag äter frukost.", "Jag ska äta snart."], answer: "Jag åt lunch.", audio: "Jag åt lunch." },
+  { module: "verbTenses", q: "Choose the perfect tense: I have read the page.", options: ["Jag har läst sidan.", "Jag läste brevet.", "Jag läser boken."], answer: "Jag har läst sidan.", audio: "Jag har läst sidan." },
+  { module: "verbTenses", q: "Choose the future tense: I will write now.", options: ["Jag ska skriva nu.", "Jag skrev ett mejl.", "Jag skriver svaret."], answer: "Jag ska skriva nu.", audio: "Jag ska skriva nu." },
+  { module: "verbTenses", q: "Which sentence means I lived in India?", options: ["Jag bodde i Indien.", "Jag bor i Stockholm.", "Jag har bott här."], answer: "Jag bodde i Indien.", audio: "Jag bodde i Indien." },
+  { module: "verbTenses", q: "Which sentence is perfect tense?", options: ["Jag har jobbat mycket.", "Jag jobbar i dag.", "Jag jobbade i går."], answer: "Jag har jobbat mycket.", audio: "Jag har jobbat mycket." },
+  { module: "verbTenses", q: "Which sentence uses future with kommer att?", options: ["Jag kommer att behöva tid.", "Jag behövde vila.", "Jag behöver vatten."], answer: "Jag kommer att behöva tid.", audio: "Jag kommer att behöva tid." },
+  { module: "verbTenses", q: "Choose the past tense of att gå.", options: ["Jag gick till skolan.", "Jag går hem.", "Jag har gått långt."], answer: "Jag gick till skolan.", audio: "Jag gick till skolan." },
+  { module: "verbTenses", q: "Choose the perfect tense of att göra.", options: ["Jag har gjort klart.", "Jag gör kaffe.", "Jag gjorde läxan."], answer: "Jag har gjort klart.", audio: "Jag har gjort klart." },
+  { module: "verbTenses", q: "Which sentence means I will meet a friend?", options: ["Jag ska träffa en vän.", "Jag träffade läraren.", "Jag träffar Anna."], answer: "Jag ska träffa en vän.", audio: "Jag ska träffa en vän." },
+  { module: "verbTenses", q: "Choose the sentence in present tense.", options: ["Jag förstår frågan.", "Jag förstod texten.", "Jag har förstått regeln."], answer: "Jag förstår frågan.", audio: "Jag förstår frågan." },
   { module: "numbers", q: "What is 2 in Swedish?", options: ["två", "tre", "tio"], answer: "två", audio: "två" },
   { module: "numbers", q: "What is 7 in Swedish?", options: ["sju", "sex", "åtta"], answer: "sju", audio: "sju" },
   { module: "numbers", q: "Translate: It is one o'clock.", options: ["Klockan är ett.", "Klockan är tio.", "Vad är klockan?"], answer: "Klockan är ett.", audio: "Klockan är ett." },
@@ -147,6 +237,21 @@ const modules = [
       ["Verbs", "heter, kommer, talar, förstår, bor, studerar"],
       ["Sentence", "Jag studerar svenska."],
       ["Sentence", "Vi talar engelska."]
+    ]
+  },
+  {
+    id: "verbTenses",
+    title: "Infinitive Verbs and Tenses",
+    goal: "Practice common infinitive verbs in present, past, perfect, and future with short useful sentences.",
+    tags: ["verbs", "tenses", "audio"],
+    phrase: "Jag pratar nu. Jag pratade i går. Jag har pratat i dag. Jag ska prata snart.",
+    pdf: "/materials/textbook/Uttal%20%26%20Grammatik.pdf",
+    cards: [
+      ["Infinitive", "att prata, att äta, att läsa, att skriva"],
+      ["Present", "Jag pratar nu."],
+      ["Past", "Jag pratade i går."],
+      ["Perfect", "Jag har pratat i dag."],
+      ["Future", "Jag ska prata snart."]
     ]
   },
   {
@@ -241,6 +346,8 @@ function updatePersonalization() {
 function looksSwedish(text) {
   const clean = text.trim();
   if (!clean) return false;
+  const generated = window.GENERATED_SWEDISH_AUDIO || {};
+  if (generated[clean.normalize("NFC")]) return true;
   if (/[åäöÅÄÖ]/.test(clean)) return true;
   const swedishWords = /\b(jag|du|han|hon|vi|ni|de|hej|tack|heter|kommer|från|talar|svenska|engelska|lite|trevligt|träffas|förstår|ursäkta|vad|varifrån|språk|klockan|skulle|vilja|kaffe|bor|studerar|varsågod|vatten|bröd|mjölk|två|tre|tio|sju|sex|åtta)\b/i;
   return swedishWords.test(clean);
@@ -1007,6 +1114,32 @@ function renderPhrases(list = phrases) {
   });
 }
 
+function renderVerbTensePractice() {
+  const body = document.getElementById("verbTenseRows");
+  if (!body) return;
+  body.innerHTML = "";
+  const tenses = ["present", "past", "perfect", "future"];
+  verbTensePractice.forEach((verb) => {
+    const row = document.createElement("tr");
+    const infinitive = document.createElement("th");
+    infinitive.scope = "row";
+    infinitive.innerHTML = `<strong>${verb.infinitive}</strong><small>${verb.meaning}</small>`;
+    row.appendChild(infinitive);
+    tenses.forEach((tense) => {
+      const [swedish, english] = verb[tense];
+      const cell = document.createElement("td");
+      cell.innerHTML = `<strong>${swedish}</strong><small>${english}</small>`;
+      const button = document.createElement("button");
+      button.type = "button";
+      button.textContent = "Swedish audio";
+      button.addEventListener("click", () => playRecordedOrSpeak(swedish));
+      cell.appendChild(button);
+      row.appendChild(cell);
+    });
+    body.appendChild(row);
+  });
+}
+
 function renderModules() {
   const launcher = document.getElementById("moduleLaunchList");
   if (launcher) {
@@ -1194,6 +1327,7 @@ function updateBuiltIntroAudioState() {
 function renderAll() {
   updatePersonalization();
   renderAlphabet();
+  renderVerbTensePractice();
   renderQuizSelector();
   renderModules();
   renderPhrases();

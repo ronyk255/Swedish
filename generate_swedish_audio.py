@@ -130,6 +130,7 @@ def js_strings(path: Path) -> list[str]:
 
 TEXTS += js_strings(Path("course_data.js"))
 TEXTS += js_strings(Path("course_enhancements.js"))
+TEXTS += js_strings(Path("app.js"))
 
 
 def filename_for(text: str) -> str:

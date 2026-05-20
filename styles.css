@@ -315,6 +315,69 @@ main {
   color: var(--muted);
 }
 
+.verbTableWrap {
+  overflow-x: auto;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #ffffff;
+}
+
+.verbTenseTable {
+  width: 100%;
+  min-width: 1120px;
+  border-collapse: collapse;
+}
+
+.verbTenseTable th,
+.verbTenseTable td {
+  width: 20%;
+  padding: 0.85rem;
+  border-bottom: 1px solid var(--line);
+  border-right: 1px solid var(--line);
+  text-align: left;
+  vertical-align: top;
+}
+
+.verbTenseTable thead th {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  background: #f4faf7;
+  color: var(--ink);
+}
+
+.verbTenseTable tbody th {
+  background: #fbfdfc;
+}
+
+.verbTenseTable tr:last-child th,
+.verbTenseTable tr:last-child td {
+  border-bottom: 0;
+}
+
+.verbTenseTable th:last-child,
+.verbTenseTable td:last-child {
+  border-right: 0;
+}
+
+.verbTenseTable strong,
+.verbTenseTable small {
+  display: block;
+}
+
+.verbTenseTable small {
+  margin-top: 0.3rem;
+  color: var(--muted);
+  line-height: 1.35;
+}
+
+.verbTenseTable button {
+  width: 100%;
+  min-height: 40px;
+  margin-top: 0.55rem;
+  padding: 0.5rem 0.65rem;
+}
+
 .twoCol {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
