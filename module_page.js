@@ -199,6 +199,53 @@ function renderAlphabetDrill() {
   });
 }
 
+function renderVerbTenseTables() {
+  if (moduleData.id !== "verbTenses") return false;
+  const practice = document.getElementById("practice");
+  const verbs = window.VERB_TENSE_PRACTICE || [];
+  practice.innerHTML = "";
+  const root = document.createElement("div");
+  root.className = "verbTenseBlocks";
+  const tenses = [
+    ["Present", "present"],
+    ["Past", "past"],
+    ["Perfect", "perfect"],
+    ["Future", "future"]
+  ];
+  verbs.forEach((verb) => {
+    const block = document.createElement("article");
+    block.className = "verbTenseBlock";
+    block.innerHTML = `
+      <h3>${verb.infinitive} — ${verb.meaning}</h3>
+      <div class="verbMiniTable" role="table" aria-label="${verb.infinitive} tense practice">
+        <div class="verbMiniHead" role="row">
+          <strong role="columnheader">Tense</strong>
+          <strong role="columnheader">Swedish Sentence</strong>
+          <strong role="columnheader">English Translation</strong>
+          <strong role="columnheader">Audio</strong>
+        </div>
+      </div>
+    `;
+    const table = block.querySelector(".verbMiniTable");
+    tenses.forEach(([label, key]) => {
+      const [swedish, english] = verb[key];
+      const row = document.createElement("div");
+      row.className = "verbMiniRow";
+      row.setAttribute("role", "row");
+      row.innerHTML = `
+        <span role="cell">${label}</span>
+        <strong role="cell">${swedish}</strong>
+        <span role="cell">${english}</span>
+      `;
+      row.appendChild(audioButton("Play Swedish audio", swedish));
+      table.appendChild(row);
+    });
+    root.appendChild(block);
+  });
+  practice.appendChild(root);
+  return true;
+}
+
 function render() {
   document.title = `${moduleData.title} - Swedish Learning Journey`;
   document.getElementById("modulePageTitle").textContent = moduleData.title;
@@ -250,16 +297,18 @@ function render() {
   });
 
   const practice = document.getElementById("practice");
-  practice.innerHTML = "";
-  (moduleData.practice || []).forEach(([title, body]) => {
-    const card = document.createElement("article");
-    card.className = "moduleCard";
-    const english = englishFor(body);
-    card.innerHTML = `<strong>${title}</strong><p class="swedishLine">${body}</p>${english ? `<p><b>English:</b> ${english}</p>` : ""}`;
-    const button = audioButton("Play Swedish audio", body);
-    if (button) card.appendChild(button);
-    practice.appendChild(card);
-  });
+  if (!renderVerbTenseTables()) {
+    practice.innerHTML = "";
+    (moduleData.practice || []).forEach(([title, body]) => {
+      const card = document.createElement("article");
+      card.className = "moduleCard";
+      const english = englishFor(body);
+      card.innerHTML = `<strong>${title}</strong><p class="swedishLine">${body}</p>${english ? `<p><b>English:</b> ${english}</p>` : ""}`;
+      const button = audioButton("Play Swedish audio", body);
+      if (button) card.appendChild(button);
+      practice.appendChild(card);
+    });
+  }
 
   renderAlphabetDrill();
 
