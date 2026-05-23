@@ -310,6 +310,66 @@ window.COURSE_MODULES = [
       ["läser högt", "read aloud / reads aloud"]
     ],
     examples: ["en bok", "ett språk", "boken", "språket", "Jag övar svenska varje dag.", "Jag skriver svaret.", "Jag läser högt."]
+  },
+  {
+    id: "pronunciationRules",
+    title: "Swedish Vowel and Consonant Sound Rules",
+    goal: "Learn how Swedish vowels change nearby consonant sounds, and practice the spelling patterns that explain words like kok, kök, kex, ge, sked, and sjö.",
+    sourceNote: "Pronunciation rules are based on standard beginner descriptions of Swedish hard vowels a, o, u, å and soft vowels e, i, y, ä, ö; common references agree that k, g, and sk change before soft vowels, with dialect and loanword exceptions.",
+    notes: [
+      "Swedish has hard vowels: a, o, u, å. Before these, k is usually a hard k sound, g is usually a hard g sound, and sk is usually sk.",
+      "Swedish has soft vowels: e, i, y, ä, ö. Before these, k is usually a soft tj-like sound, g is usually like Swedish j, and sk is usually the Swedish sj-sound.",
+      "The spelling k + soft vowel explains kök, Kina, kyrka, kära, köpa. The spelling k + hard vowel explains kaffe, kaka, komma, kurs, kål.",
+      "Kex is special: many Swedes say it with a hard k, and many say it with a soft tj-like sound. Learn both as acceptable regional pronunciations.",
+      "G before soft vowels often sounds like j: ge, gick, gärna, göra. G before hard vowels is usually hard: gata, god, gul, gå.",
+      "Sk before soft vowels often becomes the sj-sound: sked, skina, sky, skära, skön. Sk before hard vowels stays sk: ska, skola, sko, skål.",
+      "Common sj-spellings include sj, sk before soft vowels, skj, stj, and sch. The exact sj-sound varies by region, so recognition matters more than copying one perfect mouth position at first.",
+      "Vowel length matters. In a stressed syllable, one consonant often means a longer vowel, and two consonants often mean a shorter vowel: tak / tack, glas / glass.",
+      "Other useful patterns: tj and k before soft vowels often give the tj-sound; ng gives one nasal sound in lång and många; gn is often pronounced with both sounds in names like Agnes.",
+      "After r, the letters d, l, n, s, and t often merge with r in central Swedish: bord, barn, först, kort. Southern Swedish often keeps them more separate."
+    ],
+    practice: [
+      ["Hard vowels", "ka, ko, ku, kå. Kaffe, kaka, komma, kurs, kål."],
+      ["Soft vowels", "ke, ki, ky, kä, kö. Kela, Kina, kyrka, kär, kök."],
+      ["K contrast", "Kok och kök. Kaka och kära. Kål och köpa."],
+      ["Kex warning", "Kex kan uttalas med hårt k eller mjukt k."],
+      ["G contrast", "Gata, god, gul, gå. Ge, gick, gärna, göra."],
+      ["Sk contrast", "Ska, skola, sko, skål. Sked, skina, sky, skära, skön."],
+      ["Sj spellings", "Sjö, skjorta, stjärna, schampo, sked."],
+      ["Tj spellings", "Tjej, tjugo, känna, köra, kyrka."],
+      ["Vowel length", "Tak, tack. Glas, glass. Ful, full."],
+      ["Ng and gn", "Lång, många, sjunger, Agnes."],
+      ["R combinations", "Bord, barn, först, kort."],
+      ["Rule sentence", "Hårda vokaler är a, o, u, å. Mjuka vokaler är e, i, y, ä, ö."]
+    ],
+    vocabulary: [
+      ["hård vokal", "hard vowel"],
+      ["mjuk vokal", "soft vowel"],
+      ["hårt k", "hard k sound"],
+      ["mjukt k", "soft k / tj-like sound"],
+      ["sj-ljud", "the Swedish sj-sound"],
+      ["tj-ljud", "the Swedish tj-sound"],
+      ["uttal", "pronunciation"],
+      ["undantag", "exception"],
+      ["dialekt", "dialect"],
+      ["lång vokal", "long vowel"],
+      ["kort vokal", "short vowel"],
+      ["kaffe", "coffee"],
+      ["kaka", "cake / cookie"],
+      ["kök", "kitchen"],
+      ["kex", "biscuit / cracker"],
+      ["ge", "give"],
+      ["gata", "street"],
+      ["sked", "spoon"],
+      ["skola", "school"],
+      ["sjö", "lake"],
+      ["stjärna", "star"],
+      ["tjugo", "twenty"],
+      ["känna", "feel / know"],
+      ["lång", "long"],
+      ["bord", "table"]
+    ],
+    examples: ["ka, ko, ku, kå", "ke, ki, ky, kä, kö", "kaffe", "kaka", "komma", "kurs", "kål", "kela", "Kina", "kyrka", "kär", "kök", "Kok och kök.", "Kex kan uttalas med hårt k eller mjukt k.", "gata", "god", "gul", "gå", "ge", "gick", "gärna", "göra", "ska", "skola", "sko", "skål", "sked", "skina", "sky", "skära", "skön", "Sjö, skjorta, stjärna, schampo, sked.", "Tjej, tjugo, känna, köra, kyrka.", "Tak, tack. Glas, glass. Ful, full.", "Lång, många, sjunger, Agnes.", "Bord, barn, först, kort.", "Hårda vokaler är a, o, u, å. Mjuka vokaler är e, i, y, ä, ö."]
   }
 ];
 
@@ -405,5 +465,18 @@ window.COURSE_QUIZ = [
   { module: "workbook", q: "What should you read before workbook exercises?", options: ["The textbook model", "Only the last page", "Nothing"], answer: "The textbook model" },
   { module: "workbook", q: "Which is a good noun study pair?", options: ["en bok / ett språk", "bok / book only", "språk / language only"], answer: "en bok / ett språk" },
   { module: "workbook", q: "Which phrase means I practice Swedish every day?", options: ["Jag övar svenska varje dag.", "Jag kostar svenska.", "Jag heter varje dag."], answer: "Jag övar svenska varje dag." },
-  { module: "workbook", q: "What is a good next-day review target?", options: ["Only missed answers first", "Only correct answers", "No review"], answer: "Only missed answers first" }
+  { module: "workbook", q: "What is a good next-day review target?", options: ["Only missed answers first", "Only correct answers", "No review"], answer: "Only missed answers first" },
+
+  { module: "pronunciationRules", q: "Which vowels are hard vowels in Swedish?", options: ["a, o, u, å", "e, i, y, ä, ö", "b, d, g, k"], answer: "a, o, u, å", audio: "Hårda vokaler är a, o, u, å." },
+  { module: "pronunciationRules", q: "Which vowels are soft vowels in Swedish?", options: ["e, i, y, ä, ö", "a, o, u, å", "m, n, r, s"], answer: "e, i, y, ä, ö", audio: "Mjuka vokaler är e, i, y, ä, ö." },
+  { module: "pronunciationRules", q: "Before soft vowels, Swedish k is usually pronounced like which sound?", options: ["a tj-like sound", "English hard k", "English v"], answer: "a tj-like sound", audio: "Kök, Kina, kyrka, kär." },
+  { module: "pronunciationRules", q: "Which pair shows hard k versus soft k?", options: ["kok / kök", "tak / tack", "glas / glass"], answer: "kok / kök", audio: "Kok och kök." },
+  { module: "pronunciationRules", q: "Before soft vowels, Swedish g often sounds like what?", options: ["Swedish j", "Swedish s", "silent h"], answer: "Swedish j", audio: "Ge, gick, gärna, göra." },
+  { module: "pronunciationRules", q: "Which set keeps a hard g sound?", options: ["gata, god, gul, gå", "ge, gick, gärna, göra", "sjö, skjorta, stjärna"], answer: "gata, god, gul, gå", audio: "Gata, god, gul, gå." },
+  { module: "pronunciationRules", q: "What often happens to sk before soft vowels?", options: ["It becomes the sj-sound", "It becomes silent", "It becomes English ch"], answer: "It becomes the sj-sound", audio: "Sked, skina, sky, skära, skön." },
+  { module: "pronunciationRules", q: "Which group is common sj-sound spelling practice?", options: ["sjö, skjorta, stjärna, schampo, sked", "kaffe, kaka, komma, kurs", "tak, tack, mat, matt"], answer: "sjö, skjorta, stjärna, schampo, sked", audio: "Sjö, skjorta, stjärna, schampo, sked." },
+  { module: "pronunciationRules", q: "What does a double consonant often signal in a stressed syllable?", options: ["A short vowel before it", "A silent word", "A plural ending"], answer: "A short vowel before it", audio: "Tak, tack. Glas, glass. Ful, full." },
+  { module: "pronunciationRules", q: "Which word has a known regional pronunciation difference?", options: ["kex", "hej", "du"], answer: "kex", audio: "Kex kan uttalas med hårt k eller mjukt k." },
+  { module: "pronunciationRules", q: "Which spelling usually gives the tj-sound?", options: ["tjugo", "skola", "gata"], answer: "tjugo", audio: "Tjej, tjugo, känna, köra, kyrka." },
+  { module: "pronunciationRules", q: "Which group practices r plus dental consonants?", options: ["bord, barn, först, kort", "lång, många, sjunger", "kaka, kaffe, komma"], answer: "bord, barn, först, kort", audio: "Bord, barn, först, kort." }
 ];

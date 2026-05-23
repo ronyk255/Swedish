@@ -180,7 +180,12 @@ const quiz = [
   { module: "workbook", q: "After checking an answer, what should you do?", options: ["Say it aloud", "Delete it", "Skip the chapter"], answer: "Say it aloud" },
   { module: "workbook", q: "What should you learn with each noun?", options: ["Its article: en or ett", "Only its first letter", "Only its English translation"], answer: "Its article: en or ett" },
   { module: "workbook", q: "Best review timing?", options: ["Review missed items tomorrow", "Wait one month", "Never repeat"], answer: "Review missed items tomorrow" },
-  { module: "workbook", q: "What is the best first speaking goal?", options: ["Clear and slow", "Fast and perfect", "Silent reading only"], answer: "Clear and slow" }
+  { module: "workbook", q: "What is the best first speaking goal?", options: ["Clear and slow", "Fast and perfect", "Silent reading only"], answer: "Clear and slow" },
+  { module: "pronunciationRules", q: "Which vowels are hard vowels in Swedish?", options: ["a, o, u, å", "e, i, y, ä, ö", "b, d, g, k"], answer: "a, o, u, å", audio: "Hårda vokaler är a, o, u, å." },
+  { module: "pronunciationRules", q: "Which vowels are soft vowels in Swedish?", options: ["e, i, y, ä, ö", "a, o, u, å", "m, n, r, s"], answer: "e, i, y, ä, ö", audio: "Mjuka vokaler är e, i, y, ä, ö." },
+  { module: "pronunciationRules", q: "Which pair shows hard k versus soft k?", options: ["kok / kök", "tak / tack", "glas / glass"], answer: "kok / kök", audio: "Kok och kök." },
+  { module: "pronunciationRules", q: "Before soft vowels, Swedish g often sounds like what?", options: ["Swedish j", "Swedish s", "silent h"], answer: "Swedish j", audio: "Ge, gick, gärna, göra." },
+  { module: "pronunciationRules", q: "What often happens to sk before soft vowels?", options: ["It becomes the sj-sound", "It becomes silent", "It becomes English v"], answer: "It becomes the sj-sound", audio: "Sked, skina, sky, skära, skön." }
 ];
 
 const modules = [
@@ -294,6 +299,21 @@ const modules = [
       ["Write", "Do the matching workbook exercises."],
       ["Speak", "Read your answers aloud."],
       ["Review", "Repeat missed items the next day."]
+    ]
+  },
+  {
+    id: "pronunciationRules",
+    title: "Swedish Vowel and Consonant Sound Rules",
+    goal: "Learn the hard-vowel and soft-vowel rules behind k, g, sk, sj/tj spellings, vowel length, and useful exceptions like kex.",
+    tags: ["uttal", "hard/soft vowels", "sound rules"],
+    phrase: "Hårda vokaler är a, o, u, å. Mjuka vokaler är e, i, y, ä, ö.",
+    pdf: "/materials/textbook/Uttal%20%26%20Grammatik.pdf",
+    cards: [
+      ["Hard vowels", "a, o, u, å: kaffe, kaka, komma, kurs, kål."],
+      ["Soft vowels", "e, i, y, ä, ö: kela, Kina, kyrka, kär, kök."],
+      ["K and G", "Kok och kök. Gata och ge."],
+      ["Sk and clusters", "Skola och sked. Sjö, skjorta, stjärna, schampo."],
+      ["Length", "Tak, tack. Glas, glass. Ful, full."]
     ]
   }
 ];

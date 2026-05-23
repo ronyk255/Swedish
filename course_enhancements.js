@@ -268,6 +268,16 @@
       ["Mistake correction", "Jag skriver felet. Jag skriver rätt svar.", "I write the mistake. I write the correct answer.", "Keep corrections short enough to review tomorrow."],
       ["Article chain", "en bok, boken. ett språk, språket. en fråga, frågan.", "a book, the book. a language, the language. a question, the question.", "Say the indefinite and definite forms together."],
       ["Review before new work", "Jag repeterar gamla fel först.", "I review old mistakes first.", "Warm-up review makes workbook practice cumulative."]
+    ],
+    pronunciationRules: [
+      ["Hard and soft vowels", "Hårda vokaler är a, o, u, å. Mjuka vokaler är e, i, y, ä, ö.", "Hard vowels are a, o, u, å. Soft vowels are e, i, y, ä, ö.", "This is the main key for predicting k, g, and sk in many native Swedish words."],
+      ["K before vowels", "Kok och kök. Kaka och kära. Kål och köpa.", "Boil and kitchen. Cake and dear. Cabbage and buy.", "K before a hard vowel stays hard. K before a soft vowel usually becomes the tj-like sound."],
+      ["G before vowels", "Gata, god, gul, gå. Ge, gick, gärna, göra.", "Street, good, yellow, go. Give, went, gladly, do.", "G before a hard vowel is usually hard. G before a soft vowel often sounds like Swedish j."],
+      ["Sk before vowels", "Ska, skola, sko, skål. Sked, skina, sky, skära, skön.", "Will/shall, school, shoe, cheers. Spoon, shine, shy, cut, beautiful.", "Sk before a hard vowel stays sk. Sk before a soft vowel often becomes the sj-sound."],
+      ["Common exceptions", "Kex kan uttalas med hårt k eller mjukt k.", "Kex can be pronounced with a hard k or a soft k.", "Loanwords and regional habits can override the simple vowel rule."],
+      ["Vowel length", "Tak, tack. Glas, glass. Ful, full.", "Roof, thanks. Glass, ice cream. Ugly, full.", "A double consonant often makes the stressed vowel before it short."],
+      ["Other clusters", "Sjö, skjorta, stjärna, schampo, sked. Tjej, tjugo, känna, köra, kyrka.", "Lake, shirt, star, shampoo, spoon. Girl, twenty, feel/know, drive, church.", "Several spellings point to the sj-sound and tj-sound, so train them as groups."],
+      ["R combinations", "Bord, barn, först, kort.", "Table, child, first, short/card.", "In central Swedish, r often merges with d, n, s, and t after it; some dialects keep the sounds separate."]
     ]
   };
 
@@ -323,7 +333,28 @@
     "Jag skriver felet. Jag skriver rätt svar. Jag läser svaret högt.": "I write the mistake. I write the correct answer. I read the answer aloud.",
     "en bok, boken. ett språk, språket. en fråga, frågan.": "a book, the book. a language, the language. a question, the question.",
     "Jag repeterar gamla fel först. Sedan gör jag nya övningar.": "I review old mistakes first. Then I do new exercises.",
-    "Jag läser frågan. Jag säger svaret. Jag kontrollerar sedan.": "I read the question. I say the answer. I check afterward."
+    "Jag läser frågan. Jag säger svaret. Jag kontrollerar sedan.": "I read the question. I say the answer. I check afterward.",
+    "ka, ko, ku, kå": "ka, ko, ku, kå",
+    "ke, ki, ky, kä, kö": "ke, ki, ky, kä, kö",
+    "Kaffe, kaka, komma, kurs, kål.": "Coffee, cake/cookie, come, course, cabbage.",
+    "Kela, Kina, kyrka, kär, kök.": "Cuddle, China, church, dear, kitchen.",
+    "Kok och kök.": "Boil and kitchen.",
+    "Kaka och kära.": "Cake/cookie and dear.",
+    "Kål och köpa.": "Cabbage and buy.",
+    "Kok och kök. Kaka och kära. Kål och köpa.": "Boil and kitchen. Cake/cookie and dear. Cabbage and buy.",
+    "Kex kan uttalas med hårt k eller mjukt k.": "Kex can be pronounced with a hard k or a soft k.",
+    "Gata, god, gul, gå.": "Street, good, yellow, go.",
+    "Ge, gick, gärna, göra.": "Give, went, gladly, do.",
+    "Ska, skola, sko, skål.": "Will/shall, school, shoe, cheers.",
+    "Sked, skina, sky, skära, skön.": "Spoon, shine, shy, cut, beautiful.",
+    "Sjö, skjorta, stjärna, schampo, sked.": "Lake, shirt, star, shampoo, spoon.",
+    "Tjej, tjugo, känna, köra, kyrka.": "Girl, twenty, feel/know, drive, church.",
+    "Tak, tack. Glas, glass. Ful, full.": "Roof, thanks. Glass, ice cream. Ugly, full.",
+    "Lång, många, sjunger, Agnes.": "Long, many, sings, Agnes.",
+    "Bord, barn, först, kort.": "Table, child, first, short/card.",
+    "Hårda vokaler är a, o, u, å.": "Hard vowels are a, o, u, å.",
+    "Mjuka vokaler är e, i, y, ä, ö.": "Soft vowels are e, i, y, ä, ö.",
+    "Hårda vokaler är a, o, u, å. Mjuka vokaler är e, i, y, ä, ö.": "Hard vowels are a, o, u, å. Soft vowels are e, i, y, ä, ö."
   };
 
   const moreQuiz = [
