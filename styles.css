@@ -320,6 +320,69 @@ main {
   gap: 2rem;
 }
 
+.verbTenseSheet {
+  width: 100%;
+  overflow-x: auto;
+  border: 1px solid #202020;
+  background: #ffffff;
+}
+
+.verbTenseHeader,
+.verbTenseRow {
+  display: grid;
+  grid-template-columns: minmax(150px, 0.95fr) repeat(4, minmax(185px, 1fr));
+  min-width: 900px;
+}
+
+.verbTenseHeader {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  background: #d7e9e5;
+}
+
+.verbTenseHeader strong,
+.verbTenseCell {
+  min-height: 58px;
+  padding: 0.55rem 0.65rem;
+  border-right: 1px solid #202020;
+  border-bottom: 1px solid #202020;
+}
+
+.verbTenseHeader strong:last-child,
+.verbTenseCell:last-child {
+  border-right: 0;
+}
+
+.verbTenseRow:last-child .verbTenseCell {
+  border-bottom: 0;
+}
+
+.verbTenseCell {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 0.25rem 0.45rem;
+  align-items: center;
+}
+
+.verbTenseText {
+  font-weight: 800;
+  line-height: 1.25;
+}
+
+.verbTenseCell small {
+  grid-column: 1 / -1;
+  color: var(--muted);
+  line-height: 1.2;
+}
+
+.verbListenButton {
+  min-width: 56px;
+  min-height: 34px;
+  padding: 0.35rem 0.5rem;
+  font-size: 0.82rem;
+}
+
 .verbTenseBlock {
   display: grid;
   gap: 0.7rem;
@@ -346,7 +409,6 @@ main {
 
 .verbMiniHead {
   background: #d1d1d1;
-  font-size: 1rem;
 }
 
 .verbMiniHead strong,

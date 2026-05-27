@@ -1,4 +1,4 @@
-const params = new URLSearchParams(location.search);
+﻿const params = new URLSearchParams(location.search);
 const moduleId = params.get("module") || "alphabet";
 const moduleData = window.COURSE_MODULES.find((item) => item.id === moduleId) || window.COURSE_MODULES[0];
 const alphabet = [
@@ -204,48 +204,60 @@ function renderVerbTenseTables() {
   const practice = document.getElementById("practice");
   const verbs = window.VERB_TENSE_PRACTICE || [];
   practice.innerHTML = "";
+  practice.classList.remove("moduleContent");
+
   const root = document.createElement("div");
-  root.className = "verbTenseBlocks";
-  const tenses = [
-    ["Present", "present"],
+  root.className = "verbTenseSheet";
+  root.setAttribute("role", "table");
+  root.setAttribute("aria-label", "Infinitive verbs in Swedish tenses");
+
+  const columns = [
+    ["Verb", "infinitive"],
     ["Past", "past"],
     ["Perfect", "perfect"],
+    ["Present", "present"],
     ["Future", "future"]
   ];
-  verbs.forEach((verb) => {
-    const block = document.createElement("article");
-    block.className = "verbTenseBlock";
-    block.innerHTML = `
-      <h3>${verb.infinitive} — ${verb.meaning}</h3>
-      <div class="verbMiniTable" role="table" aria-label="${verb.infinitive} tense practice">
-        <div class="verbMiniHead" role="row">
-          <strong role="columnheader">Tense</strong>
-          <strong role="columnheader">Swedish Sentence</strong>
-          <strong role="columnheader">English Translation</strong>
-          <strong role="columnheader">Audio</strong>
-        </div>
-      </div>
-    `;
-    const table = block.querySelector(".verbMiniTable");
-    tenses.forEach(([label, key]) => {
-      const [swedish, english] = verb[key];
-      const row = document.createElement("div");
-      row.className = "verbMiniRow";
-      row.setAttribute("role", "row");
-      row.innerHTML = `
-        <span role="cell">${label}</span>
-        <strong role="cell">${swedish}</strong>
-        <span role="cell">${english}</span>
-      `;
-      row.appendChild(audioButton("Play Swedish audio", swedish));
-      table.appendChild(row);
-    });
-    root.appendChild(block);
+
+  const header = document.createElement("div");
+  header.className = "verbTenseHeader";
+  header.setAttribute("role", "row");
+  columns.forEach(([label]) => {
+    const cell = document.createElement("strong");
+    cell.setAttribute("role", "columnheader");
+    cell.textContent = label;
+    header.appendChild(cell);
   });
+  root.appendChild(header);
+
+  verbs.forEach((verb) => {
+    const row = document.createElement("div");
+    row.className = "verbTenseRow";
+    row.setAttribute("role", "row");
+
+    columns.forEach(([, key]) => {
+      const cell = document.createElement("div");
+      cell.className = "verbTenseCell";
+      cell.setAttribute("role", "cell");
+      const swedish = key === "infinitive" ? verb.infinitive : verb[key][0];
+      const english = key === "infinitive" ? verb.meaning : verb[key][1];
+      const text = document.createElement("span");
+      text.className = "verbTenseText";
+      text.textContent = swedish;
+      const translation = document.createElement("small");
+      translation.textContent = english;
+      const button = audioButton("Listen", swedish);
+      button.className = "verbListenButton";
+      cell.append(text, translation, button);
+      row.appendChild(cell);
+    });
+
+    root.appendChild(row);
+  });
+
   practice.appendChild(root);
   return true;
 }
-
 function render() {
   document.title = `${moduleData.title} - Swedish Learning Journey`;
   document.getElementById("modulePageTitle").textContent = moduleData.title;
@@ -335,3 +347,4 @@ document.addEventListener("DOMContentLoaded", () => {
   if ("speechSynthesis" in window) speechSynthesis.onvoiceschanged = pickSwedishVoice;
   render();
 });
+

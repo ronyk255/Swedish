@@ -67,6 +67,15 @@ TEXTS += [
     "Mitt telefonnummer är noll sju noll, ett två tre, fyrtiofem, sextiosju.",
 ]
 
+TEXTS += [
+    "att röka", "att tänka", "att plugga", "att använda", "att spela", "att leva",
+    "att byta", "att hinna", "att slå", "att binda", "att bryta", "att flyga",
+    "att frysa", "att sjunga", "att stjäla", "att dra", "att bära", "att bli",
+    "Tjuven har stulit pengar."
+]
+
+FORCE_TEXTS = set(TEXTS[-19:])
+
 SWEDISH_HINTS = re.compile(
     r"[åäöÅÄÖ]|\b("
     r"jag|du|han|hon|vi|ni|de|hej|tack|heter|kommer|från|talar|svenska|"
@@ -128,8 +137,24 @@ def js_strings(path: Path) -> list[str]:
     return values
 
 
+def verb_tense_strings(path: Path) -> list[str]:
+    if not path.exists():
+        return []
+    text = path.read_text(encoding="utf-8")
+    values = []
+    for block in re.findall(r"\{ infinitive: (.*?) \}", text):
+        strings = re.findall(r'"([^"]+)"', block)
+        if strings:
+            values.extend([strings[0], *strings[2::2]])
+    return values
+
+
+VERB_TENSE_TEXTS = verb_tense_strings(Path("verb_tense_data.js"))
+TEXTS += VERB_TENSE_TEXTS
+FORCE_TEXTS.update(VERB_TENSE_TEXTS)
 TEXTS += js_strings(Path("course_data.js"))
 TEXTS += js_strings(Path("course_enhancements.js"))
+TEXTS += js_strings(Path("verb_tense_data.js"))
 TEXTS += js_strings(Path("app.js"))
 
 
@@ -150,7 +175,7 @@ async def main() -> None:
         manifest.update(json.loads(MANIFEST.read_text(encoding="utf-8")))
     unique_texts = []
     for text in TEXTS:
-      if text in manifest or looks_like_swedish(text):
+      if text in manifest or text in FORCE_TEXTS or looks_like_swedish(text):
         if text not in unique_texts:
           unique_texts.append(text)
 
