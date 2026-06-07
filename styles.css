@@ -555,7 +555,7 @@ main {
 
 .verbTestCell {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
+  grid-template-columns: minmax(0, 1fr) auto auto;
   gap: 0.4rem;
   align-items: center;
 }
@@ -579,7 +579,8 @@ main {
   font-style: italic;
 }
 
-.verbSpeakButton {
+.verbSpeakButton,
+.verbTypedListenButton {
   min-width: 68px;
   min-height: 38px;
   padding: 0.4rem 0.55rem;

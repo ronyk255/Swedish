@@ -566,6 +566,21 @@ function startSpeech(button) {
   }
 }
 
+function listenToTypedAnswer(button) {
+  const cell = button.closest(".verbTestCell");
+  const input = cell.querySelector("input");
+  const text = input.value.trim();
+  const feedback = cell.querySelector(".verbTestFeedback");
+  if (!text) {
+    feedback.textContent = "Type a Swedish sentence first.";
+    input.focus();
+    return;
+  }
+  feedback.textContent = "Playing your sentence...";
+  const played = play(text);
+  if (!played) feedback.textContent = "No Swedish audio voice is available for this sentence.";
+}
+
 function renderTest() {
   const root = document.getElementById("verbTestRows");
   root.innerHTML = "";
@@ -623,11 +638,18 @@ function renderTest() {
         : speechUnsupportedMessage;
       speak.addEventListener("click", () => startSpeech(speak));
 
+      const listenTyped = document.createElement("button");
+      listenTyped.type = "button";
+      listenTyped.className = "verbTypedListenButton";
+      listenTyped.textContent = "Listen";
+      listenTyped.title = "Play the Swedish sentence you typed in this box";
+      listenTyped.addEventListener("click", () => listenToTypedAnswer(listenTyped));
+
       const feedback = document.createElement("small");
       feedback.className = "verbTestFeedback";
       const translation = document.createElement("small");
       translation.className = "verbTranslation";
-      cell.append(input, speak, feedback, translation);
+      cell.append(input, speak, listenTyped, feedback, translation);
       row.appendChild(cell);
     });
 
