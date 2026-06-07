@@ -538,7 +538,8 @@ main {
 
 .verbTestVerb small,
 .verbTestFeedback,
-.verbTranslation {
+.verbTranslation,
+.verbOnlineTranslate {
   color: var(--muted);
 }
 
@@ -577,6 +578,19 @@ main {
   line-height: 1.25;
   color: #075f48;
   font-style: italic;
+}
+
+.verbOnlineTranslate {
+  grid-column: 1 / -1;
+  width: fit-content;
+  text-decoration: none;
+  font-size: 0.86rem;
+  font-weight: 700;
+  color: var(--teal);
+}
+
+.verbOnlineTranslate:hover {
+  text-decoration: underline;
 }
 
 .verbSpeakButton,

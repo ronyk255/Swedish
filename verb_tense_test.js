@@ -17,6 +17,17 @@ const phraseTranslations = [
   ["med min man", "with my husband"],
   ["med mina barn", "with my children"],
   ["med chefen", "to the boss"],
+  ["med dig", "with you"],
+  ["med mig", "with me"],
+  ["med honom", "with him"],
+  ["med henne", "with her"],
+  ["med oss", "with us"],
+  ["till dig", "to you"],
+  ["till mig", "to me"],
+  ["för dig", "for you"],
+  ["för mig", "for me"],
+  ["om dig", "about you"],
+  ["om mig", "about me"],
   ["med min vän", "with my friend"],
   ["med en vän", "with a friend"],
   ["min fru", "my wife"],
@@ -86,11 +97,38 @@ const wordTranslations = {
   vi: "we",
   ni: "you",
   de: "they",
+  mig: "me",
+  dig: "you",
+  honom: "him",
+  henne: "her",
+  oss: "us",
+  dem: "them",
   det: "it",
   en: "a",
   ett: "a",
+  min: "my",
+  mitt: "my",
+  mina: "my",
+  din: "your",
+  ditt: "your",
+  dina: "your",
+  hans: "his",
+  hennes: "her",
+  vår: "our",
+  vårt: "our",
+  våra: "our",
+  er: "your",
+  ert: "your",
+  era: "your",
+  sin: "his/her/their",
+  sitt: "his/her/their",
+  sina: "his/her/their",
   och: "and",
   inte: "not",
+  ska: "will",
+  kommer: "will",
+  att: "to",
+  har: "have",
   mycket: "a lot",
   lite: "a little",
   med: "with",
@@ -420,9 +458,29 @@ function updateTranslation(cell, value, verb, tense) {
   if (!translation) return;
   if (!value.trim()) {
     translation.textContent = "";
+    updateOnlineTranslateLink(cell, value);
     return;
   }
   translation.textContent = roughTranslationFor(value, verb, tense);
+  updateOnlineTranslateLink(cell, value);
+}
+
+function updateOnlineTranslateLink(cell, value) {
+  const link = cell.querySelector(".verbOnlineTranslate");
+  if (!link) return;
+  const text = value.trim();
+  link.classList.toggle("hiddenPanel", !text);
+  if (!text) {
+    link.removeAttribute("href");
+    return;
+  }
+  const params = new URLSearchParams({
+    sl: "sv",
+    tl: "en",
+    text,
+    op: "translate"
+  });
+  link.href = `https://translate.google.com/?${params.toString()}`;
 }
 
 function updateCell(cell, input, verb, tense) {
@@ -548,6 +606,7 @@ function clearTest() {
     cell.querySelector("input").value = "";
     cell.querySelector(".verbTestFeedback").textContent = "";
     cell.querySelector(".verbTranslation").textContent = "";
+    updateOnlineTranslateLink(cell, "");
   });
   document.getElementById("verbTestScore").textContent = "0/0";
   document.getElementById("verbTestPercent").textContent = "No answers checked yet";
@@ -705,7 +764,12 @@ function renderTest() {
       feedback.className = "verbTestFeedback";
       const translation = document.createElement("small");
       translation.className = "verbTranslation";
-      cell.append(input, speak, listenTyped, feedback, translation);
+      const onlineTranslate = document.createElement("a");
+      onlineTranslate.className = "verbOnlineTranslate hiddenPanel";
+      onlineTranslate.target = "_blank";
+      onlineTranslate.rel = "noopener";
+      onlineTranslate.textContent = "Online translation + audio";
+      cell.append(input, speak, listenTyped, feedback, translation, onlineTranslate);
       row.appendChild(cell);
     });
 
