@@ -198,7 +198,30 @@ const englishVerbOverrides = {
 function pickSwedishVoice() {
   if (!("speechSynthesis" in window)) return;
   const voices = speechSynthesis.getVoices();
-  swedishVoice = voices.find((voice) => voice.lang.toLowerCase().startsWith("sv")) || null;
+  swedishVoice = voices.find((voice) => {
+    const lang = voice.lang.toLowerCase();
+    const name = voice.name.toLowerCase();
+    return lang.startsWith("sv")
+      || name.includes("swedish")
+      || name.includes("svenska")
+      || name.includes("sofia")
+      || name.includes("mattias");
+  }) || null;
+}
+
+function waitForSwedishVoice() {
+  pickSwedishVoice();
+  if (swedishVoice || !("speechSynthesis" in window)) return Promise.resolve(swedishVoice);
+  return new Promise((resolve) => {
+    const started = Date.now();
+    const timer = setInterval(() => {
+      pickSwedishVoice();
+      if (swedishVoice || Date.now() - started > 1200) {
+        clearInterval(timer);
+        resolve(swedishVoice);
+      }
+    }, 120);
+  });
 }
 
 function speakSwedish(text) {
@@ -210,6 +233,13 @@ function speakSwedish(text) {
   if (swedishVoice) utterance.voice = swedishVoice;
   speechSynthesis.speak(utterance);
   return true;
+}
+
+async function speakSwedishOnly(text) {
+  if (!("speechSynthesis" in window)) return false;
+  await waitForSwedishVoice();
+  if (!swedishVoice) return false;
+  return speakSwedish(text);
 }
 
 function audioFor(text) {
@@ -585,7 +615,7 @@ function startSpeech(button) {
   }
 }
 
-function listenToTypedAnswer(button) {
+async function listenToTypedAnswer(button) {
   const cell = button.closest(".verbTestCell");
   const input = cell.querySelector("input");
   const text = input.value.trim();
@@ -596,8 +626,15 @@ function listenToTypedAnswer(button) {
     return;
   }
   feedback.textContent = "Playing your sentence...";
-  const played = play(text);
-  if (!played) feedback.textContent = "Browser speech playback is not available here.";
+  const src = audioFor(text);
+  if (src) {
+    play(text);
+    return;
+  }
+  const played = await speakSwedishOnly(text);
+  if (!played) {
+    feedback.textContent = "No Swedish voice is installed in this browser. Try Edge/Chrome with a Swedish voice or Windows Swedish language pack.";
+  }
 }
 
 function renderTest() {
