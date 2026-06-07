@@ -12,6 +12,16 @@ let activeSpeechButton = null;
 let speechUnsupportedMessage = "Speech checking is not available in this browser. Try Chrome or Edge and allow microphone access.";
 
 const phraseTranslations = [
+  ["med min chef", "to my boss"],
+  ["med chefen", "to the boss"],
+  ["med min vän", "with my friend"],
+  ["med en vän", "with a friend"],
+  ["på jobbet", "at work"],
+  ["i skolan", "at school"],
+  ["till skolan", "to school"],
+  ["till jobbet", "to work"],
+  ["till stan", "to town"],
+  ["till sverige", "to Sweden"],
   ["i går", "yesterday"],
   ["igår", "yesterday"],
   ["i dag", "today"],
@@ -38,7 +48,15 @@ const phraseTranslations = [
   ["brevet", "the letter"],
   ["sidan", "the page"],
   ["svaret", "the answer"],
-  ["svenska", "Swedish"]
+  ["svenska", "Swedish"],
+  ["chef", "boss"],
+  ["chefen", "the boss"],
+  ["vän", "friend"],
+  ["vägen", "the way"],
+  ["nyckeln", "the key"],
+  ["mobilen", "the phone"],
+  ["läraren", "the teacher"],
+  ["mamma", "mom"]
 ];
 
 const wordTranslations = {
@@ -66,6 +84,96 @@ const wordTranslations = {
   före: "before",
   igen: "again",
   redan: "already"
+};
+
+const englishVerbOverrides = {
+  "be able to": { present: "can", past: "could", participle: "been able to", gerund: "being able to", future: "will be able to" },
+  be: { present: "am", past: "was", participle: "been", gerund: "being" },
+  become: { present: "am becoming", past: "became", participle: "become", gerund: "becoming" },
+  believe: { present: "believe", past: "believed", participle: "believed", gerund: "believing" },
+  bike: { present: "am biking", past: "biked", participle: "biked", gerund: "biking" },
+  bind: { present: "am binding", past: "bound", participle: "bound", gerund: "binding" },
+  break: { present: "am breaking", past: "broke", participle: "broken", gerund: "breaking" },
+  buy: { present: "am buying", past: "bought", participle: "bought", gerund: "buying" },
+  call: { present: "am calling", past: "called", participle: "called", gerund: "calling" },
+  carry: { present: "am carrying", past: "carried", participle: "carried", gerund: "carrying" },
+  change: { present: "am changing", past: "changed", participle: "changed", gerund: "changing" },
+  choose: { present: "am choosing", past: "chose", participle: "chosen", gerund: "choosing" },
+  clean: { present: "am cleaning", past: "cleaned", participle: "cleaned", gerund: "cleaning" },
+  close: { present: "am closing", past: "closed", participle: "closed", gerund: "closing" },
+  come: { present: "am coming", past: "came", participle: "come", gerund: "coming" },
+  cook: { present: "am cooking", past: "cooked", participle: "cooked", gerund: "cooking" },
+  "do": { present: "am doing", past: "did", participle: "done", gerund: "doing" },
+  drive: { present: "am driving", past: "drove", participle: "driven", gerund: "driving" },
+  do: { present: "am doing", past: "did", participle: "done", gerund: "doing" },
+  drink: { present: "am drinking", past: "drank", participle: "drunk", gerund: "drinking" },
+  email: { present: "am emailing", past: "emailed", participle: "emailed", gerund: "emailing" },
+  eat: { present: "am eating", past: "ate", participle: "eaten", gerund: "eating" },
+  explain: { present: "am explaining", past: "explained", participle: "explained", gerund: "explaining" },
+  feel: { present: "feel", past: "felt", participle: "felt", gerund: "feeling" },
+  find: { present: "am finding", past: "found", participle: "found", gerund: "finding" },
+  fly: { present: "am flying", past: "flew", participle: "flown", gerund: "flying" },
+  forget: { present: "am forgetting", past: "forgot", participle: "forgotten", gerund: "forgetting" },
+  freeze: { present: "am freezing", past: "froze", participle: "frozen", gerund: "freezing" },
+  get: { present: "am getting", past: "got", participle: "got", gerund: "getting" },
+  "get dressed": { present: "am getting dressed", past: "got dressed", participle: "gotten dressed", gerund: "getting dressed" },
+  give: { present: "am giving", past: "gave", participle: "given", gerund: "giving" },
+  go: { present: "am going", past: "went", participle: "gone", gerund: "going" },
+  have: { present: "have", past: "had", participle: "had", gerund: "having" },
+  "have time": { present: "have time", past: "had time", participle: "had time", gerund: "having time", future: "will have time" },
+  hear: { present: "am hearing", past: "heard", participle: "heard", gerund: "hearing" },
+  help: { present: "am helping", past: "helped", participle: "helped", gerund: "helping" },
+  hit: { present: "am hitting", past: "hit", participle: "hit", gerund: "hitting" },
+  know: { present: "know", past: "knew", participle: "known", gerund: "knowing" },
+  learn: { present: "am learning", past: "learned", participle: "learned", gerund: "learning" },
+  lie: { present: "am lying", past: "lay", participle: "lain", gerund: "lying" },
+  like: { present: "like", past: "liked", participle: "liked", gerund: "liking" },
+  listen: { present: "am listening", past: "listened", participle: "listened", gerund: "listening" },
+  live: { present: "live", past: "lived", participle: "lived", gerund: "living" },
+  look: { present: "am looking", past: "looked", participle: "looked", gerund: "looking" },
+  "look for": { present: "am looking for", past: "looked for", participle: "looked for", gerund: "looking for" },
+  make: { present: "am making", past: "made", participle: "made", gerund: "making" },
+  meet: { present: "am meeting", past: "met", participle: "met", gerund: "meeting" },
+  need: { present: "need", past: "needed", participle: "needed", gerund: "needing" },
+  open: { present: "am opening", past: "opened", participle: "opened", gerund: "opening" },
+  pay: { present: "am paying", past: "paid", participle: "paid", gerund: "paying" },
+  play: { present: "am playing", past: "played", participle: "played", gerund: "playing" },
+  pull: { present: "am pulling", past: "pulled", participle: "pulled", gerund: "pulling" },
+  put: { present: "am putting", past: "put", participle: "put", gerund: "putting" },
+  read: { present: "am reading", past: "read", participle: "read", gerund: "reading" },
+  rest: { present: "am resting", past: "rested", participle: "rested", gerund: "resting" },
+  shower: { present: "am showering", past: "showered", participle: "showered", gerund: "showering" },
+  run: { present: "am running", past: "ran", participle: "run", gerund: "running" },
+  say: { present: "am saying", past: "said", participle: "said", gerund: "saying" },
+  see: { present: "am seeing", past: "saw", participle: "seen", gerund: "seeing" },
+  set: { present: "am setting", past: "set", participle: "set", gerund: "setting" },
+  sell: { present: "am selling", past: "sold", participle: "sold", gerund: "selling" },
+  sing: { present: "am singing", past: "sang", participle: "sung", gerund: "singing" },
+  sit: { present: "am sitting", past: "sat", participle: "sat", gerund: "sitting" },
+  sleep: { present: "am sleeping", past: "slept", participle: "slept", gerund: "sleeping" },
+  speak: { present: "am speaking", past: "spoke", participle: "spoken", gerund: "speaking" },
+  stand: { present: "am standing", past: "stood", participle: "stood", gerund: "standing" },
+  start: { present: "am starting", past: "started", participle: "started", gerund: "starting" },
+  steal: { present: "am stealing", past: "stole", participle: "stolen", gerund: "stealing" },
+  stop: { present: "am stopping", past: "stopped", participle: "stopped", gerund: "stopping" },
+  study: { present: "am studying", past: "studied", participle: "studied", gerund: "studying" },
+  swim: { present: "am swimming", past: "swam", participle: "swum", gerund: "swimming" },
+  take: { present: "am taking", past: "took", participle: "taken", gerund: "taking" },
+  teach: { present: "am learning", past: "learned", participle: "learned", gerund: "learning" },
+  tell: { present: "am telling", past: "told", participle: "told", gerund: "telling" },
+  think: { present: "am thinking", past: "thought", participle: "thought", gerund: "thinking" },
+  understand: { present: "understand", past: "understood", participle: "understood", gerund: "understanding" },
+  use: { present: "am using", past: "used", participle: "used", gerund: "using" },
+  visit: { present: "am visiting", past: "visited", participle: "visited", gerund: "visiting" },
+  wait: { present: "am waiting", past: "waited", participle: "waited", gerund: "waiting" },
+  wake: { present: "am waking", past: "woke", participle: "woken", gerund: "waking" },
+  "wake up": { present: "am waking up", past: "woke up", participle: "woken up", gerund: "waking up" },
+  walk: { present: "am walking", past: "walked", participle: "walked", gerund: "walking" },
+  want: { present: "want", past: "wanted", participle: "wanted", gerund: "wanting" },
+  wash: { present: "am washing", past: "washed", participle: "washed", gerund: "washing" },
+  wear: { present: "am wearing", past: "wore", participle: "worn", gerund: "wearing" },
+  work: { present: "am working", past: "worked", participle: "worked", gerund: "working" },
+  write: { present: "am writing", past: "wrote", participle: "written", gerund: "writing" }
 };
 
 function pickSwedishVoice() {
@@ -170,6 +278,10 @@ function feedbackText(forms) {
   return `Expected: ${forms.join(" or ")}`;
 }
 
+function escapeRegExp(text) {
+  return text.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+}
+
 function exactTranslationFor(value) {
   const key = translationKey(value);
   for (const verb of verbs) {
@@ -182,11 +294,59 @@ function exactTranslationFor(value) {
 }
 
 function englishVerbPhrase(verb, tense) {
-  const meaning = verb.meaning.replace(/^to\s+/i, "");
-  if (tense === "past") return `${meaning} - past`;
-  if (tense === "perfect") return `have ${meaning} / has ${meaning}`;
-  if (tense === "future") return `will ${meaning}`;
-  return meaning;
+  const base = verb.meaning
+    .replace(/^to\s+/i, "")
+    .split("/")
+    .map((part) => part.trim())[0];
+  const forms = englishVerbOverrides[base] || regularEnglishVerbForms(base);
+  if (tense === "past") return forms.past;
+  if (tense === "perfect") return `have ${forms.participle}`;
+  if (tense === "future") return forms.future || `will ${base}`;
+  return forms.present;
+}
+
+function regularEnglishVerbForms(base) {
+  const words = base.split(" ");
+  const first = words[0];
+  const rest = words.slice(1).join(" ");
+  const suffix = rest ? ` ${rest}` : "";
+  const past = regularPast(first) + suffix;
+  const gerund = regularGerund(first) + suffix;
+  return {
+    present: `am ${gerund}`,
+    past,
+    participle: past,
+    gerund,
+    future: `will ${base}`
+  };
+}
+
+function regularPast(word) {
+  if (word.endsWith("e")) return `${word}d`;
+  if (/[^aeiou]y$/.test(word)) return `${word.slice(0, -1)}ied`;
+  if (/^[a-z]*[aeiou][bcdfghjklmnpqrstvwxyz]$/.test(word) && !/(w|x|y)$/.test(word)) {
+    return `${word}${word.at(-1)}ed`;
+  }
+  return `${word}ed`;
+}
+
+function regularGerund(word) {
+  if (word.endsWith("ie")) return `${word.slice(0, -2)}ying`;
+  if (word.endsWith("e") && !word.endsWith("ee")) return `${word.slice(0, -1)}ing`;
+  if (/^[a-z]*[aeiou][bcdfghjklmnpqrstvwxyz]$/.test(word) && !/(w|x|y)$/.test(word)) {
+    return `${word}${word.at(-1)}ing`;
+  }
+  return `${word}ing`;
+}
+
+function cleanEnglishSentence(text) {
+  const compact = text
+    .replace(/\s+/g, " ")
+    .replace(/\s+([.,!?])/g, "$1")
+    .trim();
+  if (!compact) return "";
+  const capitalized = compact.charAt(0).toUpperCase() + compact.slice(1);
+  return /[.!?]$/.test(capitalized) ? capitalized : `${capitalized}.`;
 }
 
 function roughTranslationFor(value, verb, tense) {
@@ -194,16 +354,16 @@ function roughTranslationFor(value, verb, tense) {
   if (exact) return exact;
 
   let text = normalizeText(value).trim();
-  phraseTranslations.forEach(([sv, en]) => {
-    text = text.replace(new RegExp(`\\b${sv}\\b`, "g"), en);
+  [...phraseTranslations].sort((a, b) => b[0].length - a[0].length).forEach(([sv, en]) => {
+    text = text.replace(new RegExp(`\\b${escapeRegExp(sv)}\\b`, "g"), en);
   });
   expectedForms(verb, tense).forEach((form) => {
-    text = text.replace(new RegExp(`\\b${form}\\b`, "g"), englishVerbPhrase(verb, tense));
+    text = text.replace(new RegExp(`\\b${escapeRegExp(form)}\\b`, "g"), englishVerbPhrase(verb, tense));
   });
 
   const translatedWords = text.split(/\s+/).map((word) => wordTranslations[word] || word);
-  const rough = translatedWords.join(" ").replace(/\s+/g, " ").trim();
-  return rough ? `Rough: ${rough}` : "";
+  const rough = cleanEnglishSentence(translatedWords.join(" "));
+  return rough ? `English: ${rough}` : "";
 }
 
 function updateTranslation(cell, value, verb, tense) {
