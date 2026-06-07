@@ -1138,13 +1138,41 @@ function renderVerbTensePractice() {
   const root = document.getElementById("verbTenseRows");
   if (!root) return;
   root.innerHTML = "";
+  const specialInfinitives = new Set([
+    "att äta", "att dricka", "att skriva", "att komma", "att gå", "att göra",
+    "att ha", "att vara", "att få", "att se", "att säga", "att ta", "att ge",
+    "att sälja", "att vilja", "att kunna", "att veta", "att förstå", "att sova",
+    "att springa", "att lära", "att använda", "att byta", "att hinna", "att slå",
+    "att binda", "att bryta", "att flyga", "att frysa", "att sjunga", "att stjäla",
+    "att dra", "att bära", "att bli", "att ligga", "att sitta", "att stå",
+    "att lägga", "att sätta", "att välja"
+  ]);
+  const groups = [
+    {
+      title: "Regular pattern verbs first",
+      note: "Standard weak patterns: present usually ends in -ar, -er, or -r; past usually adds -ade, -de, -te, or -dde.",
+      verbs: verbTensePractice.filter((verb) => !specialInfinitives.has(verb.infinitive))
+    },
+    {
+      title: "Irregular and special verbs",
+      note: "These verbs have vowel changes, short present forms, modal forms, or other special patterns.",
+      verbs: verbTensePractice.filter((verb) => specialInfinitives.has(verb.infinitive))
+    }
+  ];
   const tenses = [
     ["Present", "present"],
     ["Past", "past"],
     ["Perfect", "perfect"],
     ["Future", "future"]
   ];
-  verbTensePractice.forEach((verb) => {
+  groups.forEach((group) => {
+    if (!group.verbs.length) return;
+    const groupHeader = document.createElement("div");
+    groupHeader.className = "verbTenseBlockGroup";
+    groupHeader.innerHTML = `<h3>${group.title}</h3><p>${group.note}</p>`;
+    root.appendChild(groupHeader);
+
+    group.verbs.forEach((verb) => {
     const block = document.createElement("article");
     block.className = "verbTenseBlock";
     block.innerHTML = `
@@ -1177,6 +1205,7 @@ function renderVerbTensePractice() {
       table.appendChild(row);
     });
     root.appendChild(block);
+    });
   });
 }
 

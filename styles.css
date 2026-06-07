@@ -341,6 +341,27 @@ main {
   background: #d7e9e5;
 }
 
+.verbTenseGroupHeader {
+  display: grid;
+  grid-template-columns: minmax(150px, 0.95fr) minmax(740px, 4fr);
+  min-width: 900px;
+  padding: 0.7rem 0.8rem;
+  border-bottom: 1px solid #202020;
+  background: #fff7df;
+  color: var(--ink);
+  gap: 0.75rem;
+  align-items: center;
+}
+
+.verbTenseGroupHeader strong {
+  font-size: 1rem;
+}
+
+.verbTenseGroupHeader span {
+  color: var(--muted);
+  line-height: 1.35;
+}
+
 .verbTenseHeader strong,
 .verbTenseCell {
   min-height: 58px;
@@ -388,10 +409,148 @@ main {
   gap: 0.7rem;
 }
 
+.verbTenseBlockGroup {
+  margin: 0 0 -1rem;
+  padding-bottom: 0.2rem;
+  border-bottom: 1px solid var(--line);
+}
+
+.verbTenseBlockGroup h3 {
+  margin: 0;
+  font-size: clamp(1.2rem, 2.5vw, 1.7rem);
+}
+
+.verbTenseBlockGroup p {
+  margin: 0.35rem 0 0;
+  color: var(--muted);
+  line-height: 1.45;
+}
+
 .verbTenseBlock h3 {
   margin: 0;
   font-size: clamp(1.35rem, 3vw, 2rem);
   font-style: italic;
+}
+
+.verbTestIntro {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  align-items: center;
+}
+
+.verbTestIntro h2 {
+  margin: 0 0 0.35rem;
+  font-size: clamp(1.5rem, 3vw, 2.2rem);
+}
+
+.verbTestIntro p {
+  margin: 0;
+  line-height: 1.5;
+}
+
+.verbTestScore {
+  display: grid;
+  gap: 0.85rem;
+}
+
+.verbWrongList {
+  display: grid;
+  gap: 0.5rem;
+}
+
+.verbWrongItem {
+  display: grid;
+  gap: 0.25rem;
+  padding: 0.7rem;
+  border: 1px solid #efb0a8;
+  border-radius: 8px;
+  background: #fff0ee;
+}
+
+.verbWrongItem span,
+.verbWrongItem small {
+  color: var(--muted);
+}
+
+.verbTestSheet {
+  width: 100%;
+  overflow-x: auto;
+  border: 1px solid #202020;
+  background: #ffffff;
+}
+
+.verbTestHeader,
+.verbTestRow {
+  display: grid;
+  grid-template-columns: minmax(150px, 0.85fr) repeat(4, minmax(230px, 1fr));
+  min-width: 1070px;
+}
+
+.verbTestHeader {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  background: #d7e9e5;
+}
+
+.verbTestHeader strong,
+.verbTestVerb,
+.verbTestCell {
+  min-height: 62px;
+  padding: 0.6rem;
+  border-right: 1px solid #202020;
+  border-bottom: 1px solid #202020;
+}
+
+.verbTestHeader strong:last-child,
+.verbTestCell:last-child {
+  border-right: 0;
+}
+
+.verbTestRow:last-child .verbTestVerb,
+.verbTestRow:last-child .verbTestCell {
+  border-bottom: 0;
+}
+
+.verbTestVerb {
+  display: grid;
+  gap: 0.25rem;
+  align-content: start;
+}
+
+.verbTestVerb strong {
+  font-size: 1.05rem;
+}
+
+.verbTestVerb small,
+.verbTestFeedback {
+  color: var(--muted);
+}
+
+.verbTestCell {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 0.4rem;
+  align-items: center;
+}
+
+.verbTestCell input {
+  min-width: 0;
+  padding: 0.58rem;
+}
+
+.verbTestCell .verbTestFeedback {
+  grid-column: 1 / -1;
+  min-height: 1.2em;
+  line-height: 1.25;
+}
+
+.verbSpeakButton {
+  min-width: 68px;
+  min-height: 38px;
+  padding: 0.4rem 0.55rem;
+  font-size: 0.82rem;
 }
 
 .verbMiniTable {
@@ -1192,7 +1351,9 @@ textarea {
   .quizControls,
   .historyRow,
   .quizOptionRow,
-  .profileControls {
+  .profileControls,
+  .verbTestIntro {
     grid-template-columns: 1fr;
+    display: grid;
   }
 }

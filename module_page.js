@@ -75,6 +75,13 @@ const lessonDetails = {
     ["Definite form", "boken, språket", "the book, the language", "The definite ending attaches to the noun: bok → boken, språk → språket."],
     ["Daily practice", "Jag övar svenska varje dag.", "I practice Swedish every day.", "Övar = practice. Varje dag = every day."],
     ["Read aloud", "Jag läser högt.", "I read aloud.", "Use workbook answers as speaking practice, not just writing practice."]
+  ],
+  verbTenses: [
+    ["Infinitive", "att prata, att läsa, att gå", "to talk, to read, to go", "Use att before the dictionary form when you mean to do something. After ska and kommer att, keep the verb in the infinitive."],
+    ["Present tense", "Jag pratar. Jag läser. Jag bor.", "I talk. I read. I live.", "Swedish does not change the present form for jag, du, han, hon, vi, ni, or de. Most forms end in -r, usually -ar or -er."],
+    ["Past tense trick", "pratar → pratade, läser → läste, bor → bodde", "talks → talked, reads → read, lives → lived", "Regular weak verbs usually add -ade, -de, -te, or -dde. If the stem ends in p, t, k, s, x, the past often takes -te."],
+    ["Perfect tense", "Jag har pratat. Jag har läst. Jag har bott.", "I have talked. I have read. I have lived.", "Perfect uses har + the supine form. Regular verbs often end the supine in -t, -tt, or -at."],
+    ["Irregular watch list", "äter → åt → har ätit", "eats → ate → has eaten", "Strong and special verbs often change vowel or have short forms. Learn them as small sets after the regular patterns."]
   ]
 };
 
@@ -206,6 +213,29 @@ function renderVerbTenseTables() {
   practice.innerHTML = "";
   practice.classList.remove("moduleContent");
 
+  const specialInfinitives = new Set([
+    "att äta", "att dricka", "att skriva", "att komma", "att gå", "att göra",
+    "att ha", "att vara", "att få", "att se", "att säga", "att ta", "att ge",
+    "att sälja", "att vilja", "att kunna", "att veta", "att förstå", "att sova",
+    "att springa", "att lära", "att använda", "att byta", "att hinna", "att slå",
+    "att binda", "att bryta", "att flyga", "att frysa", "att sjunga", "att stjäla",
+    "att dra", "att bära", "att bli", "att ligga", "att sitta", "att stå",
+    "att lägga", "att sätta", "att välja"
+  ]);
+
+  const groups = [
+    {
+      title: "Regular pattern verbs first",
+      note: "Standard weak patterns: present usually ends in -ar, -er, or -r; past usually adds -ade, -de, -te, or -dde; perfect uses har + supine.",
+      verbs: verbs.filter((verb) => !specialInfinitives.has(verb.infinitive))
+    },
+    {
+      title: "Irregular and special verbs",
+      note: "These are common verbs with vowel changes, short present forms, modal forms, or other special patterns. Learn them as sets.",
+      verbs: verbs.filter((verb) => specialInfinitives.has(verb.infinitive))
+    }
+  ];
+
   const root = document.createElement("div");
   root.className = "verbTenseSheet";
   root.setAttribute("role", "table");
@@ -230,29 +260,38 @@ function renderVerbTenseTables() {
   });
   root.appendChild(header);
 
-  verbs.forEach((verb) => {
-    const row = document.createElement("div");
-    row.className = "verbTenseRow";
-    row.setAttribute("role", "row");
+  groups.forEach((group) => {
+    if (!group.verbs.length) return;
+    const groupHeader = document.createElement("div");
+    groupHeader.className = "verbTenseGroupHeader";
+    groupHeader.setAttribute("role", "row");
+    groupHeader.innerHTML = `<strong>${group.title}</strong><span>${group.note}</span>`;
+    root.appendChild(groupHeader);
 
-    columns.forEach(([, key]) => {
-      const cell = document.createElement("div");
-      cell.className = "verbTenseCell";
-      cell.setAttribute("role", "cell");
-      const swedish = key === "infinitive" ? verb.infinitive : verb[key][0];
-      const english = key === "infinitive" ? verb.meaning : verb[key][1];
-      const text = document.createElement("span");
-      text.className = "verbTenseText";
-      text.textContent = swedish;
-      const translation = document.createElement("small");
-      translation.textContent = english;
-      const button = audioButton("Listen", swedish);
-      button.className = "verbListenButton";
-      cell.append(text, translation, button);
-      row.appendChild(cell);
+    group.verbs.forEach((verb) => {
+      const row = document.createElement("div");
+      row.className = "verbTenseRow";
+      row.setAttribute("role", "row");
+
+      columns.forEach(([, key]) => {
+        const cell = document.createElement("div");
+        cell.className = "verbTenseCell";
+        cell.setAttribute("role", "cell");
+        const swedish = key === "infinitive" ? verb.infinitive : verb[key][0];
+        const english = key === "infinitive" ? verb.meaning : verb[key][1];
+        const text = document.createElement("span");
+        text.className = "verbTenseText";
+        text.textContent = swedish;
+        const translation = document.createElement("small");
+        translation.textContent = english;
+        const button = audioButton("Listen", swedish);
+        button.className = "verbListenButton";
+        cell.append(text, translation, button);
+        row.appendChild(cell);
+      });
+
+      root.appendChild(row);
     });
-
-    root.appendChild(row);
   });
 
   practice.appendChild(root);
@@ -266,6 +305,9 @@ function render() {
   document.getElementById("sourceNote").textContent = moduleData.sourceNote || "";
   document.getElementById("startQuizLink").href = `quiz.html?module=${encodeURIComponent(moduleData.id)}`;
   document.getElementById("bottomQuizLink").href = `quiz.html?module=${encodeURIComponent(moduleData.id)}`;
+  document.querySelectorAll("#verbTenseTestLink, #bottomVerbTenseTestLink").forEach((link) => {
+    link.classList.toggle("hiddenPanel", moduleData.id !== "verbTenses");
+  });
 
   const notes = document.getElementById("notes");
   notes.innerHTML = "";

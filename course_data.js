@@ -148,11 +148,11 @@ window.COURSE_MODULES = [
     goal: "Practice common infinitive verbs in present, past, perfect, and future with short useful sentences.",
     sourceNote: "This module extends the verb table with quiz practice for infinitive forms and core tense patterns.",
     notes: [
-      "The infinitive often starts with att: att prata, att äta, att läsa.",
-      "Present tense tells what happens now or usually: Jag pratar nu.",
-      "Past tense tells what happened before: Jag pratade i går.",
-      "Perfect tense uses har + supine: Jag har pratat i dag.",
-      "Future often uses ska + infinitive or kommer att + infinitive."
+      "The infinitive often starts with att: att prata, att äta, att läsa. After ska and kommer att, use the infinitive form.",
+      "Present tense tells what happens now or usually. The same form works for all subjects, and most present forms end in -r: pratar, läser, bor.",
+      "Regular past tense usually adds -ade, -de, -te, or -dde. A useful trick: stems ending in p, t, k, s, or x often take -te.",
+      "Perfect tense uses har + supine: Jag har pratat i dag. For regular verbs, the supine often ends in -at, -t, or -tt.",
+      "Irregular and special verbs often change vowel or use short forms: äter → åt → har ätit, går → gick → har gått."
     ],
     practice: [
       ["Infinitive", "att prata, att äta, att läsa, att skriva"],

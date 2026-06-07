@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Verb Tense Test - Swedish Learning Journey</title>
+  <link rel="stylesheet" href="styles.css?v=20260607-verbtest1">
+</head>
+<body>
+  <header class="topbar">
+    <div>
+      <p class="eyebrow">Verb test</p>
+      <h1>Infinitive Verb Tense Test</h1>
+    </div>
+    <nav>
+      <a href="javascript:history.back()">Back</a>
+      <a href="module.html?module=verbTenses">Lesson</a>
+      <a href="index.html">Main</a>
+    </nav>
+  </header>
+  <main>
+    <section class="section verbTestIntro">
+      <div>
+        <p class="eyebrow">Write your own sentences</p>
+        <h2>Fill the tense forms</h2>
+        <p class="result">Only the verb tense is checked. You can write any sentence if it includes the correct Swedish form for that column.</p>
+      </div>
+      <div class="actions">
+        <button id="checkVerbTest" class="primary" type="button">Check answers</button>
+        <button id="clearVerbTest" type="button">Clear test</button>
+      </div>
+    </section>
+
+    <section class="section verbTestScore">
+      <div class="metricGrid">
+        <div class="metricCard">
+          <span>Score</span>
+          <strong id="verbTestScore">0/0</strong>
+          <small id="verbTestPercent">No answers checked yet</small>
+        </div>
+        <div class="metricCard">
+          <span>Wrong answers</span>
+          <strong id="verbTestWrongCount">0</strong>
+          <small id="speechSupportStatus">Checking microphone support...</small>
+        </div>
+      </div>
+      <div id="verbTestWrongList" class="verbWrongList"></div>
+    </section>
+
+    <section class="section">
+      <div id="verbTestRows" class="verbTestSheet"></div>
+    </section>
+  </main>
+  <audio id="pageAudio" preload="metadata"></audio>
+  <script src="assets/audio/generated_manifest.js?v=20260527-verbs1"></script>
+  <script src="verb_tense_data.js?v=20260527-verbs1"></script>
+  <script src="verb_tense_test.js?v=20260607-verbtest1"></script>
+</body>
+</html>
