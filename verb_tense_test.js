@@ -183,12 +183,12 @@ function pickSwedishVoice() {
 }
 
 function speakSwedish(text) {
-  if (!swedishVoice || !("speechSynthesis" in window)) return false;
+  if (!("speechSynthesis" in window)) return false;
   speechSynthesis.cancel();
   const utterance = new SpeechSynthesisUtterance(text);
   utterance.lang = "sv-SE";
   utterance.rate = 0.82;
-  utterance.voice = swedishVoice;
+  if (swedishVoice) utterance.voice = swedishVoice;
   speechSynthesis.speak(utterance);
   return true;
 }
@@ -578,7 +578,7 @@ function listenToTypedAnswer(button) {
   }
   feedback.textContent = "Playing your sentence...";
   const played = play(text);
-  if (!played) feedback.textContent = "No Swedish audio voice is available for this sentence.";
+  if (!played) feedback.textContent = "Browser speech playback is not available here.";
 }
 
 function renderTest() {
