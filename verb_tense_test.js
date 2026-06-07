@@ -9,7 +9,64 @@ const tenses = [
 let swedishVoice = null;
 let recognition = null;
 let activeSpeechButton = null;
-let speechUnsupportedMessage = "Speech checking is not available in this browser.";
+let speechUnsupportedMessage = "Speech checking is not available in this browser. Try Chrome or Edge and allow microphone access.";
+
+const phraseTranslations = [
+  ["i går", "yesterday"],
+  ["igår", "yesterday"],
+  ["i dag", "today"],
+  ["idag", "today"],
+  ["i morgon", "tomorrow"],
+  ["imorgon", "tomorrow"],
+  ["i kväll", "tonight"],
+  ["ikväll", "tonight"],
+  ["just nu", "right now"],
+  ["snart", "soon"],
+  ["nu", "now"],
+  ["hemma", "at home"],
+  ["hem", "home"],
+  ["här", "here"],
+  ["där", "there"],
+  ["kaffe", "coffee"],
+  ["te", "tea"],
+  ["vatten", "water"],
+  ["mjölk", "milk"],
+  ["lunch", "lunch"],
+  ["middag", "dinner"],
+  ["frukost", "breakfast"],
+  ["boken", "the book"],
+  ["brevet", "the letter"],
+  ["sidan", "the page"],
+  ["svaret", "the answer"],
+  ["svenska", "Swedish"]
+];
+
+const wordTranslations = {
+  jag: "I",
+  du: "you",
+  han: "he",
+  hon: "she",
+  vi: "we",
+  ni: "you",
+  de: "they",
+  det: "it",
+  en: "a",
+  ett: "a",
+  och: "and",
+  inte: "not",
+  mycket: "a lot",
+  lite: "a little",
+  med: "with",
+  på: "on",
+  i: "in",
+  till: "to",
+  från: "from",
+  för: "for",
+  efter: "after",
+  före: "before",
+  igen: "again",
+  redan: "already"
+};
 
 function pickSwedishVoice() {
   if (!("speechSynthesis" in window)) return;
@@ -52,6 +109,15 @@ function normalizeText(text) {
     .replace(/[.,!?;:"'()[\]{}]/g, " ")
     .replace(/\s+/g, " ")
     .trim()} `;
+}
+
+function translationKey(text) {
+  return normalizeText(text)
+    .replace(/\bigår\b/g, "i går")
+    .replace(/\bidag\b/g, "i dag")
+    .replace(/\bimorgon\b/g, "i morgon")
+    .replace(/\bikväll\b/g, "i kväll")
+    .trim();
 }
 
 function wordsIn(sentence) {
@@ -104,11 +170,58 @@ function feedbackText(forms) {
   return `Expected: ${forms.join(" or ")}`;
 }
 
+function exactTranslationFor(value) {
+  const key = translationKey(value);
+  for (const verb of verbs) {
+    const examples = [verb.present, verb.past, verb.perfect, verb.future];
+    for (const [swedish, english] of examples) {
+      if (translationKey(swedish) === key) return english;
+    }
+  }
+  return "";
+}
+
+function englishVerbPhrase(verb, tense) {
+  const meaning = verb.meaning.replace(/^to\s+/i, "");
+  if (tense === "past") return `${meaning} - past`;
+  if (tense === "perfect") return `have ${meaning} / has ${meaning}`;
+  if (tense === "future") return `will ${meaning}`;
+  return meaning;
+}
+
+function roughTranslationFor(value, verb, tense) {
+  const exact = exactTranslationFor(value);
+  if (exact) return exact;
+
+  let text = normalizeText(value).trim();
+  phraseTranslations.forEach(([sv, en]) => {
+    text = text.replace(new RegExp(`\\b${sv}\\b`, "g"), en);
+  });
+  expectedForms(verb, tense).forEach((form) => {
+    text = text.replace(new RegExp(`\\b${form}\\b`, "g"), englishVerbPhrase(verb, tense));
+  });
+
+  const translatedWords = text.split(/\s+/).map((word) => wordTranslations[word] || word);
+  const rough = translatedWords.join(" ").replace(/\s+/g, " ").trim();
+  return rough ? `Rough: ${rough}` : "";
+}
+
+function updateTranslation(cell, value, verb, tense) {
+  const translation = cell.querySelector(".verbTranslation");
+  if (!translation) return;
+  if (!value.trim()) {
+    translation.textContent = "";
+    return;
+  }
+  translation.textContent = roughTranslationFor(value, verb, tense);
+}
+
 function updateCell(cell, input, verb, tense) {
   const feedback = cell.querySelector(".verbTestFeedback");
   if (!input.value.trim()) {
     cell.classList.remove("correct", "wrong");
     feedback.textContent = "";
+    updateTranslation(cell, input.value, verb, tense);
     return null;
   }
 
@@ -116,6 +229,7 @@ function updateCell(cell, input, verb, tense) {
   cell.classList.toggle("correct", result.ok);
   cell.classList.toggle("wrong", !result.ok);
   feedback.textContent = result.ok ? "Correct tense form" : feedbackText(result.forms);
+  updateTranslation(cell, input.value, verb, tense);
   return result;
 }
 
@@ -224,6 +338,7 @@ function clearTest() {
     cell.classList.remove("correct", "wrong");
     cell.querySelector("input").value = "";
     cell.querySelector(".verbTestFeedback").textContent = "";
+    cell.querySelector(".verbTranslation").textContent = "";
   });
   document.getElementById("verbTestScore").textContent = "0/0";
   document.getElementById("verbTestPercent").textContent = "No answers checked yet";
@@ -336,6 +451,7 @@ function renderTest() {
       input.addEventListener("input", () => {
         cell.classList.remove("correct", "wrong");
         cell.querySelector(".verbTestFeedback").textContent = "";
+        updateTranslation(cell, input.value, verb, tense);
       });
 
       const speak = document.createElement("button");
@@ -349,7 +465,9 @@ function renderTest() {
 
       const feedback = document.createElement("small");
       feedback.className = "verbTestFeedback";
-      cell.append(input, speak, feedback);
+      const translation = document.createElement("small");
+      translation.className = "verbTranslation";
+      cell.append(input, speak, feedback, translation);
       row.appendChild(cell);
     });
 

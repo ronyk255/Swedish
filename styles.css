@@ -537,7 +537,8 @@ main {
 }
 
 .verbTestVerb small,
-.verbTestFeedback {
+.verbTestFeedback,
+.verbTranslation {
   color: var(--muted);
 }
 
@@ -568,6 +569,14 @@ main {
   grid-column: 1 / -1;
   min-height: 1.2em;
   line-height: 1.25;
+}
+
+.verbTranslation {
+  grid-column: 1 / -1;
+  min-height: 1.2em;
+  line-height: 1.25;
+  color: #075f48;
+  font-style: italic;
 }
 
 .verbSpeakButton {
