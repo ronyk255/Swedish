@@ -9,6 +9,7 @@ const tenses = [
 let swedishVoice = null;
 let recognition = null;
 let activeSpeechButton = null;
+let speechUnsupportedMessage = "Speech checking is not available in this browser.";
 
 function pickSwedishVoice() {
   if (!("speechSynthesis" in window)) return;
@@ -166,6 +167,58 @@ function summarizeTest() {
   });
 }
 
+function summarizeRow(row) {
+  let attempted = 0;
+  let correct = 0;
+  const wrong = [];
+
+  row.querySelectorAll(".verbTestCell[data-tense]").forEach((cell) => {
+    const input = cell.querySelector("input");
+    const verb = verbs[Number(cell.dataset.verbIndex)];
+    const tense = cell.dataset.tense;
+    const result = updateCell(cell, input, verb, tense);
+    if (!result) return;
+    attempted += 1;
+    if (result.ok) {
+      correct += 1;
+    } else {
+      wrong.push({
+        infinitive: verb.infinitive,
+        tense,
+        answer: input.value.trim(),
+        expected: result.forms.join(" or ")
+      });
+    }
+  });
+
+  document.getElementById("verbTestScore").textContent = `${correct}/${attempted}`;
+  document.getElementById("verbTestPercent").textContent = attempted
+    ? `${Math.round((correct / attempted) * 100)}% correct for this row`
+    : "No answers in this row yet";
+  document.getElementById("verbTestWrongCount").textContent = wrong.length;
+
+  const wrongList = document.getElementById("verbTestWrongList");
+  wrongList.innerHTML = "";
+  if (!attempted) {
+    wrongList.innerHTML = "<strong>Type or speak at least one answer in this row.</strong>";
+    return;
+  }
+  if (!wrong.length) {
+    wrongList.innerHTML = "<strong>This row is correct.</strong>";
+    return;
+  }
+  wrong.forEach((item) => {
+    const wrongRow = document.createElement("div");
+    wrongRow.className = "verbWrongItem";
+    wrongRow.innerHTML = `
+      <strong>${item.infinitive} - ${item.tense}</strong>
+      <span>Your sentence: ${item.answer}</span>
+      <small>${item.expected}</small>
+    `;
+    wrongList.appendChild(wrongRow);
+  });
+}
+
 function clearTest() {
   document.querySelectorAll(".verbTestCell[data-tense]").forEach((cell) => {
     cell.classList.remove("correct", "wrong");
@@ -182,7 +235,7 @@ function setupSpeechRecognition() {
   const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
   const status = document.getElementById("speechSupportStatus");
   if (!SpeechRecognition) {
-    status.textContent = "Speech checking is not available in this browser.";
+    status.textContent = speechUnsupportedMessage;
     return;
   }
 
@@ -198,7 +251,20 @@ function setupSpeechRecognition() {
     if (!cell) return;
     const input = cell.querySelector("input");
     input.value = transcript;
-    updateCell(cell, input, verbs[Number(cell.dataset.verbIndex)], cell.dataset.tense);
+    const result = updateCell(cell, input, verbs[Number(cell.dataset.verbIndex)], cell.dataset.tense);
+    document.getElementById("speechSupportStatus").textContent = result?.ok
+      ? `Heard: "${transcript}" - correct.`
+      : `Heard: "${transcript}" - check the tense form.`;
+    summarizeRow(cell.closest(".verbTestRow"));
+  });
+
+  recognition.addEventListener("error", (event) => {
+    const message = event.error === "not-allowed"
+      ? "Microphone permission was blocked. Allow microphone access, then try Speak again."
+      : `Speech check stopped: ${event.error}.`;
+    document.getElementById("speechSupportStatus").textContent = message;
+    if (activeSpeechButton) activeSpeechButton.textContent = "Speak";
+    activeSpeechButton = null;
   });
 
   recognition.addEventListener("end", () => {
@@ -208,11 +274,21 @@ function setupSpeechRecognition() {
 }
 
 function startSpeech(button) {
-  if (!recognition) return;
+  if (!recognition) {
+    const cell = button.closest(".verbTestCell");
+    cell.querySelector(".verbTestFeedback").textContent = speechUnsupportedMessage;
+    document.getElementById("speechSupportStatus").textContent = speechUnsupportedMessage;
+    return;
+  }
   if (activeSpeechButton) recognition.stop();
   activeSpeechButton = button;
   button.textContent = "Listening...";
-  recognition.start();
+  document.getElementById("speechSupportStatus").textContent = "Listening...";
+  try {
+    recognition.start();
+  } catch (error) {
+    document.getElementById("speechSupportStatus").textContent = "Speech recognition is already listening.";
+  }
 }
 
 function renderTest() {
@@ -236,7 +312,13 @@ function renderTest() {
     listen.className = "verbListenButton";
     listen.textContent = "Listen";
     listen.addEventListener("click", () => play(verb.infinitive));
+    const checkRow = document.createElement("button");
+    checkRow.type = "button";
+    checkRow.className = "verbRowCheckButton primary";
+    checkRow.textContent = "Check row";
+    checkRow.addEventListener("click", () => summarizeRow(row));
     verbCell.appendChild(listen);
+    verbCell.appendChild(checkRow);
     row.appendChild(verbCell);
 
     tenses.forEach(([label, tense]) => {
@@ -260,7 +342,9 @@ function renderTest() {
       speak.type = "button";
       speak.className = "verbSpeakButton";
       speak.textContent = "Speak";
-      speak.disabled = !recognition;
+      speak.title = recognition
+        ? "Click, speak your Swedish sentence, and the page will check this tense form"
+        : speechUnsupportedMessage;
       speak.addEventListener("click", () => startSpeech(speak));
 
       const feedback = document.createElement("small");

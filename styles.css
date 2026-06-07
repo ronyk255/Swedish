@@ -496,8 +496,8 @@ main {
 .verbTestHeader,
 .verbTestRow {
   display: grid;
-  grid-template-columns: minmax(150px, 0.85fr) repeat(4, minmax(230px, 1fr));
-  min-width: 1070px;
+  grid-template-columns: minmax(170px, 0.9fr) repeat(4, minmax(230px, 1fr));
+  min-width: 1090px;
 }
 
 .verbTestHeader {
@@ -528,7 +528,7 @@ main {
 
 .verbTestVerb {
   display: grid;
-  gap: 0.25rem;
+  gap: 0.35rem;
   align-content: start;
 }
 
@@ -539,6 +539,17 @@ main {
 .verbTestVerb small,
 .verbTestFeedback {
   color: var(--muted);
+}
+
+.verbTestVerb .verbListenButton,
+.verbRowCheckButton {
+  width: 100%;
+  min-height: 36px;
+}
+
+.verbRowCheckButton {
+  padding: 0.42rem 0.55rem;
+  font-size: 0.86rem;
 }
 
 .verbTestCell {
