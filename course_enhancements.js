@@ -63,7 +63,13 @@
         ["Work exchange", "Jobbar du? Ja, jag jobbar. Vad jobbar du med?"],
         ["Free time", "Vad gör du på fritiden? Jag läser, tränar och studerar svenska."],
         ["Nice close", "Det var trevligt att prata med dig. Vi ses!"],
-        ["Full meeting dialogue", "Hej! Jag heter Rony. Vad heter du? Jag heter Anna. Trevligt att träffas. Varifrån kommer du? Jag kommer från Indien, men jag bor i Stockholm."]
+        ["Full meeting dialogue", "Hej! Jag heter Rony. Vad heter du? Jag heter Anna. Trevligt att träffas. Varifrån kommer du? Jag kommer från Indien, men jag bor i Stockholm."],
+        ["Greetings by time", "Hej. God morgon. God dag. God kväll. Hej då."],
+        ["Country pattern", "Jag kommer från Sverige. Jag kommer från Indien. Jag kommer från USA."],
+        ["Common countries", "Sverige, Indien, USA, England, Tyskland, Frankrike, Spanien, Italien, Kina, Japan."],
+        ["More countries", "Norge, Danmark, Finland, Polen, Nederländerna, Kanada, Australien, Brasilien, Mexiko."],
+        ["Language pattern", "Jag talar engelska. Jag talar svenska. Jag talar lite svenska."],
+        ["Common languages", "svenska, engelska, hindi, tyska, franska, spanska, italienska, kinesiska, japanska, arabiska."]
       ],
       vocabulary: [
         ["nu", "now"],
@@ -84,7 +90,35 @@
         ["på fritiden", "in your free time"],
         ["tränar", "train / exercise"],
         ["ännu", "yet"],
-        ["det var trevligt", "that was nice"]
+        ["det var trevligt", "that was nice"],
+        ["hej då", "goodbye"],
+        ["god dag", "good day"],
+        ["Sverige", "Sweden"],
+        ["USA", "the USA"],
+        ["England", "England"],
+        ["Tyskland", "Germany"],
+        ["Frankrike", "France"],
+        ["Spanien", "Spain"],
+        ["Italien", "Italy"],
+        ["Kina", "China"],
+        ["Japan", "Japan"],
+        ["Norge", "Norway"],
+        ["Danmark", "Denmark"],
+        ["Finland", "Finland"],
+        ["Polen", "Poland"],
+        ["Nederländerna", "the Netherlands"],
+        ["Kanada", "Canada"],
+        ["Australien", "Australia"],
+        ["Brasilien", "Brazil"],
+        ["Mexiko", "Mexico"],
+        ["hindi", "Hindi"],
+        ["tyska", "German"],
+        ["franska", "French"],
+        ["spanska", "Spanish"],
+        ["italienska", "Italian"],
+        ["kinesiska", "Chinese"],
+        ["japanska", "Japanese"],
+        ["arabiska", "Arabic"]
       ],
       examples: [
         "Och du?",
@@ -103,7 +137,16 @@
         "Nej, inte ännu.",
         "Vad jobbar du med?",
         "Vad gör du på fritiden?",
-        "Det var trevligt att prata med dig."
+        "Det var trevligt att prata med dig.",
+        "Hej då.",
+        "God dag.",
+        "Jag kommer från Sverige.",
+        "Jag kommer från USA.",
+        "Sverige, Indien, USA, England, Tyskland, Frankrike, Spanien, Italien, Kina, Japan.",
+        "Norge, Danmark, Finland, Polen, Nederländerna, Kanada, Australien, Brasilien, Mexiko.",
+        "Jag talar engelska.",
+        "Jag talar svenska.",
+        "svenska, engelska, hindi, tyska, franska, spanska, italienska, kinesiska, japanska, arabiska."
       ]
     },
     wordorder: {
@@ -116,7 +159,13 @@
         ["Move the time", "Jag studerar svenska i dag. I dag studerar jag svenska."],
         ["Where question", "Var bor du? Jag bor i Stockholm."],
         ["What question", "Vad studerar du? Jag studerar svenska."],
-        ["Question chain", "Heter du Rony? Bor du i Stockholm? Talar du svenska?"]
+        ["Question chain", "Heter du Rony? Bor du i Stockholm? Talar du svenska?"],
+        ["Question words", "Vad? Var? Varifrån? Vem? Vilka? Hur? Varför? När?"],
+        ["Who question", "Vem är det? Det är Anna."],
+        ["Why question", "Varför studerar du svenska? Jag studerar svenska för jobbet."],
+        ["When question", "När börjar lektionen? Lektionen börjar klockan nio."],
+        ["How question", "Hur mår du? Jag mår bra, tack."],
+        ["Which question", "Vilka språk talar du? Jag talar engelska och lite svenska."]
       ],
       vocabulary: [
         ["var", "where"],
@@ -124,9 +173,18 @@
         ["här", "here"],
         ["där", "there"],
         ["också", "also / too"],
-        ["men", "but"]
+        ["men", "but"],
+        ["vem", "who"],
+        ["varför", "why"],
+        ["när", "when"],
+        ["hur", "how"],
+        ["vilka", "which / what plural"],
+        ["mår", "feel / am doing"],
+        ["börjar", "starts / begins"],
+        ["lektionen", "the lesson"],
+        ["för jobbet", "for work"]
       ],
-      examples: ["Var bor du?", "Vad studerar du?", "Jag studerar svenska i dag.", "Heter du Rony?", "Jag talar engelska, men jag studerar svenska."]
+      examples: ["Var bor du?", "Vad studerar du?", "Jag studerar svenska i dag.", "Heter du Rony?", "Jag talar engelska, men jag studerar svenska.", "Vem är det?", "Varför studerar du svenska?", "När börjar lektionen?", "Hur mår du?", "Vilka språk talar du?"]
     },
     verbs: {
       notes: [
@@ -227,6 +285,49 @@
     addUnique(module.examples ||= [], extra.examples || []);
   });
 
+  if (byId.intro) {
+    byId.intro.speechQuiz = [
+      "Hej.",
+      "God morgon.",
+      "Vad heter du?",
+      "Jag heter Rony.",
+      "Varifrån kommer du?",
+      "Jag kommer från Indien.",
+      "Jag kommer från Sverige.",
+      "Jag kommer från USA.",
+      "Var bor du?",
+      "Jag bor i Stockholm.",
+      "Vilka språk talar du?",
+      "Jag talar engelska och lite svenska.",
+      "Hur är det?",
+      "Det är bra, tack.",
+      "Kan du säga det igen?",
+      "Trevligt att träffas.",
+      "Vi ses!",
+      "Hej då."
+    ];
+  }
+
+  if (byId.wordorder) {
+    byId.wordorder.speechQuiz = [
+      "Jag bor i Stockholm.",
+      "Bor du i Stockholm?",
+      "Du talar svenska.",
+      "Talar du svenska?",
+      "Vad heter du?",
+      "Var bor du?",
+      "Varifrån kommer du?",
+      "Vem är det?",
+      "Vad studerar du?",
+      "Varför studerar du svenska?",
+      "När börjar lektionen?",
+      "Hur mår du?",
+      "Vilka språk talar du?",
+      "I dag studerar jag svenska.",
+      "Jag talar engelska, men jag studerar svenska."
+    ];
+  }
+
   window.EXTRA_LESSON_DETAILS = {
     alphabet: [
       ["Minimal pairs", "tak, tack, mat, matt, glas, glass", "roof, thanks, food, tired/dull, glass, ice cream", "Listen for vowel length first. Then repeat each pair slowly."],
@@ -242,12 +343,24 @@
       ["Ask languages", "Vilka språk talar du?", "Which languages do you speak?", "Vilka språk is a simple way to ask about multiple languages."],
       ["Ask about work", "Vad jobbar du med?", "What do you do for work?", "Use this after names and countries when the conversation continues."],
       ["Ask about free time", "Vad gör du på fritiden?", "What do you do in your free time?", "This gives you an easy bridge to hobbies and everyday verbs."],
-      ["Close politely", "Det var trevligt att prata med dig.", "It was nice talking with you.", "Use this before Vi ses when ending a first conversation."]
+      ["Close politely", "Det var trevligt att prata med dig.", "It was nice talking with you.", "Use this before Vi ses when ending a first conversation."],
+      ["Greeting words", "Hej. God morgon. God dag. God kväll. Hej då.", "Hi. Good morning. Good day. Good evening. Goodbye.", "Hej works almost everywhere. Use God morgon early, God kväll later, and Hej då when leaving."],
+      ["Country answer pattern", "Jag kommer från Sverige. Jag kommer från Indien. Jag kommer från USA.", "I come from Sweden. I come from India. I come from the USA.", "Use Jag kommer från + country. Från means from."],
+      ["Most useful country names", "Sverige, Indien, USA, England, Tyskland, Frankrike, Spanien, Italien, Kina, Japan.", "Sweden, India, USA, England, Germany, France, Spain, Italy, China, Japan.", "Country names are usually capitalized in Swedish, just like in English."],
+      ["More country names", "Norge, Danmark, Finland, Polen, Nederländerna, Kanada, Australien, Brasilien, Mexiko.", "Norway, Denmark, Finland, Poland, the Netherlands, Canada, Australia, Brazil, Mexico.", "Say the names slowly as vocabulary first, then put them after från."],
+      ["Language answer pattern", "Jag talar engelska. Jag talar svenska. Jag talar lite svenska.", "I speak English. I speak Swedish. I speak a little Swedish.", "Use Jag talar + language. Language names usually use lower-case letters in Swedish."],
+      ["Most useful language names", "svenska, engelska, hindi, tyska, franska, spanska, italienska, kinesiska, japanska, arabiska.", "Swedish, English, Hindi, German, French, Spanish, Italian, Chinese, Japanese, Arabic.", "Practice language names with talar: Jag talar engelska och lite svenska."]
     ],
     wordorder: [
       ["Where questions", "Var bor du?", "Where do you live?", "Var + verb + subject is the same question-word pattern as Vad heter du?"],
       ["What questions", "Vad studerar du?", "What do you study?", "Vad + studerar + du. Keep the verb before the subject."],
-      ["Contrast sentence", "Jag talar engelska, men jag studerar svenska.", "I speak English, but I study Swedish.", "Men = but. The second clause still uses subject + verb."]
+      ["Contrast sentence", "Jag talar engelska, men jag studerar svenska.", "I speak English, but I study Swedish.", "Men = but. The second clause still uses subject + verb."],
+      ["Question-word map", "Vad? Var? Varifrån? Vem? Vilka? Hur? Varför? När?", "What? Where? From where? Who? Which? How? Why? When?", "Most question-word questions use question word + verb + subject."],
+      ["Who questions", "Vem är det? Det är Anna.", "Who is it? It is Anna.", "Vem asks about a person. Är is the verb and comes before det in the question."],
+      ["Why questions", "Varför studerar du svenska? Jag studerar svenska för jobbet.", "Why do you study Swedish? I study Swedish for work.", "Varför asks for a reason. A simple answer can use för + reason."],
+      ["When questions", "När börjar lektionen? Lektionen börjar klockan nio.", "When does the lesson start? The lesson starts at nine.", "När asks about time. The question still keeps verb before subject."],
+      ["How questions", "Hur mår du? Jag mår bra, tack.", "How are you? I am well, thanks.", "Hur asks how. Mår is used for how someone feels."],
+      ["Which questions", "Vilka språk talar du? Jag talar engelska och lite svenska.", "Which languages do you speak? I speak English and a little Swedish.", "Vilka is used with plural nouns, like språk here."]
     ],
     verbs: [
       ["Subject swap", "Jag bor här. Du bor här. Vi bor här.", "I live here. You live here. We live here.", "The verb bor stays the same with each pronoun."],
@@ -314,10 +427,32 @@
     "Vad jobbar du med?": "What do you do for work?",
     "Vad gör du på fritiden?": "What do you do in your free time?",
     "Det var trevligt att prata med dig.": "It was nice talking with you.",
+    "Hej. God morgon. God dag. God kväll. Hej då.": "Hi. Good morning. Good day. Good evening. Goodbye.",
+    "Hej då.": "Goodbye.",
+    "God dag.": "Good day.",
+    "Jag kommer från Sverige.": "I come from Sweden.",
+    "Jag kommer från USA.": "I come from the USA.",
+    "Jag kommer från Sverige. Jag kommer från Indien. Jag kommer från USA.": "I come from Sweden. I come from India. I come from the USA.",
+    "Sverige, Indien, USA, England, Tyskland, Frankrike, Spanien, Italien, Kina, Japan.": "Sweden, India, USA, England, Germany, France, Spain, Italy, China, Japan.",
+    "Norge, Danmark, Finland, Polen, Nederländerna, Kanada, Australien, Brasilien, Mexiko.": "Norway, Denmark, Finland, Poland, the Netherlands, Canada, Australia, Brazil, Mexico.",
+    "Jag talar engelska.": "I speak English.",
+    "Jag talar svenska.": "I speak Swedish.",
+    "Jag talar engelska. Jag talar svenska. Jag talar lite svenska.": "I speak English. I speak Swedish. I speak a little Swedish.",
+    "svenska, engelska, hindi, tyska, franska, spanska, italienska, kinesiska, japanska, arabiska.": "Swedish, English, Hindi, German, French, Spanish, Italian, Chinese, Japanese, Arabic.",
     "Jag studerar svenska i dag. I dag studerar jag svenska.": "I study Swedish today. Today I study Swedish.",
     "Var bor du? Jag bor i Stockholm.": "Where do you live? I live in Stockholm.",
     "Vad studerar du? Jag studerar svenska.": "What do you study? I study Swedish.",
     "Heter du Rony? Bor du i Stockholm? Talar du svenska?": "Are you called Rony? Do you live in Stockholm? Do you speak Swedish?",
+    "Vad? Var? Varifrån? Vem? Vilka? Hur? Varför? När?": "What? Where? From where? Who? Which? How? Why? When?",
+    "Vem är det?": "Who is it?",
+    "Vem är det? Det är Anna.": "Who is it? It is Anna.",
+    "Varför studerar du svenska?": "Why do you study Swedish?",
+    "Varför studerar du svenska? Jag studerar svenska för jobbet.": "Why do you study Swedish? I study Swedish for work.",
+    "När börjar lektionen?": "When does the lesson start?",
+    "När börjar lektionen? Lektionen börjar klockan nio.": "When does the lesson start? The lesson starts at nine.",
+    "Hur mår du?": "How are you?",
+    "Hur mår du? Jag mår bra, tack.": "How are you? I am well, thanks.",
+    "Vilka språk talar du? Jag talar engelska och lite svenska.": "Which languages do you speak? I speak English and a little Swedish.",
     "Jag bor här. Du bor här. Vi bor här.": "I live here. You live here. We live here.",
     "Jag bor i Stockholm. Jag studerar svenska. Jag talar engelska.": "I live in Stockholm. I study Swedish. I speak English.",
     "Jag förstår. Jag förstår inte. Jag talar svenska. Jag talar inte svenska.": "I understand. I do not understand. I speak Swedish. I do not speak Swedish.",
@@ -384,12 +519,22 @@
     { module: "intro", q: "Choose a free-time reply.", options: ["Jag läser, tränar och studerar svenska.", "Jag heter, kostar och bor.", "Jag språk fritiden."], answer: "Jag läser, tränar och studerar svenska.", audio: "Jag läser, tränar och studerar svenska." },
     { module: "intro", q: "Which phrase politely closes a conversation?", options: ["Det var trevligt att prata med dig.", "Vad kostar det?", "Jag bor kaffe."], answer: "Det var trevligt att prata med dig.", audio: "Det var trevligt att prata med dig." },
     { module: "intro", q: "Choose the natural first-meeting order.", options: ["Hej. Vad heter du? Trevligt att träffas.", "Vad kostar det? Hej. Klockan är två.", "Jag bor kaffe. Vi ses."], answer: "Hej. Vad heter du? Trevligt att träffas.", audio: "Hej. Vad heter du? Trevligt att träffas." },
+    { module: "intro", type: "speech", q: "Say: Hej.", options: [], answer: "Hej.", audio: "Hej." },
+    { module: "intro", type: "speech", q: "Say: Jag heter Rony.", options: [], answer: "Jag heter Rony.", audio: "Jag heter Rony." },
+    { module: "intro", type: "speech", q: "Say: Jag kommer från Indien.", options: [], answer: "Jag kommer från Indien.", audio: "Jag kommer från Indien." },
+    { module: "intro", type: "speech", q: "Say: Jag talar engelska och lite svenska.", options: [], answer: "Jag talar engelska och lite svenska.", audio: "Jag talar engelska och lite svenska." },
+    { module: "intro", type: "speech", q: "Say: Vilka språk talar du?", options: [], answer: "Vilka språk talar du?", audio: "Vilka språk talar du?" },
 
     { module: "wordorder", q: "Choose the correct 'where' question.", options: ["Var bor du?", "Du bor var?", "Bor var du?"], answer: "Var bor du?", audio: "Var bor du?" },
     { module: "wordorder", q: "Choose the correct 'what do you study?' question.", options: ["Vad studerar du?", "Du studerar vad?", "Studerar vad du?"], answer: "Vad studerar du?", audio: "Vad studerar du?" },
     { module: "wordorder", q: "Choose the sentence with time first and verb second.", options: ["I dag studerar jag svenska.", "I dag jag studerar svenska.", "Jag i dag studerar svenska."], answer: "I dag studerar jag svenska.", audio: "I dag studerar jag svenska." },
     { module: "wordorder", q: "Which word means but?", options: ["men", "också", "här"], answer: "men", audio: "men" },
     { module: "wordorder", q: "Choose the correct contrast sentence.", options: ["Jag talar engelska, men jag studerar svenska.", "Jag engelska talar, men svenska jag studerar.", "Talar jag engelska men svenska."], answer: "Jag talar engelska, men jag studerar svenska.", audio: "Jag talar engelska, men jag studerar svenska." },
+    { module: "wordorder", type: "speech", q: "Say the statement: Jag bor i Stockholm.", options: [], answer: "Jag bor i Stockholm.", audio: "Jag bor i Stockholm." },
+    { module: "wordorder", type: "speech", q: "Say the yes/no question: Bor du i Stockholm?", options: [], answer: "Bor du i Stockholm?", audio: "Bor du i Stockholm?" },
+    { module: "wordorder", type: "speech", q: "Say the what question: Vad studerar du?", options: [], answer: "Vad studerar du?", audio: "Vad studerar du?" },
+    { module: "wordorder", type: "speech", q: "Say the why question: Varför studerar du svenska?", options: [], answer: "Varför studerar du svenska?", audio: "Varför studerar du svenska?" },
+    { module: "wordorder", type: "speech", q: "Say the when question: När börjar lektionen?", options: [], answer: "När börjar lektionen?", audio: "När börjar lektionen?" },
 
     { module: "verbs", q: "Which sentence means 'I live here'?", options: ["Jag bor här.", "Jag heter här.", "Jag talar här."], answer: "Jag bor här.", audio: "Jag bor här." },
     { module: "verbs", q: "Translate: We live here.", options: ["Vi bor här.", "Vi heter här.", "Vi förstår här."], answer: "Vi bor här.", audio: "Vi bor här." },

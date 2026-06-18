@@ -130,6 +130,9 @@ const translationLookup = {
 };
 
 let swedishVoice = null;
+let recognition = null;
+let activeSpeechButton = null;
+const speechUnsupportedMessage = "Speech checking is not available in this browser. Try Chrome or Edge and allow microphone access.";
 
 function pickSwedishVoice() {
   if (!("speechSynthesis" in window)) return;
@@ -187,6 +190,131 @@ function audioButton(label, text) {
 function englishFor(text) {
   const clean = text.trim().normalize("NFC");
   return (window.COURSE_TRANSLATIONS || {})[clean] || translationLookup[clean] || "";
+}
+
+function normalizeSpeech(text) {
+  return (text || "")
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/å/g, "a")
+    .replace(/ä/g, "a")
+    .replace(/ö/g, "o")
+    .replace(/[.,!?;:]/g, "")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+function speechMatches(spoken, expected) {
+  const heard = normalizeSpeech(spoken);
+  const target = normalizeSpeech(expected);
+  return heard === target || heard.includes(target) || target.includes(heard);
+}
+
+function setSpeechStatus(message) {
+  const status = document.getElementById("speechQuizStatus");
+  if (status) status.textContent = message;
+}
+
+function setupSpeechRecognition() {
+  const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+  if (!SpeechRecognition) {
+    setSpeechStatus(speechUnsupportedMessage);
+    return;
+  }
+
+  recognition = new SpeechRecognition();
+  recognition.lang = "sv-SE";
+  recognition.interimResults = false;
+  recognition.maxAlternatives = 1;
+
+  recognition.addEventListener("result", (event) => {
+    const spoken = event.results[0][0].transcript;
+    const card = activeSpeechButton?.closest(".speechQuizCard");
+    if (!card) return;
+    const expected = card.dataset.expected;
+    const ok = speechMatches(spoken, expected);
+    card.classList.toggle("correct", ok);
+    card.classList.toggle("needsPractice", !ok);
+    card.querySelector(".speechHeard").textContent = `Heard: ${spoken}`;
+    card.querySelector(".speechFeedback").textContent = ok
+      ? "Correct. Bra!"
+      : `Try again. Target: ${expected}`;
+    setSpeechStatus(ok ? "Correct. Bra!" : "Close listening moment: play it once more, then try again.");
+  });
+
+  recognition.addEventListener("error", (event) => {
+    const message = event.error === "not-allowed"
+      ? "Microphone access was blocked. Allow microphone access, then try again."
+      : `Speech recognition error: ${event.error}`;
+    if (activeSpeechButton) {
+      const card = activeSpeechButton.closest(".speechQuizCard");
+      card.querySelector(".speechFeedback").textContent = message;
+    }
+    setSpeechStatus(message);
+  });
+
+  recognition.addEventListener("end", () => {
+    if (activeSpeechButton) {
+      activeSpeechButton.disabled = false;
+      activeSpeechButton.textContent = "Say it";
+      activeSpeechButton = null;
+    }
+  });
+}
+
+function startSpeechCheck(button) {
+  if (!recognition) {
+    const card = button.closest(".speechQuizCard");
+    card.querySelector(".speechFeedback").textContent = speechUnsupportedMessage;
+    setSpeechStatus(speechUnsupportedMessage);
+    return;
+  }
+  if (activeSpeechButton) recognition.stop();
+  activeSpeechButton = button;
+  button.disabled = true;
+  button.textContent = "Listening...";
+  setSpeechStatus("Listening...");
+  try {
+    recognition.start();
+  } catch {
+    setSpeechStatus("Speech recognition is already listening.");
+  }
+}
+
+function renderSpeechQuiz() {
+  const section = document.getElementById("speechQuizSection");
+  const list = document.getElementById("speechQuizList");
+  const prompts = moduleData.speechQuiz || [];
+  if (!section || !list || !prompts.length) return;
+
+  section.classList.remove("hiddenPanel");
+  list.innerHTML = "";
+  prompts.forEach((text, index) => {
+    const card = document.createElement("article");
+    card.className = "speechQuizCard";
+    card.dataset.expected = text;
+    const english = englishFor(text);
+    card.innerHTML = `
+      <span class="stepNumber">${index + 1}</span>
+      <strong>${text}</strong>
+      ${english ? `<p><b>English:</b> ${english}</p>` : ""}
+      <p class="speechHeard">Heard: -</p>
+      <p class="speechFeedback">Play the sentence, then say it.</p>
+    `;
+    const controls = document.createElement("div");
+    controls.className = "speechQuizControls";
+    controls.appendChild(audioButton("Listen", text));
+    const speak = document.createElement("button");
+    speak.type = "button";
+    speak.textContent = recognition ? "Say it" : "No microphone check";
+    speak.disabled = !recognition;
+    speak.title = recognition ? "Say this Swedish sentence" : speechUnsupportedMessage;
+    speak.addEventListener("click", () => startSpeechCheck(speak));
+    controls.appendChild(speak);
+    card.appendChild(controls);
+    list.appendChild(card);
+  });
 }
 
 function renderAlphabetDrill() {
@@ -378,6 +506,7 @@ function render() {
     if (button) card.appendChild(button);
     examples.appendChild(card);
   });
+  renderSpeechQuiz();
   document.getElementById("playExamples").addEventListener("click", () => {
     const first = moduleData.examples[0];
     if (first) play(first);
@@ -387,6 +516,7 @@ function render() {
 document.addEventListener("DOMContentLoaded", () => {
   pickSwedishVoice();
   if ("speechSynthesis" in window) speechSynthesis.onvoiceschanged = pickSwedishVoice;
+  setupSpeechRecognition();
   render();
 });
 

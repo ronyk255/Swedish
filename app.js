@@ -204,8 +204,8 @@ const modules = [
   },
   {
     id: "intro",
-    title: "Names, Languages, and Countries",
-    goal: "Introduce yourself, ask someone's name, say where you are from, and say which languages you speak.",
+    title: "Greetings, Languages, and Countries",
+    goal: "Greet someone, introduce yourself, say where you are from, name common countries, and say which languages you speak.",
     tags: ["Kapitel 1", "speaking", "dialogue"],
     phrase: "Hej! Jag heter Rony. Jag kommer från Indien. Jag talar engelska och lite svenska.",
     pdf: "/materials/textbook/Kapitel%2001.pdf",

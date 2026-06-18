@@ -8,6 +8,9 @@ let answers = [];
 let shuffledQuestions = [];
 let currentProfile = localStorage.getItem("swedishServerProfile") || "Rony";
 let swedishVoice = null;
+let recognition = null;
+let activeSpeechQuestion = null;
+const speechUnsupportedMessage = "Speech checking is not available in this browser. Try Chrome or Edge and allow microphone access.";
 
 function storageKey(base) {
   return `${base}:${currentProfile}`;
@@ -95,6 +98,45 @@ function play(text) {
   return true;
 }
 
+function normalizeSpeech(text) {
+  return (text || "")
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/[.,!?;:]/g, "")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+function speechMatches(spoken, expected) {
+  const heard = normalizeSpeech(spoken);
+  const target = normalizeSpeech(expected);
+  return heard === target || heard.includes(target) || target.includes(heard);
+}
+
+function setupSpeechRecognition() {
+  const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+  if (!SpeechRecognition) return;
+  recognition = new SpeechRecognition();
+  recognition.lang = "sv-SE";
+  recognition.interimResults = false;
+  recognition.maxAlternatives = 1;
+  recognition.addEventListener("result", (event) => {
+    const spoken = event.results[0][0].transcript;
+    const item = activeSpeechQuestion;
+    activeSpeechQuestion = null;
+    if (!item) return;
+    answerQuestion(spoken, speechMatches(spoken, item.answer));
+  });
+  recognition.addEventListener("error", (event) => {
+    const message = event.error === "not-allowed"
+      ? "Microphone access was blocked. Allow microphone access, then try again."
+      : `Speech recognition error: ${event.error}`;
+    document.getElementById("quizResult").textContent = message;
+    activeSpeechQuestion = null;
+  });
+}
+
 function shuffle(list) {
   return list
     .map((value) => ({ value, sort: Math.random() }))
@@ -141,6 +183,29 @@ function renderQuestion() {
   document.getElementById("quizResult").textContent = "";
   const root = document.getElementById("quizOptions");
   root.innerHTML = "";
+  if (item.type === "speech") {
+    const row = document.createElement("div");
+    row.className = "quizOptionRow";
+    const listen = document.createElement("button");
+    listen.textContent = "Play target";
+    listen.addEventListener("click", () => play(item.audio || item.answer));
+    const speak = document.createElement("button");
+    speak.textContent = recognition ? "Say answer" : "No microphone check";
+    speak.disabled = !recognition;
+    speak.title = recognition ? "Say the Swedish sentence" : speechUnsupportedMessage;
+    speak.addEventListener("click", () => {
+      activeSpeechQuestion = item;
+      document.getElementById("quizResult").textContent = "Listening...";
+      try {
+        recognition.start();
+      } catch {
+        document.getElementById("quizResult").textContent = "Speech recognition is already listening.";
+      }
+    });
+    row.append(listen, speak);
+    root.appendChild(row);
+    return;
+  }
   item.options.forEach((option) => {
     const row = document.createElement("div");
     row.className = "quizOptionRow";
@@ -165,9 +230,9 @@ function playCurrentQuestion() {
   document.getElementById("quizResult").textContent = played ? "" : "No local Swedish audio is available for this question.";
 }
 
-function answerQuestion(selected) {
+function answerQuestion(selected, forcedOk = null) {
   const item = shuffledQuestions[index];
-  const ok = selected === item.answer;
+  const ok = forcedOk === null ? selected === item.answer : forcedOk;
   answers.push({ ...item, selected, ok, at: new Date().toLocaleString(), tries: 1 });
   document.getElementById("quizResult").textContent = ok ? "Correct. Bra!" : `Review: ${item.answer}`;
   setTimeout(() => {
@@ -228,6 +293,7 @@ function markModuleComplete() {
 document.addEventListener("DOMContentLoaded", async () => {
   pickSwedishVoice();
   if ("speechSynthesis" in window) speechSynthesis.onvoiceschanged = pickSwedishVoice;
+  setupSpeechRecognition();
   await loadServerProfile();
   document.title = `${moduleData.title} Quiz`;
   document.getElementById("quizPageTitle").textContent = `${moduleData.title} Quiz`;

@@ -35,8 +35,8 @@ window.COURSE_MODULES = [
   },
   {
     id: "intro",
-    title: "Names, Languages, and Countries",
-    goal: "Introduce yourself, ask basic personal questions, and build a short first conversation.",
+    title: "Greetings, Languages, and Countries",
+    goal: "Greet someone, introduce yourself, say where you are from, name common countries, and say which languages you speak.",
     sourceNote: "This module focuses on high-frequency A1 introduction phrases used in beginner Swedish courses.",
     notes: [
       "Jag heter ... means I am called ... and is the normal way to give your name.",
