@@ -297,6 +297,23 @@ function play(text) {
   return true;
 }
 
+function playAudioSource(src) {
+  return new Promise((resolve) => {
+    if ("speechSynthesis" in window) speechSynthesis.cancel();
+    const audio = document.getElementById("pageAudio");
+    audio.pause();
+    audio.onerror = () => resolve(false);
+    audio.oncanplaythrough = () => {
+      audio.oncanplaythrough = null;
+      audio.onerror = null;
+      audio.play().then(() => resolve(true)).catch(() => resolve(false));
+    };
+    audio.src = src;
+    audio.currentTime = 0;
+    audio.load();
+  });
+}
+
 function normalizeText(text) {
   return ` ${text
     .toLowerCase()
@@ -304,6 +321,50 @@ function normalizeText(text) {
     .replace(/[.,!?;:"'()[\]{}]/g, " ")
     .replace(/\s+/g, " ")
     .trim()} `;
+}
+
+function normalizeEnglishAnswer(text) {
+  return text
+    .toLowerCase()
+    .normalize("NFC")
+    .replace(/[.,!?;:()"']/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+function englishMeaningCandidates(meaning) {
+  const clean = meaning.replace(/\([^)]*\)/g, "").trim();
+  const candidates = new Set([clean]);
+
+  if (clean.includes("/")) {
+    const words = clean.split(/\s+/);
+    const slashIndex = words.findIndex((word) => word.includes("/"));
+    if (slashIndex >= 0) {
+      const prefix = words.slice(0, slashIndex).join(" ");
+      const suffix = words.slice(slashIndex + 1).join(" ");
+      words[slashIndex].split("/").forEach((option) => {
+        candidates.add([prefix, option, suffix].filter(Boolean).join(" "));
+      });
+    }
+  }
+
+  Array.from(candidates).forEach((candidate) => {
+    if (candidate.startsWith("to ")) candidates.add(candidate.slice(3));
+  });
+
+  return Array.from(candidates)
+    .map((candidate) => candidate.trim())
+    .filter(Boolean);
+}
+
+function checkTranslationAnswer(value, verb) {
+  const answer = normalizeEnglishAnswer(value);
+  const candidates = englishMeaningCandidates(verb.meaning);
+  const normalizedCandidates = candidates.map(normalizeEnglishAnswer);
+  return {
+    ok: normalizedCandidates.includes(answer),
+    candidates
+  };
 }
 
 function translationKey(text) {
@@ -483,6 +544,26 @@ function updateOnlineTranslateLink(cell, value) {
   link.href = `https://translate.google.com/?${params.toString()}`;
 }
 
+function onlineTranslateUrl(text) {
+  const params = new URLSearchParams({
+    sl: "sv",
+    tl: "en",
+    text,
+    op: "translate"
+  });
+  return `https://translate.google.com/?${params.toString()}`;
+}
+
+function onlineSwedishTtsUrl(text) {
+  const params = new URLSearchParams({
+    ie: "UTF-8",
+    client: "tw-ob",
+    tl: "sv",
+    q: text
+  });
+  return `https://translate.google.com/translate_tts?${params.toString()}`;
+}
+
 function updateCell(cell, input, verb, tense) {
   const feedback = cell.querySelector(".verbTestFeedback");
   if (!input.value.trim()) {
@@ -614,6 +695,81 @@ function clearTest() {
   document.getElementById("verbTestWrongList").innerHTML = "";
 }
 
+function updateTranslationCell(cell, input, verb) {
+  const feedback = cell.querySelector(".verbTranslationFeedback");
+  if (!input.value.trim()) {
+    cell.classList.remove("correct", "wrong");
+    feedback.textContent = "";
+    return null;
+  }
+
+  const result = checkTranslationAnswer(input.value, verb);
+  cell.classList.toggle("correct", result.ok);
+  cell.classList.toggle("wrong", !result.ok);
+  feedback.textContent = result.ok
+    ? "Correct."
+    : `Wrong. Correct answer: ${verb.meaning}`;
+  return result;
+}
+
+function summarizeTranslations() {
+  let attempted = 0;
+  let correct = 0;
+  const wrong = [];
+
+  document.querySelectorAll(".verbTranslationCell[data-verb-index]").forEach((cell) => {
+    const input = cell.querySelector("input");
+    const verb = verbs[Number(cell.dataset.verbIndex)];
+    const result = updateTranslationCell(cell, input, verb);
+    if (!result) return;
+    attempted += 1;
+    if (result.ok) {
+      correct += 1;
+    } else {
+      wrong.push({
+        infinitive: verb.infinitive,
+        answer: input.value.trim(),
+        expected: verb.meaning
+      });
+    }
+  });
+
+  document.getElementById("verbTranslationScore").textContent = `${correct}/${attempted}`;
+  document.getElementById("verbTranslationPercent").textContent = attempted
+    ? `${Math.round((correct / attempted) * 100)}% correct`
+    : "No translations checked yet";
+  document.getElementById("verbTranslationWrongCount").textContent = wrong.length;
+
+  const wrongList = document.getElementById("verbTranslationWrongList");
+  wrongList.innerHTML = "";
+  if (!wrong.length && attempted) {
+    wrongList.innerHTML = "<strong>Every translation you tried is correct.</strong>";
+    return;
+  }
+  wrong.forEach((item) => {
+    const row = document.createElement("div");
+    row.className = "verbWrongItem";
+    row.innerHTML = `
+      <strong>${item.infinitive}</strong>
+      <span>Your answer: ${item.answer}</span>
+      <small>Correct answer: ${item.expected}</small>
+    `;
+    wrongList.appendChild(row);
+  });
+}
+
+function clearTranslations() {
+  document.querySelectorAll(".verbTranslationCell[data-verb-index]").forEach((cell) => {
+    cell.classList.remove("correct", "wrong");
+    cell.querySelector("input").value = "";
+    cell.querySelector(".verbTranslationFeedback").textContent = "";
+  });
+  document.getElementById("verbTranslationScore").textContent = "0/0";
+  document.getElementById("verbTranslationPercent").textContent = "No translations checked yet";
+  document.getElementById("verbTranslationWrongCount").textContent = "0";
+  document.getElementById("verbTranslationWrongList").innerHTML = "";
+}
+
 function setupSpeechRecognition() {
   const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
   const status = document.getElementById("speechSupportStatus");
@@ -692,7 +848,11 @@ async function listenToTypedAnswer(button) {
   }
   const played = await speakSwedishOnly(text);
   if (!played) {
-    feedback.textContent = "No Swedish voice is installed in this browser. Try Edge/Chrome with a Swedish voice or Windows Swedish language pack.";
+    feedback.textContent = "No local Swedish voice found. Trying online Swedish audio...";
+    const onlinePlayed = await playAudioSource(onlineSwedishTtsUrl(text));
+    feedback.textContent = onlinePlayed
+      ? "Playing online Swedish audio."
+      : "Online audio was blocked here. Use the Online translation + audio link below.";
   }
 }
 
@@ -777,11 +937,68 @@ function renderTest() {
   });
 }
 
+function renderTranslationTest() {
+  const root = document.getElementById("verbTranslationRows");
+  root.innerHTML = "";
+
+  const header = document.createElement("div");
+  header.className = "verbTranslationHeader";
+  header.innerHTML = "<strong>Swedish infinitive</strong><strong>English translation</strong>";
+  root.appendChild(header);
+
+  verbs.forEach((verb, verbIndex) => {
+    const row = document.createElement("div");
+    row.className = "verbTranslationRow";
+
+    const verbCell = document.createElement("div");
+    verbCell.className = "verbTranslationVerb";
+    const verbText = document.createElement("strong");
+    verbText.textContent = verb.infinitive;
+    const listen = document.createElement("button");
+    listen.type = "button";
+    listen.className = "verbListenButton";
+    listen.textContent = "Listen";
+    listen.addEventListener("click", () => play(verb.infinitive));
+    verbCell.append(verbText, listen);
+
+    const answerCell = document.createElement("div");
+    answerCell.className = "verbTranslationCell";
+    answerCell.dataset.verbIndex = String(verbIndex);
+    const input = document.createElement("input");
+    input.type = "text";
+    input.autocomplete = "off";
+    input.spellcheck = true;
+    input.placeholder = "English translation";
+    input.setAttribute("aria-label", `${verb.infinitive} English translation`);
+    input.addEventListener("input", () => {
+      answerCell.classList.remove("correct", "wrong");
+      answerCell.querySelector(".verbTranslationFeedback").textContent = "";
+    });
+    input.addEventListener("keydown", (event) => {
+      if (event.key === "Enter") updateTranslationCell(answerCell, input, verb);
+    });
+    const check = document.createElement("button");
+    check.type = "button";
+    check.className = "verbTranslationCheckButton";
+    check.textContent = "Check";
+    check.addEventListener("click", () => updateTranslationCell(answerCell, input, verb));
+    const feedback = document.createElement("small");
+    feedback.className = "verbTranslationFeedback";
+    answerCell.append(input, check, feedback);
+
+    row.append(verbCell, answerCell);
+    root.appendChild(row);
+  });
+}
+
 document.addEventListener("DOMContentLoaded", () => {
   pickSwedishVoice();
   if ("speechSynthesis" in window) speechSynthesis.onvoiceschanged = pickSwedishVoice;
   setupSpeechRecognition();
   renderTest();
+  renderTranslationTest();
   document.getElementById("checkVerbTest").addEventListener("click", summarizeTest);
   document.getElementById("clearVerbTest").addEventListener("click", clearTest);
+  document.getElementById("checkVerbTranslations").addEventListener("click", summarizeTranslations);
+  document.getElementById("clearVerbTranslations").addEventListener("click", clearTranslations);
 });

@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Verb Tense Test - Swedish Learning Journey</title>
-  <link rel="stylesheet" href="styles.css?v=20260607-verbtest9">
+  <link rel="stylesheet" href="styles.css?v=20260622-verbtranslation1">
 </head>
 <body>
   <header class="topbar">
@@ -50,11 +50,43 @@
     <section class="section">
       <div id="verbTestRows" class="verbTestSheet"></div>
     </section>
+
+    <section class="section verbTestIntro">
+      <div>
+        <p class="eyebrow">Translate infinitives</p>
+        <h2>Swedish Verb Translation Test</h2>
+        <p class="result">Type the English meaning for each Swedish infinitive. The answer is hidden until you check it.</p>
+      </div>
+      <div class="actions">
+        <button id="checkVerbTranslations" class="primary" type="button">Check translations</button>
+        <button id="clearVerbTranslations" type="button">Clear translations</button>
+      </div>
+    </section>
+
+    <section class="section verbTestScore">
+      <div class="metricGrid">
+        <div class="metricCard">
+          <span>Translation score</span>
+          <strong id="verbTranslationScore">0/0</strong>
+          <small id="verbTranslationPercent">No translations checked yet</small>
+        </div>
+        <div class="metricCard">
+          <span>Wrong translations</span>
+          <strong id="verbTranslationWrongCount">0</strong>
+          <small>Wrong answers show the correct English meaning.</small>
+        </div>
+      </div>
+      <div id="verbTranslationWrongList" class="verbWrongList"></div>
+    </section>
+
+    <section class="section">
+      <div id="verbTranslationRows" class="verbTranslationTestSheet"></div>
+    </section>
   </main>
   <audio id="pageAudio" preload="metadata"></audio>
   <script src="assets/audio/generated_manifest.js?v=20260527-verbs1"></script>
   <script src="verb_tense_data.js?v=20260527-verbs1"></script>
-  <script src="verb_tense_test.js?v=20260607-verbtest9"></script>
+  <script src="verb_tense_test.js?v=20260622-verbtranslation1"></script>
   <script src="refresh_page.js?v=20260607-refresh1"></script>
 </body>
 </html>

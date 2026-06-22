@@ -601,6 +601,83 @@ main {
   font-size: 0.82rem;
 }
 
+.verbTranslationTestSheet {
+  width: 100%;
+  overflow-x: auto;
+  border: 1px solid #202020;
+  background: #ffffff;
+}
+
+.verbTranslationHeader,
+.verbTranslationRow {
+  display: grid;
+  grid-template-columns: minmax(210px, 0.75fr) minmax(320px, 1.25fr);
+  min-width: 620px;
+}
+
+.verbTranslationHeader {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  background: #d7e9e5;
+}
+
+.verbTranslationHeader strong,
+.verbTranslationVerb,
+.verbTranslationCell {
+  min-height: 62px;
+  padding: 0.6rem;
+  border-right: 1px solid #202020;
+  border-bottom: 1px solid #202020;
+}
+
+.verbTranslationHeader strong:last-child,
+.verbTranslationCell {
+  border-right: 0;
+}
+
+.verbTranslationRow:last-child .verbTranslationVerb,
+.verbTranslationRow:last-child .verbTranslationCell {
+  border-bottom: 0;
+}
+
+.verbTranslationVerb {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.verbTranslationVerb strong {
+  font-size: 1.05rem;
+}
+
+.verbTranslationCell {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 0.4rem;
+  align-items: center;
+}
+
+.verbTranslationCell input {
+  min-width: 0;
+  padding: 0.58rem;
+}
+
+.verbTranslationFeedback {
+  grid-column: 1 / -1;
+  min-height: 1.2em;
+  line-height: 1.25;
+  color: var(--muted);
+}
+
+.verbTranslationCheckButton {
+  min-width: 70px;
+  min-height: 38px;
+  padding: 0.4rem 0.55rem;
+  font-size: 0.82rem;
+}
+
 .verbMiniTable {
   border: 1px solid #202020;
   background: #ffffff;
