@@ -735,7 +735,7 @@ main {
 .verbTranslationHeader strong,
 .verbTranslationVerb,
 .verbTranslationCell {
-  min-height: 62px;
+  min-height: 50px;
   padding: 0.6rem;
   border-right: 1px solid #202020;
   border-bottom: 1px solid #202020;
@@ -764,18 +764,14 @@ main {
 
 .verbTranslationCell {
   display: grid;
-  grid-template-columns: minmax(0, 1fr);
+  grid-template-columns: minmax(0, 1fr) auto;
   gap: 0.4rem;
-  align-items: stretch;
+  align-items: center;
 }
 
 .verbTranslationCell input {
   min-width: 0;
   padding: 0.58rem;
-}
-
-.verbTranslationCheckButton {
-  width: 100%;
 }
 
 .verbTranslationFeedback {
@@ -786,9 +782,9 @@ main {
 }
 
 .verbTranslationCheckButton {
-  min-width: 70px;
-  min-height: 38px;
-  padding: 0.4rem 0.55rem;
+  min-width: 58px;
+  min-height: 34px;
+  padding: 0.3rem 0.5rem;
   font-size: 0.82rem;
 }
 
