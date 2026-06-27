@@ -334,7 +334,7 @@ def main() -> int:
     init_db()
     lan_url = f"http://{get_lan_ip()}:{PORT}"
     local_url = f"http://127.0.0.1:{PORT}/index.html"
-    print("Rons Swedish Learning Journey server is running.")
+    print("Swedish Learning Guide server is running.")
     print(f"Open on this laptop: {local_url}")
     print(f"Open from another laptop on same Wi-Fi: {lan_url}/index.html")
     print(f"Progress database: {DB_PATH}")

@@ -426,7 +426,7 @@ function renderVerbTenseTables() {
   return true;
 }
 function render() {
-  document.title = `${moduleData.title} - Swedish Learning Journey`;
+  document.title = `${moduleData.title} - Swedish Learning Guide`;
   document.getElementById("modulePageTitle").textContent = moduleData.title;
   document.getElementById("moduleHero").textContent = moduleData.title;
   document.getElementById("moduleGoal").textContent = moduleData.goal;

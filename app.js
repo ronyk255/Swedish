@@ -353,14 +353,14 @@ function displayName() {
 }
 
 function updatePersonalization() {
-  const title = `${displayName()} Swedish Learning Journey`;
+  const title = "Swedish Learning Guide";
   document.title = title;
   const appTitle = document.getElementById("appTitle");
   const heroTitle = document.getElementById("heroTitle");
   const progressTitle = document.getElementById("progressTitle");
   if (appTitle) appTitle.textContent = title;
   if (heroTitle) heroTitle.textContent = title;
-  if (progressTitle) progressTitle.textContent = `${displayName()} Progress`;
+  if (progressTitle) progressTitle.textContent = "Learning Progress";
 }
 
 function looksSwedish(text) {

@@ -3,24 +3,53 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Rony Swedish Learning Journey</title>
-  <link rel="stylesheet" href="styles.css?v=20260618-intro-wordorder1">
+  <title>Swedish Learning Guide</title>
+  <link rel="stylesheet" href="styles.css?v=20260627-layout1">
 </head>
 <body>
   <header class="topbar">
     <div>
       <p class="eyebrow">Rivstart A1/A2 companion</p>
-      <h1 id="appTitle">Rony Swedish Learning Journey</h1>
+      <h1 id="appTitle">Swedish Learning Guide</h1>
     </div>
     <nav aria-label="Sections">
+      <a href="#dashboard">Dashboard</a>
       <a href="#progress">Progress</a>
       <a href="#modules">Modules</a>
+      <a href="#practice">Practice</a>
       <a href="#verbTenses">Verb tenses</a>
       <a href="guide.html">Guide</a>
     </nav>
   </header>
 
-  <main>
+  <div class="learningShell">
+    <aside class="sideNav" aria-label="Learning navigation">
+      <div class="sideBrand">
+        <span class="sideMark">S</span>
+        <div>
+          <strong>Swedish Learning Guide</strong>
+          <small>A1/A2 study hub</small>
+        </div>
+      </div>
+      <a href="#dashboard">Dashboard</a>
+      <a href="#progress">Progress</a>
+      <a href="#modules">Learning modules</a>
+      <a href="#alphabet">Alphabet</a>
+      <a href="#phrases">Phrases</a>
+      <a href="#verbTenses">Verb tenses</a>
+      <a href="#practice">Flashcards & quiz</a>
+      <a href="#builder">Introduction builder</a>
+      <a href="#plan">Starter path</a>
+      <a href="#resources">PDF map</a>
+      <div class="sideNavGroup">
+        <a href="full_quiz.html">Question bank</a>
+        <a href="verb_tense_test.html">Verb tests</a>
+        <a href="practice.html">Practice kit</a>
+        <a href="guide.html">Study guide</a>
+      </div>
+    </aside>
+
+    <main id="dashboard">
     <section id="serverProfiles" class="section profileShell hiddenPanel">
       <div class="sectionHead">
         <div>
@@ -39,8 +68,8 @@
 
     <section class="hero">
       <div class="heroText">
-        <h2 id="heroTitle">Rony Swedish Learning Journey</h2>
-        <p>Use this page as a warm-up and review tool, then work through your textbook and workbook PDFs chapter by chapter.</p>
+        <h2 id="heroTitle">Swedish Learning Guide</h2>
+        <p>A friendlier study hub for lessons, audio practice, progress, quizzes, verb tests, and your Rivstart chapter materials.</p>
         <div class="actions">
           <button id="speakIntro" class="primary">Play starter intro</button>
           <a class="buttonLink" href="guide.html">Open guide</a>
@@ -59,7 +88,7 @@
       <div class="sectionHead">
           <div>
             <p class="eyebrow">Learning metrics</p>
-          <h2 id="progressTitle">Rony Progress</h2>
+          <h2 id="progressTitle">Learning Progress</h2>
           </div>
         <div class="actions">
           <button id="resetLearningMetrics">Archive and reset progress</button>
@@ -220,7 +249,7 @@
       </div>
     </section>
 
-    <section class="section secondaryLearning">
+    <section id="builder" class="section secondaryLearning">
       <div class="sectionHead">
         <div>
           <p class="eyebrow">Build</p>
@@ -249,7 +278,7 @@
       <div id="planList" class="planList"></div>
     </section>
 
-    <section class="section secondaryLearning">
+    <section id="resources" class="section secondaryLearning">
       <div class="sectionHead">
         <div>
           <p class="eyebrow">Documents</p>
@@ -265,10 +294,11 @@
         <a href="/materials/textbook/Uttal%20%26%20Grammatik.pdf" target="_blank" rel="noopener">Pronunciation and grammar</a>
       </div>
     </section>
-  </main>
+    </main>
+  </div>
 
   <script src="assets/audio/generated_manifest.js?v=20260527-verbs1"></script>
-  <script src="app.js?v=20260618-intro-wordorder1"></script>
+  <script src="app.js?v=20260627-layout1"></script>
   <script src="refresh_page.js?v=20260607-refresh1"></script>
 </body>
 </html>
