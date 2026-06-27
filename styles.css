@@ -664,12 +664,13 @@ main {
 
 .verbTestCell {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) auto auto;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 0.4rem;
-  align-items: center;
+  align-items: stretch;
 }
 
 .verbTestCell input {
+  grid-column: 1 / -1;
   min-width: 0;
   padding: 0.58rem;
 }
@@ -703,7 +704,8 @@ main {
 
 .verbSpeakButton,
 .verbTypedListenButton {
-  min-width: 68px;
+  width: 100%;
+  min-width: 0;
   min-height: 38px;
   padding: 0.4rem 0.55rem;
   font-size: 0.82rem;
@@ -762,14 +764,18 @@ main {
 
 .verbTranslationCell {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
+  grid-template-columns: minmax(0, 1fr);
   gap: 0.4rem;
-  align-items: center;
+  align-items: stretch;
 }
 
 .verbTranslationCell input {
   min-width: 0;
   padding: 0.58rem;
+}
+
+.verbTranslationCheckButton {
+  width: 100%;
 }
 
 .verbTranslationFeedback {
