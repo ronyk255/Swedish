@@ -10,6 +10,7 @@ let swedishVoice = null;
 let recognition = null;
 let activeSpeechButton = null;
 let speechUnsupportedMessage = "Speech checking is not available in this browser. Try Chrome or Edge and allow microphone access.";
+let translationVerbOrder = verbs.map((_, index) => index);
 
 const phraseTranslations = [
   ["med min chef", "to my boss"],
@@ -770,6 +771,37 @@ function clearTranslations() {
   document.getElementById("verbTranslationWrongList").innerHTML = "";
 }
 
+function currentTranslationAnswers() {
+  const answers = new Map();
+  document.querySelectorAll(".verbTranslationCell[data-verb-index]").forEach((cell) => {
+    const input = cell.querySelector("input");
+    answers.set(cell.dataset.verbIndex, {
+      value: input.value,
+      isCorrect: cell.classList.contains("correct"),
+      isWrong: cell.classList.contains("wrong"),
+      feedback: cell.querySelector(".verbTranslationFeedback").textContent
+    });
+  });
+  return answers;
+}
+
+function shuffledIndices(indices) {
+  const shuffled = [...indices];
+  for (let index = shuffled.length - 1; index > 0; index -= 1) {
+    const swapIndex = Math.floor(Math.random() * (index + 1));
+    [shuffled[index], shuffled[swapIndex]] = [shuffled[swapIndex], shuffled[index]];
+  }
+  if (shuffled.length > 1 && shuffled.every((value, index) => value === indices[index])) {
+    [shuffled[0], shuffled[1]] = [shuffled[1], shuffled[0]];
+  }
+  return shuffled;
+}
+
+function shuffleTranslations() {
+  translationVerbOrder = shuffledIndices(translationVerbOrder);
+  renderTranslationTest(currentTranslationAnswers());
+}
+
 function setupSpeechRecognition() {
   const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
   const status = document.getElementById("speechSupportStatus");
@@ -937,7 +969,7 @@ function renderTest() {
   });
 }
 
-function renderTranslationTest() {
+function renderTranslationTest(savedAnswers = new Map()) {
   const root = document.getElementById("verbTranslationRows");
   root.innerHTML = "";
 
@@ -946,7 +978,8 @@ function renderTranslationTest() {
   header.innerHTML = "<strong>Swedish infinitive</strong><strong>English translation</strong>";
   root.appendChild(header);
 
-  verbs.forEach((verb, verbIndex) => {
+  translationVerbOrder.forEach((verbIndex) => {
+    const verb = verbs[verbIndex];
     const row = document.createElement("div");
     row.className = "verbTranslationRow";
 
@@ -985,6 +1018,13 @@ function renderTranslationTest() {
     const feedback = document.createElement("small");
     feedback.className = "verbTranslationFeedback";
     answerCell.append(input, check, feedback);
+    const saved = savedAnswers.get(String(verbIndex));
+    if (saved) {
+      input.value = saved.value;
+      answerCell.classList.toggle("correct", saved.isCorrect);
+      answerCell.classList.toggle("wrong", saved.isWrong);
+      feedback.textContent = saved.feedback;
+    }
 
     row.append(verbCell, answerCell);
     root.appendChild(row);
@@ -1000,5 +1040,6 @@ document.addEventListener("DOMContentLoaded", () => {
   document.getElementById("checkVerbTest").addEventListener("click", summarizeTest);
   document.getElementById("clearVerbTest").addEventListener("click", clearTest);
   document.getElementById("checkVerbTranslations").addEventListener("click", summarizeTranslations);
+  document.getElementById("shuffleVerbTranslations").addEventListener("click", shuffleTranslations);
   document.getElementById("clearVerbTranslations").addEventListener("click", clearTranslations);
 });
