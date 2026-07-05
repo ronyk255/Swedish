@@ -1191,14 +1191,19 @@ main {
 .deepLessonHeader,
 .deepLessonRow {
   display: grid;
-  grid-template-columns: minmax(160px, 0.75fr) repeat(3, minmax(220px, 1fr)) minmax(84px, 0.36fr);
-  min-width: 1060px;
+  align-items: stretch;
+}
+
+.deepLessonSheet.cols-4 .deepLessonHeader,
+.deepLessonSheet.cols-4 .deepLessonRow {
+  grid-template-columns: minmax(170px, 0.75fr) repeat(3, minmax(240px, 1fr)) minmax(94px, 0.34fr);
+  min-width: 1130px;
 }
 
 .deepLessonSheet.cols-5 .deepLessonHeader,
 .deepLessonSheet.cols-5 .deepLessonRow {
-  grid-template-columns: minmax(140px, 0.62fr) repeat(4, minmax(190px, 1fr)) minmax(84px, 0.32fr);
-  min-width: 1120px;
+  grid-template-columns: minmax(145px, 0.58fr) repeat(4, minmax(210px, 1fr)) minmax(94px, 0.3fr);
+  min-width: 1250px;
 }
 
 .deepLessonHeader {
@@ -1216,12 +1221,14 @@ main {
   border-right: 1px solid #202020;
   border-bottom: 1px solid #202020;
   text-align: left;
+  min-width: 0;
 }
 
 .deepLessonHeader strong,
 .deepLessonRow > button {
   display: flex;
   align-items: center;
+  justify-content: flex-start;
 }
 
 .deepLessonRow > span {
@@ -1233,11 +1240,13 @@ main {
 
 .deepLessonRow > span strong {
   font-weight: 800;
+  overflow-wrap: anywhere;
 }
 
 .deepLessonRow > span small {
   color: var(--muted);
   line-height: 1.25;
+  overflow-wrap: anywhere;
 }
 
 .deepLessonHeader strong:last-child,
