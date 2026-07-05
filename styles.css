@@ -900,9 +900,19 @@ main {
   padding: 0.55rem 0.65rem;
   border-right: 1px solid #202020;
   border-bottom: 1px solid #202020;
+  text-align: left;
+}
+
+.adjectiveHeader strong,
+.adjectiveRow > button {
   display: flex;
   align-items: center;
-  text-align: left;
+}
+
+.adjectiveRow > span {
+  display: grid;
+  align-content: center;
+  gap: 0.18rem;
 }
 
 .adjectiveHeader strong:last-child,
@@ -917,6 +927,15 @@ main {
 
 .adjectiveRow > span:first-child {
   font-weight: 800;
+}
+
+.adjectiveRow > span strong {
+  font-weight: 800;
+}
+
+.adjectiveRow > span small {
+  color: var(--muted);
+  line-height: 1.25;
 }
 
 .adjectiveRow > button {

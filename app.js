@@ -1268,14 +1268,14 @@ function renderAdjectivePractice() {
     const row = document.createElement("div");
     row.className = "adjectiveRow";
     [
-      `${item.base} - ${item.meaning}`,
-      enPhrase,
-      ettPhrase,
-      `${item.plural} (plural form)`,
-      `den/det/de ${item.definite || item.plural}`
-    ].forEach((text) => {
+      [`${item.base} - ${item.meaning}`, "adjective meaning"],
+      [enPhrase, phraseTranslation(item.en, item.nounEn, item)],
+      [ettPhrase, phraseTranslation(item.ett, item.nounEtt, item)],
+      [`${item.plural} (plural form)`, `plural adjective form: ${adjectiveEnglish(item)}`],
+      [`den/det/de ${item.definite || item.plural}`, `definite adjective form: ${adjectiveEnglish(item)}`]
+    ].forEach(([text, english]) => {
       const cell = document.createElement("span");
-      cell.textContent = text;
+      cell.innerHTML = `<strong>${text}</strong><small>${english}</small>`;
       row.appendChild(cell);
     });
     const button = document.createElement("button");
@@ -1291,6 +1291,19 @@ function renderAdjectivePractice() {
 function adjectivePhrase(adjective, nounPhrase) {
   const [article, ...nounParts] = nounPhrase.split(" ");
   return `${article} ${adjective} ${nounParts.join(" ")}`.trim();
+}
+
+function adjectiveEnglish(item) {
+  if (item.base === "stor") return "large";
+  return item.meaning.split("/")[0].trim();
+}
+
+function phraseTranslation(adjective, nounPhrase, item) {
+  const noun = nounPhrase.replace(/^(en|ett)\s+/, "");
+  const nounEnglish = (window.ADJECTIVE_NOUN_TRANSLATIONS || {})[noun] || noun;
+  const adjectiveText = adjectiveEnglish(item);
+  const article = /^[aeiou]/i.test(adjectiveText) ? "an" : "a";
+  return `${article} ${adjectiveText} ${nounEnglish}`;
 }
 
 function renderModules() {
