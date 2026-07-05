@@ -318,6 +318,31 @@ const modules = [
   }
 ];
 
+if (window.ADJECTIVE_MODULE && !modules.some((module) => module.id === "adjectives")) {
+  modules.splice(5, 0, {
+    id: "adjectives",
+    title: window.ADJECTIVE_MODULE.title,
+    goal: window.ADJECTIVE_MODULE.goal,
+    tags: ["adjectives", "en/ett", "agreement"],
+    phrase: "en stor bok, ett stort brev, stora böcker, den stora boken",
+    pdf: "/materials/textbook/Uttal%20%26%20Grammatik.pdf",
+    cards: [
+      ["En noun", "en stor bok"],
+      ["Ett noun", "ett stort brev"],
+      ["Plural", "stora böcker"],
+      ["Definite", "den stora boken"]
+    ]
+  });
+}
+
+if (Array.isArray(window.ADJECTIVE_QUIZ)) {
+  const existingQuiz = new Set(quiz.map((item) => `${item.module}:${item.q}`));
+  window.ADJECTIVE_QUIZ.forEach((item) => {
+    const key = `${item.module}:${item.q}`;
+    if (!existingQuiz.has(key)) quiz.push(item);
+  });
+}
+
 const plan = [
   ["Day 1", "Learn the alphabet. Play each Swedish letter aloud twice."],
   ["Day 2", "Read textbook chapter 1 and write your self-introduction."],
@@ -1209,6 +1234,60 @@ function renderVerbTensePractice() {
   });
 }
 
+function renderAdjectivePractice() {
+  const root = document.getElementById("adjectiveRows");
+  if (!root) return;
+  const adjectives = window.SWEDISH_ADJECTIVES || [];
+  const rules = window.ADJECTIVE_RULES || [];
+  const ruleRoot = document.getElementById("adjectiveRuleGrid");
+  if (ruleRoot) {
+    ruleRoot.innerHTML = "";
+    rules.forEach(([title, body]) => {
+      const card = document.createElement("article");
+      card.className = "adjectiveRuleCard";
+      card.innerHTML = `<strong>${title}</strong><p>${body}</p>`;
+      ruleRoot.appendChild(card);
+    });
+  }
+
+  root.innerHTML = "";
+  const sheet = document.createElement("div");
+  sheet.className = "adjectiveSheet";
+  const header = document.createElement("div");
+  header.className = "adjectiveHeader";
+  ["Meaning", "en noun", "ett noun", "Plural", "Definite", "Listen"].forEach((label) => {
+    const cell = document.createElement("strong");
+    cell.textContent = label;
+    header.appendChild(cell);
+  });
+  sheet.appendChild(header);
+
+  adjectives.forEach((item) => {
+    const enPhrase = `${item.en} ${item.nounEn}`;
+    const ettPhrase = `${item.ett} ${item.nounEtt}`;
+    const row = document.createElement("div");
+    row.className = "adjectiveRow";
+    [
+      `${item.base} - ${item.meaning}`,
+      enPhrase,
+      ettPhrase,
+      `${item.plural} (plural form)`,
+      `den/det/de ${item.definite || item.plural}`
+    ].forEach((text) => {
+      const cell = document.createElement("span");
+      cell.textContent = text;
+      row.appendChild(cell);
+    });
+    const button = document.createElement("button");
+    button.type = "button";
+    button.textContent = "Listen";
+    button.addEventListener("click", () => playRecordedOrSpeak(`${enPhrase}. ${ettPhrase}. ${item.plural}.`));
+    row.appendChild(button);
+    sheet.appendChild(row);
+  });
+  root.appendChild(sheet);
+}
+
 function renderModules() {
   const launcher = document.getElementById("moduleLaunchList");
   if (launcher) {
@@ -1397,6 +1476,7 @@ function renderAll() {
   updatePersonalization();
   renderAlphabet();
   renderVerbTensePractice();
+  renderAdjectivePractice();
   renderQuizSelector();
   renderModules();
   renderPhrases();

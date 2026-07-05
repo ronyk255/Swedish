@@ -839,6 +839,127 @@ main {
   background: #f8fbfa;
 }
 
+.adjectiveBlocks {
+  display: grid;
+  gap: 1rem;
+}
+
+.adjectiveRuleGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 0.7rem;
+  margin-bottom: 1rem;
+}
+
+.adjectiveRuleCard {
+  border: 1px solid var(--line);
+  border-left: 5px solid var(--gold);
+  border-radius: 8px;
+  padding: 0.85rem;
+  background: #fffdf5;
+}
+
+.adjectiveRuleCard strong {
+  display: block;
+  margin-bottom: 0.3rem;
+}
+
+.adjectiveRuleCard p {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.4;
+}
+
+.adjectiveSheet,
+.adjectiveTestSheet {
+  width: 100%;
+  overflow-x: auto;
+  border: 1px solid #202020;
+  background: #ffffff;
+}
+
+.adjectiveHeader,
+.adjectiveRow {
+  display: grid;
+  grid-template-columns: minmax(160px, 0.8fr) repeat(4, minmax(160px, 1fr)) minmax(84px, 0.42fr);
+  min-width: 980px;
+}
+
+.adjectiveHeader,
+.adjectiveTestHeader {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  background: #d7e9e5;
+}
+
+.adjectiveHeader strong,
+.adjectiveRow > span,
+.adjectiveRow > button {
+  min-height: 48px;
+  padding: 0.55rem 0.65rem;
+  border-right: 1px solid #202020;
+  border-bottom: 1px solid #202020;
+  display: flex;
+  align-items: center;
+  text-align: left;
+}
+
+.adjectiveHeader strong:last-child,
+.adjectiveRow > button {
+  border-right: 0;
+}
+
+.adjectiveRow:last-child > span,
+.adjectiveRow:last-child > button {
+  border-bottom: 0;
+}
+
+.adjectiveRow > span:first-child {
+  font-weight: 800;
+}
+
+.adjectiveRow > button {
+  justify-content: center;
+  min-height: 48px;
+  border-radius: 0;
+}
+
+.adjectiveTestHeader,
+.adjectiveTestRow {
+  display: grid;
+  grid-template-columns: minmax(170px, 0.8fr) repeat(4, minmax(190px, 1fr));
+  min-width: 930px;
+}
+
+.adjectiveTestHeader strong,
+.adjectiveFormCell {
+  min-height: 58px;
+  padding: 0.55rem 0.65rem;
+  border-right: 1px solid #202020;
+  border-bottom: 1px solid #202020;
+}
+
+.adjectiveTestHeader strong:last-child,
+.adjectiveFormCell:last-child {
+  border-right: 0;
+}
+
+.adjectiveTestRow:last-child .verbTestVerb,
+.adjectiveTestRow:last-child .adjectiveFormCell {
+  border-bottom: 0;
+}
+
+.adjectiveFormCell {
+  display: grid;
+  gap: 0.35rem;
+}
+
+.adjectiveFormCell input {
+  min-width: 0;
+  padding: 0.55rem;
+}
+
 .twoCol {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));

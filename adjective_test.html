@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Adjective Test - Swedish Learning Guide</title>
+  <link rel="stylesheet" href="styles.css?v=20260705-adjectives1">
+</head>
+<body>
+  <header class="topbar">
+    <div>
+      <p class="eyebrow">Adjective test</p>
+      <h1>Swedish Adjective Agreement Test</h1>
+    </div>
+    <nav>
+      <a href="javascript:history.back()">Back</a>
+      <a href="module.html?module=adjectives">Lesson</a>
+      <a href="index.html">Main</a>
+    </nav>
+  </header>
+  <main>
+    <section class="section verbTestIntro">
+      <div>
+        <p class="eyebrow">Fill the forms</p>
+        <h2>En, ett, plural, and definite</h2>
+        <p class="result">Type the adjective form only. Example: stor, stort, stora, stora.</p>
+      </div>
+      <div class="actions">
+        <button id="checkAdjectiveForms" class="primary" type="button">Check answers</button>
+        <button id="clearAdjectiveForms" type="button">Clear forms</button>
+      </div>
+    </section>
+
+    <section class="section verbTestScore">
+      <div class="metricGrid">
+        <div class="metricCard">
+          <span>Form score</span>
+          <strong id="adjectiveFormScore">0/0</strong>
+          <small id="adjectiveFormPercent">No answers checked yet</small>
+        </div>
+        <div class="metricCard">
+          <span>Wrong forms</span>
+          <strong id="adjectiveWrongCount">0</strong>
+          <small>Wrong answers show the expected form.</small>
+        </div>
+      </div>
+      <div id="adjectiveWrongList" class="verbWrongList"></div>
+    </section>
+
+    <section class="section">
+      <div id="adjectiveFormRows" class="adjectiveTestSheet"></div>
+    </section>
+
+    <section class="section verbTestIntro">
+      <div>
+        <p class="eyebrow">Meaning check</p>
+        <h2>Translate the adjective</h2>
+        <p class="result">Type the English meaning. Short answers are fine: big, small, tired, expensive.</p>
+      </div>
+      <div class="actions">
+        <button id="checkAdjectiveMeanings" class="primary" type="button">Check meanings</button>
+        <button id="shuffleAdjectiveMeanings" type="button">Shuffle order</button>
+        <button id="clearAdjectiveMeanings" type="button">Clear meanings</button>
+      </div>
+    </section>
+
+    <section class="section verbTestScore">
+      <div class="metricGrid">
+        <div class="metricCard">
+          <span>Meaning score</span>
+          <strong id="adjectiveMeaningScore">0/0</strong>
+          <small id="adjectiveMeaningPercent">No meanings checked yet</small>
+        </div>
+        <div class="metricCard">
+          <span>Wrong meanings</span>
+          <strong id="adjectiveMeaningWrongCount">0</strong>
+          <small>Review missed words with the Listen buttons.</small>
+        </div>
+      </div>
+      <div id="adjectiveMeaningWrongList" class="verbWrongList"></div>
+    </section>
+
+    <section class="section">
+      <div id="adjectiveMeaningRows" class="verbTranslationTestSheet"></div>
+    </section>
+  </main>
+  <audio id="pageAudio" preload="metadata"></audio>
+  <script src="assets/audio/generated_manifest.js?v=20260527-verbs1"></script>
+  <script src="adjective_data.js?v=20260705-adjectives1"></script>
+  <script src="adjective_test.js?v=20260705-adjectives1"></script>
+  <script src="refresh_page.js?v=20260607-refresh1"></script>
+</body>
+</html>

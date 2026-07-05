@@ -82,6 +82,13 @@ const lessonDetails = {
     ["Past tense trick", "pratar → pratade, läser → läste, bor → bodde", "talks → talked, reads → read, lives → lived", "Regular weak verbs usually add -ade, -de, -te, or -dde. If the stem ends in p, t, k, s, x, the past often takes -te."],
     ["Perfect tense", "Jag har pratat. Jag har läst. Jag har bott.", "I have talked. I have read. I have lived.", "Perfect uses har + the supine form. Regular verbs often end the supine in -t, -tt, or -at."],
     ["Irregular watch list", "äter → åt → har ätit", "eats → ate → has eaten", "Strong and special verbs often change vowel or have short forms. Learn them as small sets after the regular patterns."]
+  ],
+  adjectives: [
+    ["Basic agreement", "en stor bok, ett stort brev, stora böcker", "a big book, a big letter, big books", "Most adjectives use base form with en, add -t with ett, and add -a with plural nouns."],
+    ["Definite phrases", "den stora boken, det stora brevet, de stora böckerna", "the big book, the big letter, the big books", "After den, det, and de, the adjective normally uses the -a form."],
+    ["Liten is special", "en liten bok, ett litet brev, små böcker, den lilla boken", "a small book, a small letter, small books, the small book", "Liten changes more than regular adjectives, so learn it as its own mini-table."],
+    ["No extra t", "en trött lärare, ett trött barn, trötta lärare", "a tired teacher, a tired child, tired teachers", "Many adjectives that already end in -t do not add another t in ett form."],
+    ["Vowel-ending adjectives", "en ny cykel, ett nytt jobb, nya cyklar", "a new bike, a new job, new bikes", "Short adjectives ending in a vowel often double t in the ett form and use -a in plural."]
   ]
 };
 
@@ -425,6 +432,69 @@ function renderVerbTenseTables() {
   practice.appendChild(root);
   return true;
 }
+
+function renderAdjectiveTables() {
+  if (moduleData.id !== "adjectives") return false;
+  const practice = document.getElementById("practice");
+  const adjectives = window.SWEDISH_ADJECTIVES || [];
+  practice.innerHTML = "";
+  practice.classList.remove("moduleContent");
+
+  const ruleGrid = document.createElement("div");
+  ruleGrid.className = "adjectiveRuleGrid";
+  (window.ADJECTIVE_RULES || []).forEach(([title, body]) => {
+    const card = document.createElement("article");
+    card.className = "adjectiveRuleCard";
+    card.innerHTML = `<strong>${title}</strong><p>${body}</p>`;
+    ruleGrid.appendChild(card);
+  });
+  practice.appendChild(ruleGrid);
+
+  const sheet = document.createElement("div");
+  sheet.className = "adjectiveSheet";
+  sheet.setAttribute("role", "table");
+  sheet.setAttribute("aria-label", "Swedish adjective agreement forms");
+
+  const columns = ["Meaning", "en noun", "ett noun", "Plural", "Definite", "Listen"];
+  const header = document.createElement("div");
+  header.className = "adjectiveHeader";
+  header.setAttribute("role", "row");
+  columns.forEach((label) => {
+    const cell = document.createElement("strong");
+    cell.setAttribute("role", "columnheader");
+    cell.textContent = label;
+    header.appendChild(cell);
+  });
+  sheet.appendChild(header);
+
+  adjectives.forEach((item) => {
+    const row = document.createElement("div");
+    row.className = "adjectiveRow";
+    row.setAttribute("role", "row");
+    const enPhrase = `${item.en} ${item.nounEn}`;
+    const ettPhrase = `${item.ett} ${item.nounEtt}`;
+    const pluralPhrase = `${item.plural} (plural form)`;
+    const definitePhrase = `den/det/de ${item.definite || item.plural}`;
+    [
+      `${item.base} - ${item.meaning}`,
+      enPhrase,
+      ettPhrase,
+      pluralPhrase,
+      definitePhrase
+    ].forEach((text) => {
+      const cell = document.createElement("span");
+      cell.textContent = text;
+      row.appendChild(cell);
+    });
+    const listen = audioButton("Listen", `${enPhrase}. ${ettPhrase}. ${item.plural}.`);
+    listen.className = "verbListenButton";
+    row.appendChild(listen);
+    sheet.appendChild(row);
+  });
+
+  practice.appendChild(sheet);
+  return true;
+}
 function render() {
   document.title = `${moduleData.title} - Swedish Learning Guide`;
   document.getElementById("modulePageTitle").textContent = moduleData.title;
@@ -435,6 +505,9 @@ function render() {
   document.getElementById("bottomQuizLink").href = `quiz.html?module=${encodeURIComponent(moduleData.id)}`;
   document.querySelectorAll("#verbTenseTestLink, #bottomVerbTenseTestLink").forEach((link) => {
     link.classList.toggle("hiddenPanel", moduleData.id !== "verbTenses");
+  });
+  document.querySelectorAll("#adjectiveTestLink, #bottomAdjectiveTestLink").forEach((link) => {
+    link.classList.toggle("hiddenPanel", moduleData.id !== "adjectives");
   });
 
   const notes = document.getElementById("notes");
@@ -479,7 +552,7 @@ function render() {
   });
 
   const practice = document.getElementById("practice");
-  if (!renderVerbTenseTables()) {
+  if (!renderVerbTenseTables() && !renderAdjectiveTables()) {
     practice.innerHTML = "";
     (moduleData.practice || []).forEach(([title, body]) => {
       const card = document.createElement("article");

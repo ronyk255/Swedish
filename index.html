@@ -18,6 +18,7 @@
       <a href="#modules">Modules</a>
       <a href="#practice">Practice</a>
       <a href="#verbTenses">Verb tenses</a>
+      <a href="#adjectives">Adjectives</a>
       <a href="guide.html">Guide</a>
     </nav>
   </header>
@@ -37,6 +38,7 @@
       <a href="#alphabet">Alphabet</a>
       <a href="#phrases">Phrases</a>
       <a href="#verbTenses">Verb tenses</a>
+      <a href="#adjectives">Adjectives</a>
       <a href="#practice">Flashcards & quiz</a>
       <a href="#builder">Introduction builder</a>
       <a href="#plan">Starter path</a>
@@ -44,6 +46,7 @@
       <div class="sideNavGroup">
         <a href="full_quiz.html">Question bank</a>
         <a href="verb_tense_test.html">Verb tests</a>
+        <a href="adjective_test.html">Adjective tests</a>
         <a href="practice.html">Practice kit</a>
         <a href="guide.html">Study guide</a>
       </div>
@@ -108,7 +111,7 @@
         </button>
         <button class="metricCard metricButton" id="showModulesReport" type="button">
           <span>Modules completed</span>
-          <strong id="moduleMetric">0/8</strong>
+          <strong id="moduleMetric">0/10</strong>
           <div class="meter"><span id="moduleBar"></span></div>
         </button>
         <button class="metricCard metricButton" id="showStudyReport" type="button">
@@ -216,6 +219,22 @@
       <div id="verbTenseRows" class="verbTenseBlocks"></div>
     </section>
 
+    <section id="adjectives" class="section secondaryLearning">
+      <div class="sectionHead">
+        <div>
+          <p class="eyebrow">Adjective practice</p>
+          <h2>Adjectives With En, Ett, Plural, and Definite Forms</h2>
+        </div>
+        <div class="actions">
+          <a class="buttonLink primary" href="quiz.html?module=adjectives">Start adjective quiz</a>
+          <a class="buttonLink" href="adjective_test.html">Adjective tests</a>
+          <a class="buttonLink" href="module.html?module=adjectives">Open lesson</a>
+        </div>
+      </div>
+      <div class="adjectiveRuleGrid" id="adjectiveRuleGrid"></div>
+      <div id="adjectiveRows" class="adjectiveBlocks"></div>
+    </section>
+
     <section id="practice" class="section twoCol secondaryLearning">
       <div class="toolPanel">
         <div class="sectionHead compact">
@@ -298,6 +317,7 @@
   </div>
 
   <script src="assets/audio/generated_manifest.js?v=20260527-verbs1"></script>
+  <script src="adjective_data.js?v=20260705-adjectives1"></script>
   <script src="app.js?v=20260627-layout1"></script>
   <script src="refresh_page.js?v=20260607-refresh1"></script>
 </body>
