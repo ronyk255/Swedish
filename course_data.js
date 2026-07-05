@@ -105,8 +105,8 @@ window.COURSE_MODULES = [
   },
   {
     id: "verbs",
-    title: "Pronouns and Present Tense",
-    goal: "Use core pronouns with common present-tense verbs for everyday A1 sentences.",
+    title: "Pronouns, Objects, Possessives, and Present Tense",
+    goal: "Use Swedish subject, object, possessive, and reflexive pronouns in everyday sentences with clear English translations.",
     sourceNote: "The practice emphasizes stable present-tense forms and whole useful phrases before abstract conjugation.",
     notes: [
       "Core pronouns: jag, du, han, hon, vi, ni, de.",

@@ -154,6 +154,8 @@ TEXTS += VERB_TENSE_TEXTS
 FORCE_TEXTS.update(VERB_TENSE_TEXTS)
 TEXTS += js_strings(Path("course_data.js"))
 TEXTS += js_strings(Path("course_enhancements.js"))
+TEXTS += js_strings(Path("pronoun_data.js"))
+TEXTS += js_strings(Path("adjective_data.js"))
 TEXTS += js_strings(Path("verb_tense_data.js"))
 TEXTS += js_strings(Path("app.js"))
 

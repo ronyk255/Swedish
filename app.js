@@ -232,8 +232,8 @@ const modules = [
   },
   {
     id: "verbs",
-    title: "Pronouns and Present Tense",
-    goal: "Use jag, du, han, hon, vi, ni, de with high-frequency present tense verbs.",
+    title: "Pronouns, Objects, Possessives, and Present Tense",
+    goal: "Use Swedish subject, object, possessive, and reflexive pronouns in everyday sentences.",
     tags: ["pronouns", "verbs", "present tense"],
     phrase: "Jag bor i Stockholm. Jag studerar svenska. Jag förstår lite.",
     pdf: "/materials/textbook/Kapitel%2001.pdf",
@@ -341,6 +341,29 @@ if (Array.isArray(window.ADJECTIVE_QUIZ)) {
     const key = `${item.module}:${item.q}`;
     if (!existingQuiz.has(key)) quiz.push(item);
   });
+}
+
+if (Array.isArray(window.SWEDISH_PRONOUN_QUIZ)) {
+  const existingQuiz = new Set(quiz.map((item) => `${item.module}:${item.q}`));
+  window.SWEDISH_PRONOUN_QUIZ.forEach((item) => {
+    const key = `${item.module}:${item.q}`;
+    if (!existingQuiz.has(key)) quiz.push(item);
+  });
+}
+
+if (Array.isArray(window.SWEDISH_PRONOUN_GROUPS)) {
+  const pronounModule = modules.find((module) => module.id === "verbs");
+  if (pronounModule) {
+    pronounModule.title = "Pronouns, Objects, Possessives, and Present Tense";
+    pronounModule.goal = "Use Swedish subject, object, possessive, and reflexive pronouns in everyday sentences.";
+    pronounModule.phrase = "Jag ser henne. Hon hjälper mig. Det är min bok. De ringer oss.";
+    pronounModule.cards = [
+      ["Subject pronouns", "jag, du, han, hon, den, det, vi, ni, de"],
+      ["Object pronouns", "mig, dig, honom, henne, den, det, oss, er, dem"],
+      ["Possessives", "min, mitt, mina. Din, ditt, dina. Hans, hennes, deras."],
+      ["Reflexive", "Jag tvättar mig. Han sätter sig. De presenterar sig."]
+    ];
+  }
 }
 
 const plan = [

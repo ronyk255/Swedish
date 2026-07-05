@@ -53,10 +53,11 @@ const lessonDetails = {
     ["Time first", "I dag studerar jag svenska.", "Today I study Swedish.", "When time comes first, the verb still stays second: I dag + studerar + jag."]
   ],
   verbs: [
-    ["Pronouns", "jag, du, han, hon, vi, ni, de", "I, you, he, she, we, you plural, they", "Pronouns tell who is doing the action."],
-    ["Present tense verbs", "Jag studerar svenska.", "I study Swedish.", "Many present-tense verbs end in -r: studerar, talar, förstår."],
-    ["Same verb form", "Jag talar. Du talar. Vi talar.", "I speak. You speak. We speak.", "The verb form usually does not change by person in the present tense."],
-    ["Negative sentence", "Jag förstår inte.", "I do not understand.", "Inte = not. In a simple sentence it comes after the verb."]
+    ["Subject pronouns", "jag, du, han, hon, den, det, vi, ni, de", "I, you, he, she, it, it, we, you plural, they", "Use subject pronouns for the person or thing doing the action."],
+    ["Object pronouns", "mig, dig, honom, henne, den, det, oss, er, dem", "me, you, him, her, it, it, us, you plural, them", "Use object pronouns after the verb when someone receives the action."],
+    ["Possessives", "min bok, mitt brev, mina böcker", "my book, my letter, my books", "Min changes to mitt with ett nouns and mina with plural nouns."],
+    ["Reflexive", "Han sätter sig. Hon tar sin väska.", "He sits down. She takes her own bag.", "Sig and sin/sitt/sina point back to the subject."],
+    ["Same verb form", "Jag talar. Du talar. Vi talar. De talar.", "I speak. You speak. We speak. They speak.", "The present-tense verb usually does not change by person."]
   ],
   numbers: [
     ["0 to 20 first", "noll, en, två ... tjugo", "zero, one, two ... twenty", "Memorize these first because later numbers are built from them."],
@@ -513,6 +514,99 @@ function phraseTranslation(adjective, nounPhrase, item) {
   const article = /^[aeiou]/i.test(adjectiveText) ? "an" : "a";
   return `${article} ${adjectiveText} ${nounEnglish}`;
 }
+
+function renderPronounTables() {
+  if (moduleData.id !== "verbs") return false;
+  const practice = document.getElementById("practice");
+  const groups = window.SWEDISH_PRONOUN_GROUPS || [];
+  const patterns = window.SWEDISH_PRONOUN_SENTENCE_PATTERNS || [];
+  if (!groups.length) return false;
+
+  practice.innerHTML = "";
+  practice.classList.remove("moduleContent");
+
+  groups.forEach((group) => {
+    const block = document.createElement("section");
+    block.className = "pronounBlock";
+    const intro = document.createElement("div");
+    intro.className = "verbTenseBlockGroup";
+    intro.innerHTML = `<h3>${group.title}</h3><p>${group.note}</p>`;
+    block.appendChild(intro);
+
+    const sheet = document.createElement("div");
+    sheet.className = `pronounSheet cols-${group.columns.length}`;
+    sheet.setAttribute("role", "table");
+    sheet.setAttribute("aria-label", group.title);
+
+    const header = document.createElement("div");
+    header.className = "pronounHeader";
+    header.setAttribute("role", "row");
+    [...group.columns, "Listen"].forEach((label) => {
+      const cell = document.createElement("strong");
+      cell.setAttribute("role", "columnheader");
+      cell.textContent = label;
+      header.appendChild(cell);
+    });
+    sheet.appendChild(header);
+
+    group.rows.forEach((rowData) => {
+      const row = document.createElement("div");
+      row.className = "pronounRow";
+      row.setAttribute("role", "row");
+      rowData.forEach((text, index) => {
+        const cell = document.createElement("span");
+        cell.setAttribute("role", "cell");
+        const isSwedish = index > 0 && index < rowData.length - 1;
+        cell.innerHTML = isSwedish ? `<strong>${text}</strong>` : text;
+        row.appendChild(cell);
+      });
+      const swedish = pronounAudioText(rowData);
+      const listen = audioButton("Listen", swedish);
+      listen.className = "verbListenButton";
+      row.appendChild(listen);
+      sheet.appendChild(row);
+    });
+
+    block.appendChild(sheet);
+    practice.appendChild(block);
+  });
+
+  if (patterns.length) {
+    const patternBlock = document.createElement("section");
+    patternBlock.className = "pronounBlock";
+    const intro = document.createElement("div");
+    intro.className = "verbTenseBlockGroup";
+    intro.innerHTML = "<h3>Sentence builder examples</h3><p>Use these as templates: swap the pronoun, keep the verb pattern, then change the object or possessive.</p>";
+    patternBlock.appendChild(intro);
+
+    const grid = document.createElement("div");
+    grid.className = "pronounExampleGrid";
+    patterns.forEach(([title, swedish, english, note]) => {
+      const card = document.createElement("article");
+      card.className = "pronounExampleCard";
+      card.innerHTML = `
+        <strong>${title}</strong>
+        <p class="swedishLine">${swedish}</p>
+        <small>${english}</small>
+        <p>${note}</p>
+      `;
+      const listen = audioButton("Listen", swedish);
+      listen.className = "verbListenButton";
+      card.appendChild(listen);
+      grid.appendChild(card);
+    });
+    patternBlock.appendChild(grid);
+    practice.appendChild(patternBlock);
+  }
+
+  return true;
+}
+
+function pronounAudioText(rowData) {
+  const example = rowData.find((value) => /[.!?]$/.test(value));
+  if (example) return example;
+  return rowData.find((value, index) => index > 0 && /[åäöÅÄÖ]|\b(jag|du|han|hon|den|det|vi|ni|de|mig|dig|honom|henne|oss|er|dem|min|mitt|mina|din|ditt|dina|hans|hennes|vår|vårt|våra|deras|sig|sin|sitt|sina)\b/i.test(value)) || rowData[1] || rowData[0];
+}
 function render() {
   document.title = `${moduleData.title} - Swedish Learning Guide`;
   document.getElementById("modulePageTitle").textContent = moduleData.title;
@@ -570,7 +664,7 @@ function render() {
   });
 
   const practice = document.getElementById("practice");
-  if (!renderVerbTenseTables() && !renderAdjectiveTables()) {
+  if (!renderVerbTenseTables() && !renderAdjectiveTables() && !renderPronounTables()) {
     practice.innerHTML = "";
     (moduleData.practice || []).forEach(([title, body]) => {
       const card = document.createElement("article");
