@@ -695,6 +695,76 @@ function colourPhraseTranslation(colour, nounPhrase, item) {
   return `${article} ${item.meaning} ${nounEnglish}`;
 }
 
+function renderDeepLessonTables() {
+  const sections = (window.DEEP_LESSON_SECTIONS || {})[moduleData.id] || [];
+  if (!sections.length) return false;
+
+  const practice = document.getElementById("practice");
+  practice.innerHTML = "";
+  practice.classList.remove("moduleContent");
+
+  sections.forEach((section) => {
+    const block = document.createElement("section");
+    block.className = "deepLessonBlock";
+
+    const intro = document.createElement("div");
+    intro.className = "verbTenseBlockGroup";
+    intro.innerHTML = `<h3>${section.title}</h3><p>${section.note}</p>`;
+    block.appendChild(intro);
+
+    const sheet = document.createElement("div");
+    sheet.className = `deepLessonSheet cols-${section.columns.length}`;
+    sheet.setAttribute("role", "table");
+    sheet.setAttribute("aria-label", section.title);
+
+    const header = document.createElement("div");
+    header.className = "deepLessonHeader";
+    header.setAttribute("role", "row");
+    [...section.columns, "Listen"].forEach((label) => {
+      const cell = document.createElement("strong");
+      cell.setAttribute("role", "columnheader");
+      cell.textContent = label;
+      header.appendChild(cell);
+    });
+    sheet.appendChild(header);
+
+    section.rows.forEach((rowData) => {
+      const row = document.createElement("div");
+      row.className = "deepLessonRow";
+      row.setAttribute("role", "row");
+      rowData.slice(0, section.columns.length).forEach((text, index) => {
+        const cell = document.createElement("span");
+        cell.setAttribute("role", "cell");
+        cell.innerHTML = index === 0 ? `<strong>${text}</strong>` : deepLessonCellHtml(text);
+        row.appendChild(cell);
+      });
+      const swedish = deepLessonAudioText(rowData);
+      const listen = audioButton("Listen", swedish);
+      listen.className = "verbListenButton";
+      row.appendChild(listen);
+      sheet.appendChild(row);
+    });
+
+    block.appendChild(sheet);
+    practice.appendChild(block);
+  });
+
+  return true;
+}
+
+function deepLessonCellHtml(text) {
+  if (!text) return "";
+  const englishish = /^[A-Za-z0-9 ,.'/?!:;()/-]+$/.test(text) && !/\b(Jag|Du|Han|Hon|Vi|Ni|De|Vad|Var|Hur|När|Kan|Det|Hej|Tack|Ursäkta|Klockan)\b/.test(text);
+  return englishish ? `<small>${text}</small>` : `<strong>${text}</strong>`;
+}
+
+function deepLessonAudioText(rowData) {
+  const swedishPattern = /[åäöÅÄÖ]|\b(Jag|Du|Han|Hon|Vi|Ni|De|Det|Vad|Var|Varifrån|Vem|Vilka|Hur|När|Varför|Kan|Hej|Tack|Ursäkta|Klockan|Lyssna|Repetera|Sverige|Indien|Stockholm|kaffe|kök|sjö|tjugo|bord|tak|tack|glas|glass|mat|matt|en|ett)\b/;
+  const sentence = rowData.find((value, index) => index > 0 && /[.!?]$/.test(value) && swedishPattern.test(value));
+  if (sentence) return sentence;
+  return rowData.find((value, index) => index > 0 && swedishPattern.test(value)) || rowData[1] || rowData[0];
+}
+
 function render() {
   document.title = `${moduleData.title} - Swedish Learning Guide`;
   document.getElementById("modulePageTitle").textContent = moduleData.title;
@@ -752,7 +822,7 @@ function render() {
   });
 
   const practice = document.getElementById("practice");
-  if (!renderVerbTenseTables() && !renderAdjectiveTables() && !renderPronounTables() && !renderColourTables()) {
+  if (!renderVerbTenseTables() && !renderAdjectiveTables() && !renderPronounTables() && !renderColourTables() && !renderDeepLessonTables()) {
     practice.innerHTML = "";
     (moduleData.practice || []).forEach(([title, body]) => {
       const card = document.createElement("article");

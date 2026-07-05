@@ -1175,6 +1175,87 @@ main {
   line-height: 1.4;
 }
 
+.deepLessonBlock {
+  display: grid;
+  gap: 0.8rem;
+  margin-bottom: 1.4rem;
+}
+
+.deepLessonSheet {
+  width: 100%;
+  overflow-x: auto;
+  border: 1px solid #202020;
+  background: #ffffff;
+}
+
+.deepLessonHeader,
+.deepLessonRow {
+  display: grid;
+  grid-template-columns: minmax(160px, 0.75fr) repeat(3, minmax(220px, 1fr)) minmax(84px, 0.36fr);
+  min-width: 1060px;
+}
+
+.deepLessonSheet.cols-5 .deepLessonHeader,
+.deepLessonSheet.cols-5 .deepLessonRow {
+  grid-template-columns: minmax(140px, 0.62fr) repeat(4, minmax(190px, 1fr)) minmax(84px, 0.32fr);
+  min-width: 1120px;
+}
+
+.deepLessonHeader {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  background: #d7e9e5;
+}
+
+.deepLessonHeader strong,
+.deepLessonRow > span,
+.deepLessonRow > button {
+  min-height: 54px;
+  padding: 0.55rem 0.65rem;
+  border-right: 1px solid #202020;
+  border-bottom: 1px solid #202020;
+  text-align: left;
+}
+
+.deepLessonHeader strong,
+.deepLessonRow > button {
+  display: flex;
+  align-items: center;
+}
+
+.deepLessonRow > span {
+  display: grid;
+  align-content: center;
+  gap: 0.2rem;
+  line-height: 1.28;
+}
+
+.deepLessonRow > span strong {
+  font-weight: 800;
+}
+
+.deepLessonRow > span small {
+  color: var(--muted);
+  line-height: 1.25;
+}
+
+.deepLessonHeader strong:last-child,
+.deepLessonRow > button {
+  border-right: 0;
+}
+
+.deepLessonRow:last-child > span,
+.deepLessonRow:last-child > button {
+  border-bottom: 0;
+}
+
+.deepLessonRow > button {
+  justify-content: center;
+  min-height: 54px;
+  border-radius: 0;
+}
+
 .pronounExampleCard .swedishLine {
   color: var(--ink);
   font-weight: 800;

@@ -359,6 +359,14 @@ if (Array.isArray(window.COLOUR_QUIZ)) {
   });
 }
 
+if (Array.isArray(window.DEEP_LESSON_QUIZ)) {
+  const existingQuiz = new Set(quiz.map((item) => `${item.module}:${item.q}`));
+  window.DEEP_LESSON_QUIZ.forEach((item) => {
+    const key = `${item.module}:${item.q}`;
+    if (!existingQuiz.has(key)) quiz.push(item);
+  });
+}
+
 if (Array.isArray(window.SWEDISH_PRONOUN_GROUPS)) {
   const pronounModule = modules.find((module) => module.id === "verbs");
   if (pronounModule) {
