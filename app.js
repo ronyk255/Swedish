@@ -351,6 +351,14 @@ if (Array.isArray(window.SWEDISH_PRONOUN_QUIZ)) {
   });
 }
 
+if (Array.isArray(window.COLOUR_QUIZ)) {
+  const existingQuiz = new Set(quiz.map((item) => `${item.module}:${item.q}`));
+  window.COLOUR_QUIZ.forEach((item) => {
+    const key = `${item.module}:${item.q}`;
+    if (!existingQuiz.has(key)) quiz.push(item);
+  });
+}
+
 if (Array.isArray(window.SWEDISH_PRONOUN_GROUPS)) {
   const pronounModule = modules.find((module) => module.id === "verbs");
   if (pronounModule) {
@@ -362,6 +370,22 @@ if (Array.isArray(window.SWEDISH_PRONOUN_GROUPS)) {
       ["Object pronouns", "mig, dig, honom, henne, den, det, oss, er, dem"],
       ["Possessives", "min, mitt, mina. Din, ditt, dina. Hans, hennes, deras."],
       ["Reflexive", "Jag tvättar mig. Han sätter sig. De presenterar sig."]
+    ];
+  }
+}
+
+if (Array.isArray(window.SWEDISH_COLOURS)) {
+  const numbersModule = modules.find((module) => module.id === "numbers");
+  if (numbersModule) {
+    numbersModule.title = "Numbers, Time, and Colours";
+    numbersModule.goal = "Learn numbers, ask about time, and use Swedish colours with en and ett nouns.";
+    numbersModule.tags = ["Kapitel 3", "numbers", "time", "colours", "en/ett"];
+    numbersModule.phrase = "en röd bil, ett rött hus, röda bilar. Vad är klockan?";
+    numbersModule.cards = [
+      ["Numbers", "noll, en, två, tre, fyra, fem"],
+      ["Time", "Vad är klockan? Klockan är två."],
+      ["en colours", "en röd bil, en blå penna, en grön tröja"],
+      ["ett colours", "ett rött hus, ett blått paraply, ett grönt äpple"]
     ];
   }
 }

@@ -851,6 +851,13 @@ main {
   margin-bottom: 1rem;
 }
 
+.colourRuleGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 0.7rem;
+  margin-bottom: 1rem;
+}
+
 .adjectiveRuleCard {
   border: 1px solid var(--line);
   border-left: 5px solid var(--gold);
@@ -941,6 +948,93 @@ main {
 .adjectiveRow > button {
   justify-content: center;
   min-height: 48px;
+  border-radius: 0;
+}
+
+.colourSheet {
+  width: 100%;
+  overflow-x: auto;
+  border: 1px solid #202020;
+  background: #ffffff;
+}
+
+.colourHeader,
+.colourRow {
+  display: grid;
+  grid-template-columns: minmax(170px, 0.85fr) repeat(3, minmax(175px, 1fr)) minmax(260px, 1.3fr) minmax(84px, 0.38fr);
+  min-width: 1120px;
+}
+
+.colourHeader {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  background: #d7e9e5;
+}
+
+.colourHeader strong,
+.colourRow > span,
+.colourRow > button {
+  min-height: 52px;
+  padding: 0.55rem 0.65rem;
+  border-right: 1px solid #202020;
+  border-bottom: 1px solid #202020;
+  text-align: left;
+}
+
+.colourHeader strong,
+.colourRow > button {
+  display: flex;
+  align-items: center;
+}
+
+.colourRow > span {
+  display: grid;
+  align-content: center;
+  gap: 0.18rem;
+}
+
+.colourRow > span strong {
+  font-weight: 800;
+  line-height: 1.25;
+}
+
+.colourRow > span small {
+  color: var(--muted);
+  line-height: 1.25;
+}
+
+.colourNameCell {
+  grid-template-columns: 28px minmax(0, 1fr);
+  column-gap: 0.55rem;
+  align-items: center;
+}
+
+.colourNameCell small {
+  grid-column: 2;
+}
+
+.colourSwatch {
+  width: 28px;
+  height: 28px;
+  border: 1px solid #202020;
+  border-radius: 999px;
+  grid-row: 1 / span 2;
+}
+
+.colourHeader strong:last-child,
+.colourRow > button {
+  border-right: 0;
+}
+
+.colourRow:last-child > span,
+.colourRow:last-child > button {
+  border-bottom: 0;
+}
+
+.colourRow > button {
+  justify-content: center;
+  min-height: 52px;
   border-radius: 0;
 }
 

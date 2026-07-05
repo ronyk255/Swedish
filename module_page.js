@@ -63,7 +63,9 @@ const lessonDetails = {
     ["0 to 20 first", "noll, en, två ... tjugo", "zero, one, two ... twenty", "Memorize these first because later numbers are built from them."],
     ["Build 21 to 99", "trettiofem", "thirty-five", "Tens + ones join together: trettio + fem = trettiofem."],
     ["Hundreds", "tvåhundrafyrtiofem", "two hundred forty-five", "Hundreds also join: tvåhundra + fyrtio + fem."],
-    ["Phone numbers", "Mitt telefonnummer är noll sju noll, ett två tre, fyrtiofem, sextiosju.", "My phone number is 070 123 45 67.", "Say phone numbers in small groups so they are easier to hear."]
+    ["Phone numbers", "Mitt telefonnummer är noll sju noll, ett två tre, fyrtiofem, sextiosju.", "My phone number is 070 123 45 67.", "Say phone numbers in small groups so they are easier to hear."],
+    ["Colours are adjectives", "en röd bil, ett rött hus, röda bilar", "a red car, a red house, red cars", "Colour words usually change with en nouns, ett nouns, and plural nouns."],
+    ["Colours that stay the same", "en rosa ros, ett rosa hus, rosa rosor", "a pink rose, a pink house, pink roses", "Some colours, especially rosa, lila, orange, and beige, often keep the same form."]
   ],
   food: [
     ["Polite ordering", "Jag skulle vilja ha kaffe.", "I would like coffee.", "Jag skulle vilja ha = I would like to have. Put the item after ha."],
@@ -607,6 +609,92 @@ function pronounAudioText(rowData) {
   if (example) return example;
   return rowData.find((value, index) => index > 0 && /[åäöÅÄÖ]|\b(jag|du|han|hon|den|det|vi|ni|de|mig|dig|honom|henne|oss|er|dem|min|mitt|mina|din|ditt|dina|hans|hennes|vår|vårt|våra|deras|sig|sin|sitt|sina)\b/i.test(value)) || rowData[1] || rowData[0];
 }
+
+function renderColourTables() {
+  if (moduleData.id !== "numbers") return false;
+  const colours = window.SWEDISH_COLOURS || [];
+  if (!colours.length) return false;
+
+  const practice = document.getElementById("practice");
+  practice.innerHTML = "";
+  practice.classList.remove("moduleContent");
+
+  const ruleGrid = document.createElement("div");
+  ruleGrid.className = "colourRuleGrid";
+  (window.COLOUR_RULES || []).forEach(([title, body]) => {
+    const card = document.createElement("article");
+    card.className = "adjectiveRuleCard";
+    card.innerHTML = `<strong>${title}</strong><p>${body}</p>`;
+    ruleGrid.appendChild(card);
+  });
+  practice.appendChild(ruleGrid);
+
+  const sheet = document.createElement("div");
+  sheet.className = "colourSheet";
+  sheet.setAttribute("role", "table");
+  sheet.setAttribute("aria-label", "Swedish colours in en, ett, and plural forms");
+
+  const columns = ["Colour", "en noun", "ett noun", "Plural", "Sentence", "Listen"];
+  const header = document.createElement("div");
+  header.className = "colourHeader";
+  header.setAttribute("role", "row");
+  columns.forEach((label) => {
+    const cell = document.createElement("strong");
+    cell.setAttribute("role", "columnheader");
+    cell.textContent = label;
+    header.appendChild(cell);
+  });
+  sheet.appendChild(header);
+
+  colours.forEach((item) => {
+    const row = document.createElement("div");
+    row.className = "colourRow";
+    row.setAttribute("role", "row");
+    const enPhrase = colourPhrase(item.en, item.nounEn);
+    const ettPhrase = colourPhrase(item.ett, item.nounEtt);
+    const pluralPhrase = `${item.plural} ${item.pluralNoun}`;
+    [
+      [colourLabel(item), `${item.meaning} in Swedish`],
+      [enPhrase, colourPhraseTranslation(item.en, item.nounEn, item)],
+      [ettPhrase, colourPhraseTranslation(item.ett, item.nounEtt, item)],
+      [pluralPhrase, `${item.meaning} ${colourNounEnglish(item.pluralNoun)}`],
+      [item.sentence, item.translation]
+    ].forEach(([text, english], index) => {
+      const cell = document.createElement("span");
+      if (index === 0) cell.className = "colourNameCell";
+      cell.innerHTML = `${index === 0 ? `<i class="colourSwatch" style="background:${item.hex}"></i>` : ""}<strong>${text}</strong><small>${english}</small>`;
+      row.appendChild(cell);
+    });
+    const listen = audioButton("Listen", `${enPhrase}. ${ettPhrase}. ${pluralPhrase}. ${item.sentence}`);
+    listen.className = "verbListenButton";
+    row.appendChild(listen);
+    sheet.appendChild(row);
+  });
+
+  practice.appendChild(sheet);
+  return true;
+}
+
+function colourLabel(item) {
+  return `${item.base} - ${item.meaning}`;
+}
+
+function colourPhrase(colour, nounPhrase) {
+  const [article, ...nounParts] = nounPhrase.split(" ");
+  return `${article} ${colour} ${nounParts.join(" ")}`.trim();
+}
+
+function colourNounEnglish(noun) {
+  return (window.COLOUR_NOUN_TRANSLATIONS || {})[noun] || noun;
+}
+
+function colourPhraseTranslation(colour, nounPhrase, item) {
+  const noun = nounPhrase.replace(/^(en|ett)\s+/, "");
+  const nounEnglish = colourNounEnglish(noun);
+  const article = /^[aeiou]/i.test(item.meaning) ? "an" : "a";
+  return `${article} ${item.meaning} ${nounEnglish}`;
+}
+
 function render() {
   document.title = `${moduleData.title} - Swedish Learning Guide`;
   document.getElementById("modulePageTitle").textContent = moduleData.title;
@@ -664,7 +752,7 @@ function render() {
   });
 
   const practice = document.getElementById("practice");
-  if (!renderVerbTenseTables() && !renderAdjectiveTables() && !renderPronounTables()) {
+  if (!renderVerbTenseTables() && !renderAdjectiveTables() && !renderPronounTables() && !renderColourTables()) {
     practice.innerHTML = "";
     (moduleData.practice || []).forEach(([title, body]) => {
       const card = document.createElement("article");
