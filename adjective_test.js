@@ -62,6 +62,11 @@ function formFields(item) {
   ];
 }
 
+function adjectivePhrase(adjective, nounPhrase) {
+  const [article, ...nounParts] = nounPhrase.split(" ");
+  return `${article} ${adjective} ${nounParts.join(" ")}`.trim();
+}
+
 function updateFormCell(cell) {
   const index = Number(cell.dataset.adjectiveIndex);
   const field = cell.dataset.field;
@@ -210,7 +215,7 @@ function renderFormRows() {
     listen.type = "button";
     listen.className = "verbListenButton";
     listen.textContent = "Listen";
-    listen.addEventListener("click", () => play(`${item.en} ${item.nounEn}. ${item.ett} ${item.nounEtt}. ${item.plural}.`));
+    listen.addEventListener("click", () => play(`${adjectivePhrase(item.en, item.nounEn)}. ${adjectivePhrase(item.ett, item.nounEtt)}. ${item.plural}.`));
     source.appendChild(listen);
     row.appendChild(source);
 

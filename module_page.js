@@ -471,8 +471,8 @@ function renderAdjectiveTables() {
     const row = document.createElement("div");
     row.className = "adjectiveRow";
     row.setAttribute("role", "row");
-    const enPhrase = `${item.en} ${item.nounEn}`;
-    const ettPhrase = `${item.ett} ${item.nounEtt}`;
+    const enPhrase = adjectivePhrase(item.en, item.nounEn);
+    const ettPhrase = adjectivePhrase(item.ett, item.nounEtt);
     const pluralPhrase = `${item.plural} (plural form)`;
     const definitePhrase = `den/det/de ${item.definite || item.plural}`;
     [
@@ -494,6 +494,11 @@ function renderAdjectiveTables() {
 
   practice.appendChild(sheet);
   return true;
+}
+
+function adjectivePhrase(adjective, nounPhrase) {
+  const [article, ...nounParts] = nounPhrase.split(" ");
+  return `${article} ${adjective} ${nounParts.join(" ")}`.trim();
 }
 function render() {
   document.title = `${moduleData.title} - Swedish Learning Guide`;

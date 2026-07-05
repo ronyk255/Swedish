@@ -139,8 +139,13 @@ window.ADJECTIVE_QUIZ = [
 window.ADJECTIVE_MODULE.vocabulary = window.SWEDISH_ADJECTIVES.map((item) => [
   item.base,
   item.meaning,
-  `${item.en} with en, ${item.ett} with ett, ${item.plural} with plural, ${item.definite || item.plural} with definite`
+  `${adjectivePhrase(item.en, item.nounEn)}, ${adjectivePhrase(item.ett, item.nounEtt)}, ${item.plural} in plural, ${item.definite || item.plural} in definite phrases`
 ]);
+
+function adjectivePhrase(adjective, nounPhrase) {
+  const [article, ...nounParts] = nounPhrase.split(" ");
+  return `${article} ${adjective} ${nounParts.join(" ")}`.trim();
+}
 
 if (Array.isArray(window.COURSE_MODULES) && !window.COURSE_MODULES.some((item) => item.id === "adjectives")) {
   window.COURSE_MODULES.splice(5, 0, window.ADJECTIVE_MODULE);
