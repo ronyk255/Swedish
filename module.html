@@ -4,107 +4,194 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Module - Swedish Learning Guide</title>
-  <link rel="stylesheet" href="styles.css?v=20260705-deep-layoutfix1">
+  <link rel="stylesheet" href="styles.css?v=20260710-redesign1">
 </head>
 <body>
   <header class="topbar">
-    <div>
-      <p class="eyebrow">Learning module</p>
-      <h1 id="modulePageTitle">Module</h1>
+    <div class="breadcrumb">
+      <a href="index.html">🏠 Home</a>
+      <span>›</span>
+      <a href="index.html#modules">Modules</a>
+      <span>›</span>
+      <span id="modulePageTitle">Module</span>
     </div>
     <nav>
-      <a href="javascript:history.back()">Back</a>
+      <a href="javascript:history.back()">← Back</a>
       <a href="index.html">Main</a>
     </nav>
   </header>
-  <main>
-    <section class="hero">
-      <div class="heroText">
-        <h2 id="moduleHero">Module</h2>
-        <p id="moduleGoal"></p>
-        <div class="actions">
-          <button id="playExamples" class="primary">Play examples</button>
-          <a id="startQuizLink" class="buttonLink" href="#">Start quiz</a>
-          <a id="verbTenseTestLink" class="buttonLink hiddenPanel" href="verb_tense_test.html">Verb test</a>
-          <a id="adjectiveTestLink" class="buttonLink hiddenPanel" href="adjective_test.html">Adjective test</a>
-        </div>
-      </div>
-      <div class="statusPanel">
-        <span class="label">Audio</span>
-        <strong>Swedish practice clips</strong>
-        <p>Use audio first, then read aloud without audio.</p>
-      </div>
-    </section>
-    <section class="section">
-      <h2>Lesson Flow</h2>
-      <p id="sourceNote" class="result"></p>
-      <div id="notes" class="moduleContent"></div>
-    </section>
-    <section class="section">
-      <h2>Words in This Lesson</h2>
-      <div id="vocabularyList" class="vocabGrid"></div>
-    </section>
-    <section class="section">
-      <h2>Guided Practice</h2>
-      <div id="practice" class="moduleContent"></div>
-    </section>
-    <section id="alphabetDrillSection" class="section hiddenPanel">
-      <div class="sectionHead">
+
+  <main class="modulePage">
+
+    <!-- Module hero -->
+    <section class="moduleHeroSection">
+      <div class="moduleHeroContent">
+        <div class="moduleIconBadge" id="moduleIconBadge">📚</div>
         <div>
-          <p class="eyebrow">Uttal</p>
-          <h2>Alphabet Drill</h2>
-        </div>
-        <button id="playNativeAlphabet" type="button">Play native alphabet</button>
-      </div>
-      <div class="nativeAudioPanel">
-        <div>
-          <strong>Native Swedish alphabet recording</strong>
-          <p>Listen to the full alphabet first, then use the individual letter buttons below.</p>
-        </div>
-        <audio id="nativeAlphabetAudio" controls preload="metadata" src="assets/audio/sv-alphabet.ogg"></audio>
-      </div>
-      <div id="alphabetGrid" class="alphabetGrid"></div>
-    </section>
-    <section class="section">
-      <h2>Examples With Audio</h2>
-      <div id="examples" class="phraseList"></div>
-    </section>
-    <section id="speechQuizSection" class="section hiddenPanel">
-      <div class="sectionHead compact">
-        <div>
-          <p class="eyebrow">Speaking check</p>
-          <h2>Say the Swedish Sentence</h2>
+          <h1 id="moduleHero">Module</h1>
+          <p id="moduleGoal" class="moduleGoalText"></p>
         </div>
       </div>
-      <p id="speechQuizStatus" class="result">Listen, then use the microphone to check your pronunciation.</p>
-      <div id="speechQuizList" class="speechQuizList"></div>
-    </section>
-    <section class="section">
-      <div class="sectionHead compact">
-        <div>
-          <p class="eyebrow">Practice quiz</p>
-          <h2>Ready to check this module?</h2>
-        </div>
-      </div>
-      <div class="actions">
-        <a href="javascript:history.back()" class="buttonLink">Back</a>
-        <a href="index.html" class="buttonLink">Main</a>
-        <a id="bottomVerbTenseTestLink" href="verb_tense_test.html" class="buttonLink hiddenPanel">Verb test</a>
-        <a id="bottomAdjectiveTestLink" href="adjective_test.html" class="buttonLink hiddenPanel">Adjective test</a>
-        <a id="bottomQuizLink" href="#" class="buttonLink primary">Start quiz</a>
+      <div class="moduleHeroActions">
+        <button id="playExamples" class="primary">🔊 Play examples</button>
+        <a id="startQuizLink" class="buttonLink primary" href="#">📝 Start quiz</a>
+        <a id="verbTenseTestLink" class="buttonLink hiddenPanel" href="verb_tense_test.html">Verb test</a>
+        <a id="adjectiveTestLink" class="buttonLink hiddenPanel" href="adjective_test.html">Adjective test</a>
       </div>
     </section>
+
+    <!-- Step progress bar -->
+    <div class="moduleProgress">
+      <div class="stepIndicator">
+        <button class="stepBtn active" data-tab="theory">
+          <span class="stepNum">1</span>
+          <span class="stepLabel">Theory</span>
+        </button>
+        <div class="stepLine"></div>
+        <button class="stepBtn" data-tab="vocabulary">
+          <span class="stepNum">2</span>
+          <span class="stepLabel">Vocabulary</span>
+        </button>
+        <div class="stepLine"></div>
+        <button class="stepBtn" data-tab="practiceTab">
+          <span class="stepNum">3</span>
+          <span class="stepLabel">Practice</span>
+        </button>
+        <div class="stepLine"></div>
+        <button class="stepBtn" data-tab="quizTab">
+          <span class="stepNum">4</span>
+          <span class="stepLabel">Quiz</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Tab content -->
+    <div class="moduleTabContent">
+
+      <!-- Tab 1: Theory -->
+      <div class="tabPanel active" id="tabTheory">
+        <section class="section">
+          <div class="sectionHead">
+            <div>
+              <p class="eyebrow">Lesson flow</p>
+              <h2>Theory &amp; Rules</h2>
+            </div>
+            <div class="statusPanel" style="padding:0.75rem 1rem;min-height:auto;flex-direction:row;gap:0.75rem;align-items:center;">
+              <span class="label" style="margin:0;">Audio</span>
+              <span style="font-size:0.88rem;color:var(--muted);">Use audio first, read aloud without audio after.</span>
+            </div>
+          </div>
+          <p id="sourceNote" class="result"></p>
+          <div id="notes" class="moduleContent"></div>
+        </section>
+
+        <!-- Alphabet drill (shown only for alphabet module) -->
+        <section id="alphabetDrillSection" class="section hiddenPanel">
+          <div class="sectionHead">
+            <div>
+              <p class="eyebrow">🔤 Uttal</p>
+              <h2>Alphabet Drill</h2>
+            </div>
+            <button id="playNativeAlphabet" type="button" class="primary">🔊 Play native alphabet</button>
+          </div>
+          <div class="nativeAudioPanel">
+            <div>
+              <strong>Native Swedish alphabet recording</strong>
+              <p>Listen to the full alphabet first, then use the individual letter buttons below.</p>
+            </div>
+            <audio id="nativeAlphabetAudio" controls preload="metadata" src="assets/audio/sv-alphabet.ogg"></audio>
+          </div>
+          <div id="alphabetGrid" class="alphabetGrid"></div>
+        </section>
+      </div>
+
+      <!-- Tab 2: Vocabulary -->
+      <div class="tabPanel" id="tabVocabulary">
+        <section class="section">
+          <div class="sectionHead">
+            <div>
+              <p class="eyebrow">Vocabulary</p>
+              <h2>Words in This Lesson</h2>
+            </div>
+          </div>
+          <div id="vocabularyList" class="vocabGrid"></div>
+        </section>
+      </div>
+
+      <!-- Tab 3: Practice -->
+      <div class="tabPanel" id="tabPractice">
+        <section class="section">
+          <div class="sectionHead">
+            <div>
+              <p class="eyebrow">Guided practice</p>
+              <h2>Practice Exercises</h2>
+            </div>
+          </div>
+          <div id="practice" class="moduleContent"></div>
+        </section>
+
+        <!-- Speech quiz (shown if module has speech prompts) -->
+        <section id="speechQuizSection" class="section hiddenPanel">
+          <div class="sectionHead compact">
+            <div>
+              <p class="eyebrow">🎙️ Speaking check</p>
+              <h2>Say the Swedish Sentence</h2>
+            </div>
+          </div>
+          <p id="speechQuizStatus" class="result">Listen, then use the microphone to check your pronunciation.</p>
+          <div id="speechQuizList" class="speechQuizList"></div>
+        </section>
+      </div>
+
+      <!-- Tab 4: Quiz -->
+      <div class="tabPanel" id="tabQuiz">
+        <section class="section">
+          <div class="sectionHead">
+            <div>
+              <p class="eyebrow">Examples with audio</p>
+              <h2>Listen &amp; Review</h2>
+            </div>
+          </div>
+          <div id="examples" class="phraseList"></div>
+        </section>
+        <section class="section">
+          <div class="sectionHead compact">
+            <div>
+              <p class="eyebrow">📝 Practice quiz</p>
+              <h2>Ready to check this module?</h2>
+            </div>
+          </div>
+          <p style="color:var(--muted);margin:0 0 0.75rem;">Complete Theory → Vocabulary → Practice first, then take the quiz.</p>
+          <div class="actions">
+            <a id="bottomVerbTenseTestLink" href="verb_tense_test.html" class="buttonLink hiddenPanel">Verb test</a>
+            <a id="bottomAdjectiveTestLink" href="adjective_test.html" class="buttonLink hiddenPanel">Adjective test</a>
+            <a id="bottomQuizLink" href="#" class="buttonLink primary">📝 Start quiz</a>
+          </div>
+        </section>
+      </div>
+
+    </div>
+
+    <!-- Bottom navigation -->
+    <div class="moduleBottomNav">
+      <button id="prevModuleBtn" class="buttonLink" onclick="ui_nav_prevModule()" disabled>← Previous module</button>
+      <a href="index.html#modules" class="buttonLink">📚 All modules</a>
+      <button id="nextModuleBtn" class="buttonLink primary" onclick="ui_nav_nextModule()" disabled>Next module →</button>
+    </div>
+
   </main>
+
   <audio id="pageAudio" preload="metadata"></audio>
-  <script src="assets/audio/generated_manifest.js?v=20260705-deep1"></script>
-  <script src="course_data.js?v=20260618-intro-wordorder1"></script>
-  <script src="course_enhancements.js?v=20260618-intro-wordorder1"></script>
-  <script src="adjective_data.js?v=20260705-adjective-translations1"></script>
-  <script src="pronoun_data.js?v=20260705-pronouns1"></script>
-  <script src="colour_data.js?v=20260705-colours1"></script>
-  <script src="deep_lesson_data.js?v=20260705-deep1"></script>
-  <script src="verb_tense_data.js?v=20260527-verbs1"></script>
-  <script src="module_page.js?v=20260705-deep1"></script>
+  <script src="assets/audio/generated_manifest.js?v=20260710-redesign1"></script>
+  <script src="course_data.js?v=20260710-redesign1"></script>
+  <script src="course_enhancements.js?v=20260710-redesign1"></script>
+  <script src="adjective_data.js?v=20260710-redesign1"></script>
+  <script src="pronoun_data.js?v=20260710-redesign1"></script>
+  <script src="colour_data.js?v=20260710-redesign1"></script>
+  <script src="deep_lesson_data.js?v=20260710-redesign1"></script>
+  <script src="verb_tense_data.js?v=20260710-redesign1"></script>
+  <script src="module_page.js?v=20260710-redesign1"></script>
+  <script src="ui_nav.js?v=20260710-redesign1"></script>
   <script src="refresh_page.js?v=20260607-refresh1"></script>
 </body>
 </html>
