@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Module - Swedish Learning Guide</title>
-  <link rel="stylesheet" href="styles.css?v=20260710-redesign1">
+  <link rel="stylesheet" href="styles.css?v=20260710-v3">
 </head>
 <body>
   <header class="topbar">
@@ -15,9 +15,11 @@
       <span>›</span>
       <span id="modulePageTitle">Module</span>
     </div>
-    <nav>
+    <button id="mobileMenuToggle" aria-label="Toggle menu">☰</button>
+    <nav aria-label="Page navigation">
       <a href="javascript:history.back()">← Back</a>
-      <a href="index.html">Main</a>
+      <a href="index.html">🏠 Main</a>
+      <a href="full_quiz.html">🏆 Quiz bank</a>
     </nav>
   </header>
 
@@ -50,7 +52,7 @@
         <div class="stepLine"></div>
         <button class="stepBtn" data-tab="vocabulary">
           <span class="stepNum">2</span>
-          <span class="stepLabel">Vocabulary</span>
+          <span class="stepLabel">Vocab</span>
         </button>
         <div class="stepLine"></div>
         <button class="stepBtn" data-tab="practiceTab">
@@ -73,12 +75,12 @@
         <section class="section">
           <div class="sectionHead">
             <div>
-              <p class="eyebrow">Lesson flow</p>
+              <p class="eyebrow">Lesson overview</p>
               <h2>Theory &amp; Rules</h2>
             </div>
-            <div class="statusPanel" style="padding:0.75rem 1rem;min-height:auto;flex-direction:row;gap:0.75rem;align-items:center;">
-              <span class="label" style="margin:0;">Audio</span>
-              <span style="font-size:0.88rem;color:var(--muted);">Use audio first, read aloud without audio after.</span>
+            <div style="display:flex;align-items:center;gap:0.6rem;padding:0.6rem 0.9rem;background:var(--sv-blue-light);border-radius:8px;border-left:3px solid var(--sv-blue);">
+              <span style="font-size:1.3rem;">🔊</span>
+              <small style="color:var(--muted);font-size:0.82rem;max-width:180px;line-height:1.35;">Listen first, then read aloud without audio.</small>
             </div>
           </div>
           <p id="sourceNote" class="result"></p>
@@ -113,6 +115,7 @@
               <p class="eyebrow">Vocabulary</p>
               <h2>Words in This Lesson</h2>
             </div>
+            <p style="margin:0;color:var(--muted);font-size:0.88rem;">Swedish • English translation below • 🔊 to hear it</p>
           </div>
           <div id="vocabularyList" class="vocabGrid"></div>
         </section>
@@ -134,7 +137,7 @@
         <section id="speechQuizSection" class="section hiddenPanel">
           <div class="sectionHead compact">
             <div>
-              <p class="eyebrow">🎙️ Speaking check</p>
+              <p class="eyebrow">🎤 Speaking check</p>
               <h2>Say the Swedish Sentence</h2>
             </div>
           </div>
@@ -151,17 +154,18 @@
               <p class="eyebrow">Examples with audio</p>
               <h2>Listen &amp; Review</h2>
             </div>
+            <p style="margin:0;color:var(--muted);font-size:0.88rem;">Click 🔊 on any phrase to hear the Swedish spoken aloud.</p>
           </div>
           <div id="examples" class="phraseList"></div>
         </section>
         <section class="section">
           <div class="sectionHead compact">
             <div>
-              <p class="eyebrow">📝 Practice quiz</p>
+              <p class="eyebrow">📝 Self-test</p>
               <h2>Ready to check this module?</h2>
             </div>
           </div>
-          <p style="color:var(--muted);margin:0 0 0.75rem;">Complete Theory → Vocabulary → Practice first, then take the quiz.</p>
+          <p style="color:var(--muted);margin:0 0 0.75rem;">Work through Theory → Vocab → Practice first for best results.</p>
           <div class="actions">
             <a id="bottomVerbTenseTestLink" href="verb_tense_test.html" class="buttonLink hiddenPanel">Verb test</a>
             <a id="bottomAdjectiveTestLink" href="adjective_test.html" class="buttonLink hiddenPanel">Adjective test</a>
@@ -182,16 +186,16 @@
   </main>
 
   <audio id="pageAudio" preload="metadata"></audio>
-  <script src="assets/audio/generated_manifest.js?v=20260710-redesign1"></script>
-  <script src="course_data.js?v=20260710-redesign1"></script>
-  <script src="course_enhancements.js?v=20260710-redesign1"></script>
-  <script src="adjective_data.js?v=20260710-redesign1"></script>
-  <script src="pronoun_data.js?v=20260710-redesign1"></script>
-  <script src="colour_data.js?v=20260710-redesign1"></script>
-  <script src="deep_lesson_data.js?v=20260710-redesign1"></script>
-  <script src="verb_tense_data.js?v=20260710-redesign1"></script>
-  <script src="module_page.js?v=20260710-redesign1"></script>
-  <script src="ui_nav.js?v=20260710-redesign1"></script>
+  <script src="assets/audio/generated_manifest.js?v=20260710-v3"></script>
+  <script src="course_data.js?v=20260710-v3"></script>
+  <script src="course_enhancements.js?v=20260710-v3"></script>
+  <script src="adjective_data.js?v=20260710-v3"></script>
+  <script src="pronoun_data.js?v=20260710-v3"></script>
+  <script src="colour_data.js?v=20260710-v3"></script>
+  <script src="deep_lesson_data.js?v=20260710-v3"></script>
+  <script src="verb_tense_data.js?v=20260710-v3"></script>
+  <script src="module_page.js?v=20260710-v3"></script>
+  <script src="ui_nav.js?v=20260710-v3"></script>
   <script src="refresh_page.js?v=20260607-refresh1"></script>
 </body>
 </html>
