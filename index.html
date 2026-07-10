@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Swedish Learning Guide</title>
-  <link rel="stylesheet" href="styles.css?v=20260710-redesign1">
+  <link rel="stylesheet" href="styles.css?v=20260710-v3">
 </head>
 <body>
   <header class="topbar">
@@ -35,14 +35,14 @@
       </div>
       <a href="#dashboard">🏠 Dashboard</a>
       <a href="#progress">📊 Progress</a>
-      <a href="#modules">📚 Learning modules</a>
+      <a href="#modules">📚 Modules</a>
       <a href="#alphabet">🔤 Alphabet</a>
       <a href="#phrases">💬 Phrases</a>
       <a href="#verbTenses">⚡ Verb tenses</a>
       <a href="#adjectives">🎨 Adjectives</a>
       <a href="#practice">🃏 Flashcards &amp; quiz</a>
-      <a href="#builder">✍️ Introduction builder</a>
-      <a href="#plan">📅 Starter path</a>
+      <a href="#builder">✍️ Intro builder</a>
+      <a href="#plan">📅 14-day plan</a>
       <a href="#resources">📄 PDF map</a>
       <div class="sideNavGroup">
         <a href="full_quiz.html">🏆 Question bank</a>
@@ -55,7 +55,6 @@
 
     <main id="dashboard">
 
-      <!-- Server profiles (shared server mode) -->
       <section id="serverProfiles" class="section profileShell hiddenPanel">
         <div class="sectionHead">
           <div>
@@ -72,27 +71,25 @@
         <p id="serverStatus" class="result"></p>
       </section>
 
-      <!-- Hero -->
       <section class="hero">
         <div class="heroText">
           <span class="heroFlag">🇸🇪</span>
           <h2 id="heroTitle">Swedish Learning Guide</h2>
-          <p>A complete study hub for lessons, audio practice, progress tracking, quizzes, verb tests, and your Rivstart chapter materials. Every Swedish phrase has audio and a visible English translation.</p>
+          <p>A complete study hub for lessons, audio practice, progress tracking, quizzes, and Rivstart materials. Every Swedish phrase shows its English translation and has an audio button.</p>
           <div class="actions">
-            <button id="speakIntro" class="primary">▶ Play starter intro</button>
+            <button id="speakIntro" class="primary">▶️ Play starter intro</button>
             <a class="buttonLink" href="guide.html">📖 Open guide</a>
             <a class="buttonLink" href="practice.html">💪 Practice kit</a>
-            <a class="buttonLink" href="#modules">📚 Learning modules</a>
+            <a class="buttonLink" href="#modules">📚 Modules</a>
           </div>
         </div>
         <div class="statusPanel">
           <span class="label">Audio mode</span>
           <strong id="voiceStatus">Checking...</strong>
-          <p>Lesson, quiz, and alphabet audio uses local Swedish MP3 files. Browser speech is the backup for custom text you type yourself.</p>
+          <p>Swedish MP3 audio for every phrase, word, and alphabet letter. Browser speech is the fallback for custom text.</p>
         </div>
       </section>
 
-      <!-- Progress -->
       <section id="progress" class="section progressShell">
         <div class="sectionHead">
           <div>
@@ -163,7 +160,6 @@
         </div>
       </section>
 
-      <!-- Modules -->
       <section id="modules" class="section moduleShell">
         <div class="sectionHead">
           <div>
@@ -175,13 +171,12 @@
         <div class="moduleLauncher">
           <div>
             <h3>Pick a module to open its full lesson</h3>
-            <p>Each module opens as its own page with audio practice, vocabulary, guided exercises, a quiz, and completion tracking that updates your dashboard. Work through them in order for best results.</p>
+            <p>Each module has audio, vocabulary, guided practice, a quiz, and completion tracking. Work through them in order for best results.</p>
           </div>
           <div id="moduleLaunchList" class="moduleLaunchList"></div>
         </div>
       </section>
 
-      <!-- Alphabet -->
       <section id="alphabet" class="section secondaryLearning">
         <div class="sectionHead">
           <div>
@@ -196,7 +191,7 @@
         <div class="nativeAudioPanel">
           <div>
             <strong>Native Swedish alphabet recording</strong>
-            <p>Use this as the reference. Listen once, then repeat in groups: A–F, G–L, M–S, T–Z, Å–Ö.</p>
+            <p>Listen once, then repeat in groups: A–F, G–L, M–S, T–Z, Å–Ö. Each letter card below also has a 🔊 audio button.</p>
           </div>
           <audio id="nativeAlphabetAudio" controls preload="metadata" src="assets/audio/sv-alphabet.ogg"></audio>
         </div>
@@ -204,7 +199,6 @@
         <div id="alphabetGrid" class="alphabetGrid"></div>
       </section>
 
-      <!-- Phrases -->
       <section id="phrases" class="section secondaryLearning">
         <div class="sectionHead">
           <div>
@@ -216,11 +210,12 @@
             <a class="buttonLink" href="module.html?module=intro">Open lesson</a>
           </div>
         </div>
+        <p style="color:var(--muted);margin:0 0 0.75rem;font-size:0.9rem;">Every card shows the Swedish phrase with its English translation. Click the yellow 🔊 button to hear it in Swedish.</p>
         <div id="phraseList" class="phraseList"></div>
       </section>
 
-      <!-- Verb tenses -->
-      <section id="verbTenses" class="section secondaryLearning">
+      <!-- Verb tenses — marked collapsible because it has 80+ rows -->
+      <section id="verbTenses" class="section secondaryLearning" data-collapsible="true">
         <div class="sectionHead">
           <div>
             <p class="eyebrow">⚡ Verb practice</p>
@@ -232,15 +227,16 @@
             <a class="buttonLink" href="module.html?module=verbTenses">Open lesson</a>
           </div>
         </div>
+        <p style="color:var(--muted);margin:0 0 0.75rem;font-size:0.9rem;">⚡ Each row shows the Swedish sentence and its English translation below. Click the yellow 🔊 button to hear the Swedish. First 10 rows shown — click Show more to expand.</p>
         <div id="verbTenseRows" class="verbTenseBlocks"></div>
       </section>
 
-      <!-- Adjectives -->
-      <section id="adjectives" class="section secondaryLearning">
+      <!-- Adjectives — marked collapsible because it has 80+ rows -->
+      <section id="adjectives" class="section secondaryLearning" data-collapsible="true">
         <div class="sectionHead">
           <div>
             <p class="eyebrow">🎨 Adjective practice</p>
-            <h2>Adjectives: En, Ett, Plural &amp; Definite Forms</h2>
+            <h2>Adjectives: En, Ett, Plural &amp; Definite</h2>
           </div>
           <div class="actions">
             <a class="buttonLink primary" href="quiz.html?module=adjectives">📝 Start adjective quiz</a>
@@ -248,11 +244,11 @@
             <a class="buttonLink" href="module.html?module=adjectives">Open lesson</a>
           </div>
         </div>
+        <p style="color:var(--muted);margin:0 0 0.75rem;font-size:0.9rem;">Each row shows the adjective in all 4 forms. The English translation is always visible below the Swedish. Click the yellow 🔊 Listen button to hear it.</p>
         <div class="adjectiveRuleGrid" id="adjectiveRuleGrid"></div>
         <div id="adjectiveRows" class="adjectiveBlocks"></div>
       </section>
 
-      <!-- Practice: Flashcards + Quiz -->
       <section id="practice" class="section twoCol secondaryLearning">
         <div class="toolPanel">
           <div class="sectionHead compact">
@@ -285,7 +281,6 @@
         </div>
       </section>
 
-      <!-- Introduction builder -->
       <section id="builder" class="section secondaryLearning">
         <div class="sectionHead">
           <div>
@@ -294,7 +289,7 @@
           </div>
           <button id="speakBuilt" class="primary">🔊 Play</button>
         </div>
-        <p style="color:var(--muted);margin:0 0 0.75rem">Fill in your details and hear your Swedish introduction spoken aloud.</p>
+        <p style="color:var(--muted);margin:0 0 0.75rem;">Fill in your details below. The Swedish introduction will be generated and you can listen to it spoken aloud.</p>
         <div class="builder">
           <label>Name <input id="nameInput" value="Rony"></label>
           <label>Country <input id="countryInput" value="Indien"></label>
@@ -305,7 +300,6 @@
         <p id="builtIntroAudioStatus" class="result">Audio is available for the default generated introduction.</p>
       </section>
 
-      <!-- 14-day plan -->
       <section id="plan" class="section secondaryLearning">
         <div class="sectionHead">
           <div>
@@ -317,7 +311,6 @@
         <div id="planList" class="planList"></div>
       </section>
 
-      <!-- Resources -->
       <section id="resources" class="section secondaryLearning">
         <div class="sectionHead">
           <div>
@@ -338,13 +331,13 @@
     </main>
   </div>
 
-  <script src="assets/audio/generated_manifest.js?v=20260710-redesign1"></script>
-  <script src="adjective_data.js?v=20260710-redesign1"></script>
-  <script src="pronoun_data.js?v=20260710-redesign1"></script>
-  <script src="colour_data.js?v=20260710-redesign1"></script>
-  <script src="deep_lesson_data.js?v=20260710-redesign1"></script>
-  <script src="app.js?v=20260710-redesign1"></script>
-  <script src="ui_nav.js?v=20260710-redesign1"></script>
+  <script src="assets/audio/generated_manifest.js?v=20260710-v3"></script>
+  <script src="adjective_data.js?v=20260710-v3"></script>
+  <script src="pronoun_data.js?v=20260710-v3"></script>
+  <script src="colour_data.js?v=20260710-v3"></script>
+  <script src="deep_lesson_data.js?v=20260710-v3"></script>
+  <script src="app.js?v=20260710-v3"></script>
+  <script src="ui_nav.js?v=20260710-v3"></script>
   <script src="refresh_page.js?v=20260607-refresh1"></script>
 </body>
 </html>
