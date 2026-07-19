@@ -782,7 +782,14 @@ function render() {
 
   const notes = document.getElementById("notes");
   notes.innerHTML = "";
-  const details = [
+  // The pronoun module owns a much richer set of annotated sentence patterns.
+  // Use those in Theory & Rules instead of the older, short generic overview.
+  const pronounTheory = moduleData.id === "verbs"
+    && Array.isArray(window.SWEDISH_PRONOUN_SENTENCE_PATTERNS)
+    && window.SWEDISH_PRONOUN_SENTENCE_PATTERNS.length
+      ? window.SWEDISH_PRONOUN_SENTENCE_PATTERNS
+      : null;
+  const details = pronounTheory || [
     ...(lessonDetails[moduleData.id] || []),
     ...((window.EXTRA_LESSON_DETAILS || {})[moduleData.id] || [])
   ];
