@@ -610,6 +610,63 @@ function pronounAudioText(rowData) {
   return rowData.find((value, index) => index > 0 && /[åäöÅÄÖ]|\b(jag|du|han|hon|den|det|vi|ni|de|mig|dig|honom|henne|oss|er|dem|min|mitt|mina|din|ditt|dina|hans|hennes|vår|vårt|våra|deras|sig|sin|sitt|sina)\b/i.test(value)) || rowData[1] || rowData[0];
 }
 
+function renderPronounIntensiveTheory(container) {
+  if (moduleData.id !== "verbs") return false;
+  const lessons = window.SWEDISH_PRONOUN_INTENSIVE_LESSONS || [];
+  if (!lessons.length) return false;
+
+  container.className = "pronounIntensiveTheory";
+  lessons.forEach((lesson, lessonIndex) => {
+    const section = document.createElement("section");
+    section.className = "pronounLessonSection";
+    section.id = `pronoun-${lesson.id}`;
+
+    const heading = document.createElement("div");
+    heading.className = "pronounLessonHeading";
+    heading.innerHTML = `
+      <span class="pronounLessonNumber">${lessonIndex + 1}</span>
+      <div>
+        <p class="eyebrow">Intensive lesson · ${lesson.examples.length} examples</p>
+        <h3>${lesson.title}</h3>
+        <p>${lesson.subtitle}</p>
+      </div>
+    `;
+    section.appendChild(heading);
+
+    const rule = document.createElement("div");
+    rule.className = "pronounRulePanel";
+    rule.innerHTML = `
+      <div><strong>Core forms</strong><p>${lesson.forms}</p></div>
+      <div><strong>Rule</strong><p>${lesson.rule}</p></div>
+    `;
+    section.appendChild(rule);
+
+    const grid = document.createElement("div");
+    grid.className = "pronounIntensiveGrid";
+    lesson.examples.forEach(([swedish, english, note], exampleIndex) => {
+      const card = document.createElement("article");
+      card.className = "pronounIntensiveCard";
+      card.innerHTML = `
+        <span class="pronounExampleNumber">${exampleIndex + 1}</span>
+        <div class="pronounExampleCopy">
+          <p class="swedishLine">${swedish}</p>
+          <p class="pronounTranslation"><strong>English:</strong> ${english}</p>
+          <p class="pronounTeachingPoint"><strong>Why:</strong> ${note}</p>
+        </div>
+      `;
+      const listen = audioButton("Listen", swedish);
+      if (listen) {
+        listen.className = "verbListenButton pronounListenButton";
+        card.appendChild(listen);
+      }
+      grid.appendChild(card);
+    });
+    section.appendChild(grid);
+    container.appendChild(section);
+  });
+  return true;
+}
+
 function renderColourTables() {
   if (moduleData.id !== "numbers") return false;
   const colours = window.SWEDISH_COLOURS || [];
@@ -782,18 +839,13 @@ function render() {
 
   const notes = document.getElementById("notes");
   notes.innerHTML = "";
-  // The pronoun module owns a much richer set of annotated sentence patterns.
-  // Use those in Theory & Rules instead of the older, short generic overview.
-  const pronounTheory = moduleData.id === "verbs"
-    && Array.isArray(window.SWEDISH_PRONOUN_SENTENCE_PATTERNS)
-    && window.SWEDISH_PRONOUN_SENTENCE_PATTERNS.length
-      ? window.SWEDISH_PRONOUN_SENTENCE_PATTERNS
-      : null;
-  const details = pronounTheory || [
+  const details = [
     ...(lessonDetails[moduleData.id] || []),
     ...((window.EXTRA_LESSON_DETAILS || {})[moduleData.id] || [])
   ];
-  if (details.length) {
+  if (renderPronounIntensiveTheory(notes)) {
+    // The intensive pronoun curriculum supplies its own grouped theory layout.
+  } else if (details.length) {
     details.forEach(([title, swedish, english, breakdown], index) => {
       const card = document.createElement("article");
       card.className = "lessonStep";
